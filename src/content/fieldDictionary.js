@@ -1,0 +1,137 @@
+// ISO 20022 element dictionary — maps XML local element names to plain-English
+// explanations. Used by the Message Explorer to annotate a parsed tree.
+// Keyed by the element's local name (namespace-stripped).
+export const FIELD_DICTIONARY = {
+  Document: 'Root element of every ISO 20022 message; its namespace identifies the message type & version.',
+  // Group header
+  GrpHdr: 'Group Header — message-level information that appears once per message.',
+  MsgId: 'Message Identification — unique reference for this message, assigned by the sender.',
+  CreDtTm: 'Creation Date & Time — when the message was created (ISO 8601).',
+  NbOfTxs: 'Number Of Transactions — how many individual transactions the message contains.',
+  CtrlSum: 'Control Sum — total of all transaction amounts, used as a checksum.',
+  SttlmInf: 'Settlement Information — how settlement between the agents takes place.',
+  SttlmMtd: 'Settlement Method — e.g. INDA (agent’s own account), INGA, COVE (cover), CLRG (clearing).',
+  ClrSys: 'Clearing System — the clearing system through which settlement occurs.',
+  // Transaction wrappers
+  CdtTrfTxInf: 'Credit Transfer Transaction Information — one payment’s full detail.',
+  PmtId: 'Payment Identification — the set of references identifying this payment.',
+  InstrId: 'Instruction Identification — reference between the instructing and instructed agent.',
+  EndToEndId: 'End-to-End Identification — reference assigned by the debtor, passed unchanged to the creditor.',
+  TxId: 'Transaction Identification — unique id assigned by the first instructing agent.',
+  UETR: 'Unique End-to-end Transaction Reference — UUID tracking the payment across all parties (gpi).',
+  PmtTpInf: 'Payment Type Information — nature/priority of the payment (e.g. service level, category purpose).',
+  SvcLvl: 'Service Level — agreed level of service, e.g. SEPA, G001.',
+  // Amounts
+  IntrBkSttlmAmt: 'Interbank Settlement Amount — the amount settled between the agents (with Ccy attribute).',
+  InstdAmt: 'Instructed Amount — the amount the debtor asked to transfer, before FX/charges.',
+  IntrBkSttlmDt: 'Interbank Settlement Date — the date funds settle between the agents.',
+  ChrgBr: 'Charge Bearer — who pays the charges: DEBT (OUR), CRED (BEN) or SHAR (SHA).',
+  XchgRate: 'Exchange Rate — the FX rate applied.',
+  // Parties
+  Dbtr: 'Debtor — the party that owes the money / originates the payment.',
+  DbtrAcct: 'Debtor Account — the account debited for the payment.',
+  DbtrAgt: 'Debtor Agent — the debtor’s bank.',
+  Cdtr: 'Creditor — the party to be paid (beneficiary).',
+  CdtrAcct: 'Creditor Account — the account to be credited.',
+  CdtrAgt: 'Creditor Agent — the creditor’s bank.',
+  IntrmyAgt1: 'Intermediary Agent 1 — a correspondent bank in the payment chain.',
+  InstgAgt: 'Instructing Agent — the agent sending this message.',
+  InstdAgt: 'Instructed Agent — the agent receiving this message.',
+  UltmtDbtr: 'Ultimate Debtor — the party on whose behalf the debtor pays (if different).',
+  UltmtCdtr: 'Ultimate Creditor — the final beneficiary (if different from the creditor).',
+  // Party detail
+  Nm: 'Name — name of the party.',
+  PstlAdr: 'Postal Address — the party’s address (structured or unstructured).',
+  Ctry: 'Country — ISO 3166 two-letter country code.',
+  AdrLine: 'Address Line — unstructured address text (discouraged in favour of structured fields).',
+  Id: 'Identification — an identifier block (for a party, account or agent).',
+  OrgId: 'Organisation Identification — identifiers for an organisation, e.g. LEI, BIC.',
+  PrvtId: 'Private Identification — identifiers for a private individual.',
+  LEI: 'Legal Entity Identifier — 20-char ISO 17442 code identifying the legal entity.',
+  FinInstnId: 'Financial Institution Identification — how a bank is identified (BICFI, clearing member id, name).',
+  BICFI: 'Business Identifier Code (FI) — the BIC/SWIFT code of the financial institution.',
+  ClrSysMmbId: 'Clearing System Member Id — the bank’s id within a clearing system (e.g. sort code, ABA).',
+  IBAN: 'International Bank Account Number — standardised account number (ISO 13616).',
+  Othr: 'Other — a generic identification scheme when a standard one (IBAN/BIC) is not used.',
+  // Remittance & purpose
+  RmtInf: 'Remittance Information — details enabling the creditor to reconcile the payment (invoice etc.).',
+  Ustrd: 'Unstructured — free-text remittance information.',
+  Strd: 'Structured — structured remittance (e.g. referenced invoice documents).',
+  Purp: 'Purpose — the underlying reason for the payment (code set), aids screening/reporting.',
+  // Status (pacs.002)
+  TxSts: 'Transaction Status — the status of the referenced payment (e.g. ACCP, ACSC, RJCT).',
+  GrpSts: 'Group Status — status applying to the whole group of transactions.',
+  StsRsnInf: 'Status Reason Information — why a payment was rejected/accepted (reason codes).',
+  OrgnlEndToEndId: 'Original End-to-End Id — the EndToEndId of the payment this status refers to.',
+  OrgnlUETR: 'Original UETR — the UETR of the payment this message refers to.',
+  Rsn: 'Reason — the coded (Cd) or proprietary (Prtry) reason for a status, return or cancellation.',
+  Cd: 'Code — a value drawn from a defined ISO 20022 external or internal code set.',
+  AddtlInf: 'Additional Information — free-text supplement to a coded reason.',
+  // Amounts, charges & FX (extended)
+  InstrForNxtAgt: 'Instruction For Next Agent — coded/free instruction for the next agent in the chain (maps from MT :72:).',
+  InstrForCdtrAgt: 'Instruction For Creditor Agent — instruction addressed to the creditor’s bank.',
+  ChrgsInf: 'Charges Information — a charge that has been (or will be) taken, with amount and the agent that took it.',
+  RgltryRptg: 'Regulatory Reporting — structured regulatory reporting details (maps from MT :77B:).',
+  Purp: 'Purpose — the underlying reason for the payment (code set), aids screening/reporting.',
+  CtgyPurp: 'Category Purpose — high-level purpose used by agents to apply processing (e.g. SALA, SUPP).',
+  LclInstrm: 'Local Instrument — a scheme-specific instrument code (e.g. an RTGS or instant-scheme code).',
+  // Structured postal address sub-elements (CBPR+ structured address)
+  StrtNm: 'Street Name — structured address element (part of PstlAdr).',
+  BldgNb: 'Building Number — structured address element.',
+  PstCd: 'Post Code — structured address element.',
+  TwnNm: 'Town Name — structured address element.',
+  CtrySubDvsn: 'Country Sub-Division — e.g. state/province, structured address element.',
+  // Cover / underlying
+  UndrlygCstmrCdtTrf: 'Underlying Customer Credit Transfer — in pacs.009 COV, the covered customer transfer (maps from MT202COV sequence B).',
+  PrvsInstgAgt1: 'Previous Instructing Agent 1 — the agent that instructed the current sender (chain reconstruction).',
+  // Statement / report (camt) building blocks
+  Stmt: 'Statement — a camt.053 statement of an account for a period.',
+  Rpt: 'Report — a camt.052 intraday/interim account report.',
+  Ntfctn: 'Notification — a camt.054 debit/credit notification.',
+  Acct: 'Account — the account the statement, report or notification concerns.',
+  Bal: 'Balance — an account balance with a type (OPBD/CLBD/CLAV/FWAV), amount and credit/debit indicator.',
+  Ntry: 'Entry — a single booked/pending item on a statement or report.',
+  NtryDtls: 'Entry Details — the breakdown of an entry into one or more transaction details.',
+  TxDtls: 'Transaction Details — structured detail of a transaction within an entry (refs, parties, remittance).',
+  CdtDbtInd: 'Credit/Debit Indicator — CRDT (credit) or DBIT (debit).',
+  BookgDt: 'Booking Date — when the entry was booked to the account.',
+  ValDt: 'Value Date — when the entry becomes value-effective.',
+  AcctSvcrRef: 'Account Servicer Reference — the servicing bank’s reference for the entry.',
+  TxsSummry: 'Transactions Summary — count and sum of credit/debit entries in a report.',
+}
+
+// Common ISO 20022 code-set values explained (shown when a value matches).
+export const CODE_SETS = {
+  DEBT: 'Charges borne by the debtor (OUR).',
+  CRED: 'Charges borne by the creditor (BEN).',
+  SHAR: 'Charges shared (SHA).',
+  INDA: 'Settlement via the instructed agent’s account.',
+  INGA: 'Settlement via the instructing agent’s account.',
+  COVE: 'Settlement via a separate cover payment.',
+  CLRG: 'Settlement through a clearing system.',
+  ACCP: 'Accepted — technically validated and accepted.',
+  ACSC: 'Accepted, settlement completed.',
+  ACSP: 'Accepted, settlement in process.',
+  RJCT: 'Rejected.',
+  PDNG: 'Pending.',
+  // Balance types (camt)
+  OPBD: 'Opening Booked balance.',
+  CLBD: 'Closing Booked balance.',
+  CLAV: 'Closing Available balance.',
+  FWAV: 'Forward Available balance.',
+  BOOK: 'Booked — the entry is booked to the account.',
+  CRDT: 'Credit.',
+  DBIT: 'Debit.',
+  // Common return / reject reason codes
+  AC01: 'Incorrect account number.',
+  AC04: 'Closed account number.',
+  AC06: 'Blocked account.',
+  AM09: 'Wrong amount.',
+  DUPL: 'Duplicate payment.',
+  CUST: 'Requested by the customer.',
+  NARR: 'Reason given in narrative (free text).',
+}
+
+export function explainElement(localName) {
+  return FIELD_DICTIONARY[localName] || null
+}

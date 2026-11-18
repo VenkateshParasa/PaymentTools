@@ -1,0 +1,28 @@
+﻿XML tag,Parent complex type,Parent used as,Element type,minOccurs,maxOccurs,Kind,Sample set 1 (occurrences),Sample set 2 (occurrences),Negative sample (XSD violation),Rule interaction,Notes
+AddtlRmtInf,StructuredRemittanceInformation22,Strd,Max140Text,0,3,Bounded,1,3,4,,Bounded at 3: repeated sample uses the maximum.
+AdjstmntAmtAndRsn,RemittanceAmount4,"Amt, RfrdDocAmt",DocumentAdjustment1,0,unbounded,Unbounded,1,3,none (unbounded),,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+AdrLine,PostalAddress27,"PstlAdr, PstlAdr, Adr",Max70Text,0,7,Bounded,1,7,8,,Bounded at 7: repeated sample uses the maximum.
+CdtTrfTxInf,FIToFICustomerCreditTransferV14,FIToFICstmrCdtTrf,CreditTransferTransaction73,1,unbounded,Unbounded,1,3,none (unbounded),All transaction-level rules evaluated per transaction,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+ChrgsInf,CreditTransferTransaction73,CdtTrfTxInf,Charges16,0,unbounded,Unbounded,1,3,none (unbounded),ChargesInformationAndInstructedAmountRule; ChargeBearerAndChargesInformationRule,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+Dtls,RegulatoryReporting10,RgltryRptg,StructuredRegulatoryReporting5,0,unbounded,Unbounded,1,3,none (unbounded),,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+Dtls,TaxAmount3,TaxAmt,TaxRecordDetails3,0,unbounded,Unbounded,1,3,none (unbounded),,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+Id,DocumentLineInformation2,LineDtls,DocumentLineIdentification1,1,unbounded,Unbounded,1,3,none (unbounded),,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+Inf,StructuredRegulatoryReporting5,Dtls,Max35Text,0,unbounded,Unbounded,1,3,none (unbounded),,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+InstrForCdtrAgt,CreditTransferTransaction73,CdtTrfTxInf,InstructionForCreditorAgent3,0,unbounded,Unbounded,1,3,none (unbounded),InstructionForCreditorAgentRule (CHQB),Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+InstrForNxtAgt,CreditTransferTransaction73,CdtTrfTxInf,InstructionForNextAgent1,0,unbounded,Unbounded,1,3,none (unbounded),,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+LineDtls,ReferredDocumentInformation8,RfrdDocInf,DocumentLineInformation2,0,unbounded,Unbounded,1,3,none (unbounded),,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+Othr,Contact13,CtctDtls,OtherContact1,0,unbounded,Unbounded,1,3,none (unbounded),IdentificationOrProxyPresenceRule (account Id may use Othr),Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+Othr,OrganisationIdentification39,OrgId,GenericOrganisationIdentification3,0,unbounded,Unbounded,1,3,none (unbounded),IdentificationOrProxyPresenceRule (account Id may use Othr),Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+Othr,PersonIdentification18,PrvtId,GenericPersonIdentification2,0,unbounded,Unbounded,1,3,none (unbounded),IdentificationOrProxyPresenceRule (account Id may use Othr),Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+Rcrd,TaxData1,"Tax, TaxRmt",TaxRecord3,0,unbounded,Unbounded,1,3,none (unbounded),,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+RfrdDocInf,StructuredRemittanceInformation22,Strd,ReferredDocumentInformation8,0,unbounded,Unbounded,1,3,none (unbounded),,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+RgltryRptg,CreditTransferTransaction73,CdtTrfTxInf,RegulatoryReporting10,0,10,Bounded,1,10,11,,Bounded at 10: repeated sample uses the maximum.
+RltdRmtInf,CreditTransferTransaction73,CdtTrfTxInf,RemittanceLocation8,0,10,Bounded,1,10,11,,Bounded at 10: repeated sample uses the maximum.
+RmtAmtAndTp,RemittanceAmount4,"Amt, RfrdDocAmt",DocumentAmount1,0,unbounded,Unbounded,1,3,none (unbounded),RemittanceAmountAndTypeGuideline,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+RmtLctnDtls,RemittanceLocation8,RltdRmtInf,RemittanceLocationData2,0,unbounded,Unbounded,1,3,none (unbounded),,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+SctiesData,StructuredRemittanceInformation22,Strd,SecuritiesAttributes1,0,unbounded,Unbounded,1,3,none (unbounded),,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+SplmtryData,CreditTransferTransaction73,CdtTrfTxInf,SupplementaryData1,0,unbounded,Unbounded,1,3,none (unbounded),SupplementaryDataRule (advisory),Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+SplmtryData,FIToFICustomerCreditTransferV14,FIToFICstmrCdtTrf,SupplementaryData1,0,unbounded,Unbounded,1,3,none (unbounded),SupplementaryDataRule (advisory),Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+Strd,RemittanceInformation26,RmtInf,StructuredRemittanceInformation22,0,unbounded,Unbounded,1,3,none (unbounded),,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+SvcLvl,PaymentTypeInformation28,"PmtTpInf, PmtTpInf",ServiceLevel8Choice,0,unbounded,Unbounded,1,3,none (unbounded),,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).
+Ustrd,RemittanceInformation26,RmtInf,Max140Text,0,unbounded,Unbounded,1,3,none (unbounded),,Unbounded: 3 occurrences used as the repeated sample (2 or 3 is fine).

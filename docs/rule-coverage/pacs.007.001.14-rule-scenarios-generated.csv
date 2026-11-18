@@ -1,0 +1,738 @@
+﻿Scenario ID,Message,Rule name,Rule type,Coverage (rule coverage report),Scenario Type,Fields/sections included,Sample data (XML fragment),"Scenario Description (rule text, MDR PDF)",What this scenario tests,"Expected outcome, why?",Expected result (Pass/Fail),Advisory warning raised,Occurrences,Expected generator action,Notes
+S001,pacs.007.001.14,AmendmentIndicatorFalseRule,Hard rule,Covered,Positive,DirectDebitMandate/AmendmentIndicator (MndtRltdInf/DrctDbtMndt/AmdmntInd) = false; DirectDebitMandate/AmendmentInformationDetails (MndtRltdInf/DrctDbtMndt/AmdmntInfDtls) = Not present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <OrgnlTxRef>
+      <MndtRltdInf>
+        <DrctDbtMndt>
+          <AmdmntInd>false</AmdmntInd>
+          <!-- AmdmntInfDtls not present -->
+        </DrctDbtMndt>
+      </MndtRltdInf>
+    </OrgnlTxRef>
+  </TxInf>
+</FIToFIPmtRvsl>","If AmendmentIndicator is false, then AmendmentInformationDetails is not allowed.","AmendmentIndicator is false, requirement met","Should pass: AmendmentIndicator is false, and AmendmentInformationDetails is not present, so the rule is satisfied.",Pass,No,1,none,
+S002,pacs.007.001.14,AmendmentIndicatorFalseRule,Hard rule,Covered,Negative,DirectDebitMandate/AmendmentIndicator (MndtRltdInf/DrctDbtMndt/AmdmntInd) = false; DirectDebitMandate/AmendmentInformationDetails (MndtRltdInf/DrctDbtMndt/AmdmntInfDtls) = Present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <OrgnlTxRef>
+      <MndtRltdInf>
+        <DrctDbtMndt>
+          <AmdmntInd>false</AmdmntInd>
+          <AmdmntInfDtls>
+            <OrgnlMndtId>Sample OrgnlMndtId</OrgnlMndtId>
+          </AmdmntInfDtls>
+        </DrctDbtMndt>
+      </MndtRltdInf>
+    </OrgnlTxRef>
+  </TxInf>
+</FIToFIPmtRvsl>","If AmendmentIndicator is false, then AmendmentInformationDetails is not allowed.","AmendmentIndicator is false, but AmendmentInformationDetails is present","Should fail: AmendmentIndicator is false, so AmendmentInformationDetails is not allowed, but AmendmentInformationDetails is present.",Fail,No,1,remove AmdmntInfDtls,
+S003,pacs.007.001.14,AmendmentIndicatorFalseRule,Hard rule,Covered,Not applicable,DirectDebitMandate/AmendmentIndicator (MndtRltdInf/DrctDbtMndt/AmdmntInd) = XXXX,"<FIToFIPmtRvsl>
+  <TxInf>
+    <OrgnlTxRef>
+      <MndtRltdInf>
+        <DrctDbtMndt>
+          <AmdmntInd>XXXX</AmdmntInd>
+        </DrctDbtMndt>
+      </MndtRltdInf>
+    </OrgnlTxRef>
+  </TxInf>
+</FIToFIPmtRvsl>","If AmendmentIndicator is false, then AmendmentInformationDetails is not allowed.",AmendmentIndicator is not false,"Should pass (rule not triggered): AmendmentIndicator is not false, so there is nothing to check.",Pass,No,1,none,
+S004,pacs.007.001.14,AmendmentIndicatorTrueRule,Hard rule,Covered,Positive,DirectDebitMandate/AmendmentIndicator (MndtRltdInf/DrctDbtMndt/AmdmntInd) = true; DirectDebitMandate/AmendmentInformationDetails (MndtRltdInf/DrctDbtMndt/AmdmntInfDtls) = Present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <OrgnlTxRef>
+      <MndtRltdInf>
+        <DrctDbtMndt>
+          <AmdmntInd>true</AmdmntInd>
+          <AmdmntInfDtls>
+            <OrgnlMndtId>Sample OrgnlMndtId</OrgnlMndtId>
+          </AmdmntInfDtls>
+        </DrctDbtMndt>
+      </MndtRltdInf>
+    </OrgnlTxRef>
+  </TxInf>
+</FIToFIPmtRvsl>","If AmendmentIndicator is true, then AmendmentInformationDetails must be present.","AmendmentIndicator is true, requirement met","Should pass: AmendmentIndicator is true, and AmendmentInformationDetails is present, so the rule is satisfied.",Pass,No,1,none,
+S005,pacs.007.001.14,AmendmentIndicatorTrueRule,Hard rule,Covered,Negative,DirectDebitMandate/AmendmentIndicator (MndtRltdInf/DrctDbtMndt/AmdmntInd) = true; DirectDebitMandate/AmendmentInformationDetails (MndtRltdInf/DrctDbtMndt/AmdmntInfDtls) = Not present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <OrgnlTxRef>
+      <MndtRltdInf>
+        <DrctDbtMndt>
+          <AmdmntInd>true</AmdmntInd>
+          <!-- AmdmntInfDtls not present -->
+        </DrctDbtMndt>
+      </MndtRltdInf>
+    </OrgnlTxRef>
+  </TxInf>
+</FIToFIPmtRvsl>","If AmendmentIndicator is true, then AmendmentInformationDetails must be present.","AmendmentIndicator is true, but AmendmentInformationDetails is not present","Should fail: AmendmentIndicator is true, so AmendmentInformationDetails must be present, but AmendmentInformationDetails is not present.",Fail,No,1,add AmdmntInfDtls,
+S006,pacs.007.001.14,AmendmentIndicatorTrueRule,Hard rule,Covered,Not applicable,DirectDebitMandate/AmendmentIndicator (MndtRltdInf/DrctDbtMndt/AmdmntInd) = XXXX,"<FIToFIPmtRvsl>
+  <TxInf>
+    <OrgnlTxRef>
+      <MndtRltdInf>
+        <DrctDbtMndt>
+          <AmdmntInd>XXXX</AmdmntInd>
+        </DrctDbtMndt>
+      </MndtRltdInf>
+    </OrgnlTxRef>
+  </TxInf>
+</FIToFIPmtRvsl>","If AmendmentIndicator is true, then AmendmentInformationDetails must be present.",AmendmentIndicator is not true,"Should pass (rule not triggered): AmendmentIndicator is not true, so there is nothing to check.",Pass,No,1,none,
+S007,pacs.007.001.14,ChargesInformationAndReversedInstructedAmountRule,Hard rule,Covered,Positive,TransactionInformation/ChargesInformation (FIToFIPmtRvsl/TxInf/ChrgsInf) = Present; ChargesInformation/Amount (TxInf/ChrgsInf/Amt) = Present; TransactionInformation/ReversedInstructedAmount (FIToFIPmtRvsl/TxInf/RvsdInstdAmt) = Present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <ChrgsInf>
+      <Amt Ccy=""EUR"">15250.00</Amt>
+    </ChrgsInf>
+    <RvsdInstdAmt Ccy=""EUR"">15250.00</RvsdInstdAmt>
+  </TxInf>
+</FIToFIPmtRvsl>","If ChargesInformation is present, then ReversedInstructedAmount must be present.","ChargesInformation is present and ChargesInformation/Amount is present, requirement met","Should pass: ChargesInformation is present and ChargesInformation/Amount is present, and ReversedInstructedAmount is present, so the rule is satisfied.",Pass,No,1,none,
+S008,pacs.007.001.14,ChargesInformationAndReversedInstructedAmountRule,Hard rule,Covered,Negative,TransactionInformation/ChargesInformation (FIToFIPmtRvsl/TxInf/ChrgsInf) = Present; ChargesInformation/Amount (TxInf/ChrgsInf/Amt) = Present; TransactionInformation/ReversedInstructedAmount (FIToFIPmtRvsl/TxInf/RvsdInstdAmt) = Not present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <ChrgsInf>
+      <Amt Ccy=""EUR"">15250.00</Amt>
+    </ChrgsInf>
+    <!-- RvsdInstdAmt not present -->
+  </TxInf>
+</FIToFIPmtRvsl>","If ChargesInformation is present, then ReversedInstructedAmount must be present.","ChargesInformation is present and ChargesInformation/Amount is present, but ReversedInstructedAmount is not present","Should fail: ChargesInformation is present and ChargesInformation/Amount is present, so ReversedInstructedAmount must be present, but ReversedInstructedAmount is not present.",Fail,No,1,add RvsdInstdAmt,
+S009,pacs.007.001.14,ChargesInformationAndReversedInstructedAmountRule,Hard rule,Covered,Not applicable,TransactionInformation/ChargesInformation (FIToFIPmtRvsl/TxInf/ChrgsInf) = Not present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <!-- ChrgsInf not present -->
+  </TxInf>
+</FIToFIPmtRvsl>","If ChargesInformation is present, then ReversedInstructedAmount must be present.",ChargesInformation is not present,"Should pass (rule not triggered): ChargesInformation is not present, so there is nothing to check.",Pass,No,1,none,
+S010,pacs.007.001.14,ChargesInformationAndReversedInstructedAmountRule,Hard rule,Covered,Not applicable,ChargesInformation/Amount (TxInf/ChrgsInf/Amt) = Not present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <ChrgsInf>
+      <!-- Amt not present -->
+    </ChrgsInf>
+  </TxInf>
+</FIToFIPmtRvsl>","If ChargesInformation is present, then ReversedInstructedAmount must be present.",ChargesInformation/Amount is not present,"Should pass (rule not triggered): ChargesInformation/Amount is not present, so there is nothing to check.",Pass,No,1,none,
+S011,pacs.007.001.14,ChargesInformationAndReversedInstructedAmountRule,Hard rule,Covered,Positive,TransactionInformation/ChargesInformation (FIToFIPmtRvsl/TxInf/ChrgsInf) = Present x3; ChargesInformation/Amount (TxInf/ChrgsInf/Amt) = Present; TransactionInformation/ReversedInstructedAmount (FIToFIPmtRvsl/TxInf/RvsdInstdAmt) = Present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <ChrgsInf>
+      <Amt Ccy=""EUR"">15250.00</Amt>
+    </ChrgsInf>
+    <ChrgsInf/>
+    <ChrgsInf/>
+    <RvsdInstdAmt Ccy=""EUR"">15250.00</RvsdInstdAmt>
+  </TxInf>
+</FIToFIPmtRvsl>","If ChargesInformation is present, then ReversedInstructedAmount must be present.","ChrgsInf repeated 3 times, requirement met",Should pass: ChrgsInf appears 3 times and the rule is satisfied for every occurrence.,Pass,No,ChrgsInf x3,none,
+S012,pacs.007.001.14,ChargesInformationAndReversedInstructedAmountRule,Hard rule,Covered,Negative,TransactionInformation/ChargesInformation (FIToFIPmtRvsl/TxInf/ChrgsInf) = Present x3; ChargesInformation/Amount (TxInf/ChrgsInf/Amt) = Present; TransactionInformation/ReversedInstructedAmount (FIToFIPmtRvsl/TxInf/RvsdInstdAmt) = Not present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <ChrgsInf>
+      <Amt Ccy=""EUR"">15250.00</Amt>
+    </ChrgsInf>
+    <ChrgsInf/>
+    <ChrgsInf/>
+    <!-- RvsdInstdAmt not present -->
+  </TxInf>
+</FIToFIPmtRvsl>","If ChargesInformation is present, then ReversedInstructedAmount must be present.","ChrgsInf repeated 3 times, requirement not met",Should fail: ChrgsInf appears 3 times but ReversedInstructedAmount must be present is not satisfied.,Fail,No,ChrgsInf x3,add RvsdInstdAmt,
+S013,pacs.007.001.14,ControlSumAndGroupReversalRule,Hard rule,Covered,Positive,GroupHeader/GroupReversal (FIToFIPmtRvsl/GrpHdr/GrpRvsl) = true; GroupHeader/ControlSum (FIToFIPmtRvsl/GrpHdr/CtrlSum) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <GrpRvsl>true</GrpRvsl>
+    <!-- CtrlSum not present -->
+  </GrpHdr>
+</FIToFIPmtRvsl>","If GroupReversal is true, then ControlSum is not allowed.","GroupReversal is present and GroupReversal is true, requirement met","Should pass: GroupReversal is present and GroupReversal is true, and ControlSum is not present, so the rule is satisfied.",Pass,No,1,none,
+S014,pacs.007.001.14,ControlSumAndGroupReversalRule,Hard rule,Covered,Negative,GroupHeader/GroupReversal (FIToFIPmtRvsl/GrpHdr/GrpRvsl) = true; GroupHeader/ControlSum (FIToFIPmtRvsl/GrpHdr/CtrlSum) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <GrpRvsl>true</GrpRvsl>
+    <CtrlSum>15250.00</CtrlSum>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If GroupReversal is true, then ControlSum is not allowed.","GroupReversal is present and GroupReversal is true, but ControlSum is present","Should fail: GroupReversal is present and GroupReversal is true, so ControlSum is not allowed, but ControlSum is present.",Fail,No,1,remove CtrlSum,
+S015,pacs.007.001.14,ControlSumAndGroupReversalRule,Hard rule,Covered,Not applicable,GroupHeader/GroupReversal (FIToFIPmtRvsl/GrpHdr/GrpRvsl) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <!-- GrpRvsl not present -->
+  </GrpHdr>
+</FIToFIPmtRvsl>","If GroupReversal is true, then ControlSum is not allowed.",GroupReversal is not present,"Should pass (rule not triggered): GroupReversal is not present, so there is nothing to check.",Pass,No,1,none,
+S016,pacs.007.001.14,ControlSumAndGroupReversalRule,Hard rule,Covered,Not applicable,GroupHeader/GroupReversal (FIToFIPmtRvsl/GrpHdr/GrpRvsl) = XXXX,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <GrpRvsl>XXXX</GrpRvsl>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If GroupReversal is true, then ControlSum is not allowed.",GroupReversal is not true,"Should pass (rule not triggered): GroupReversal is not true, so there is nothing to check.",Pass,No,1,none,
+S017,pacs.007.001.14,GroupReversalAndNumberOfTransactionsGuideline,Guideline,Not covered,Manual needed,(not generated),,"If GroupReversal is true, then NumberOfTransactions equals the number of transactions in the original message.",Scenarios must be written manually,Guideline (advisory): write one compliant and one non-compliant case by hand. A broken guideline never fails a message.,n/a,Yes (if broken),,none (manual),See the coverage report for the reason.
+S018,pacs.007.001.14,IdentificationAndProxyGuideline,Guideline,Not covered,Manual needed,(not generated),,"If the account identification is not defined through a conventional identification such as an email address or a mobile number, then the proxy element should be used for the identification of the account.",Scenarios must be written manually,Guideline (advisory): write one compliant and one non-compliant case by hand. A broken guideline never fails a message.,n/a,Yes (if broken),,none (manual),See the coverage report for the reason.
+S019,pacs.007.001.14,IdentificationOrProxyPresenceRule,Hard rule,Covered,Positive,CreditorAccount/Identification (OrgnlTxRef/CdtrAcct/Id) = Present; CreditorAccount/Proxy (OrgnlTxRef/CdtrAcct/Prxy) = Not present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <OrgnlTxRef>
+      <CdtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+        <!-- Prxy not present -->
+      </CdtrAcct>
+    </OrgnlTxRef>
+  </TxInf>
+</FIToFIPmtRvsl>",Identification must be present or Proxy must be present. Both may be present.,Identification is present or Proxy is present,"Should pass: Identification is present or Proxy is present, which satisfies the rule.",Pass,No,1,none,Rule applies to 15 place(s) in this message; shown for CdtrAcct.
+S020,pacs.007.001.14,IdentificationOrProxyPresenceRule,Hard rule,Covered,Positive,CreditorAccount/Identification (OrgnlTxRef/CdtrAcct/Id) = Present; CreditorAccount/Proxy (OrgnlTxRef/CdtrAcct/Prxy) = Not present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <OrgnlTxRef>
+      <CdtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+        <!-- Prxy not present -->
+      </CdtrAcct>
+    </OrgnlTxRef>
+  </TxInf>
+</FIToFIPmtRvsl>",Identification must be present or Proxy must be present. Both may be present.,Only Identification present (one option is enough),"Should pass: at least one of Identification, Proxy must be present; Identification alone satisfies the rule and the other options are absent.",Pass,No,1,none,Rule applies to 15 place(s) in this message; shown for CdtrAcct.
+S021,pacs.007.001.14,IdentificationOrProxyPresenceRule,Hard rule,Covered,Positive,CreditorAccount/Proxy (OrgnlTxRef/CdtrAcct/Prxy) = Present; CreditorAccount/Identification (OrgnlTxRef/CdtrAcct/Id) = Not present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <OrgnlTxRef>
+      <CdtrAcct>
+        <Prxy>
+          <Id>ID-0001</Id>
+        </Prxy>
+        <!-- Id not present -->
+      </CdtrAcct>
+    </OrgnlTxRef>
+  </TxInf>
+</FIToFIPmtRvsl>",Identification must be present or Proxy must be present. Both may be present.,Only Proxy present (one option is enough),"Should pass: at least one of Identification, Proxy must be present; Proxy alone satisfies the rule and the other options are absent.",Pass,No,1,none,Rule applies to 15 place(s) in this message; shown for CdtrAcct.
+S022,pacs.007.001.14,IdentificationOrProxyPresenceRule,Hard rule,Covered,Positive,CreditorAccount/Identification (OrgnlTxRef/CdtrAcct/Id) = Present; CreditorAccount/Proxy (OrgnlTxRef/CdtrAcct/Prxy) = Present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <OrgnlTxRef>
+      <CdtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+        <Prxy>
+          <Id>ID-0001</Id>
+        </Prxy>
+      </CdtrAcct>
+    </OrgnlTxRef>
+  </TxInf>
+</FIToFIPmtRvsl>",Identification must be present or Proxy must be present. Both may be present.,All options present,Should pass: all of the options may be present together.,Pass,No,1,none,Rule applies to 15 place(s) in this message; shown for CdtrAcct.
+S023,pacs.007.001.14,IdentificationOrProxyPresenceRule,Hard rule,Covered,Negative,CreditorAccount/Identification (OrgnlTxRef/CdtrAcct/Id) = Not present; CreditorAccount/Proxy (OrgnlTxRef/CdtrAcct/Prxy) = Not present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <OrgnlTxRef>
+      <CdtrAcct>
+        <!-- Id not present -->
+        <!-- Prxy not present -->
+      </CdtrAcct>
+    </OrgnlTxRef>
+  </TxInf>
+</FIToFIPmtRvsl>",Identification must be present or Proxy must be present. Both may be present.,"none of these hold: Identification is present, Proxy is present","Should fail: at least one of Identification, Proxy must be present, but none of these hold: Identification is present, Proxy is present.",Fail,No,1,add Id,Rule applies to 15 place(s) in this message; shown for CdtrAcct.
+S024,pacs.007.001.14,InstructedReimbursementAgentAccountRule,Hard rule,Covered,Positive,SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present; SettlementInformation/InstructedReimbursementAgentAccount (GrpHdr/SttlmInf/InstdRmbrsmntAgtAcct) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <!-- InstdRmbrsmntAgt not present -->
+      <!-- InstdRmbrsmntAgtAcct not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If InstructedReimbursementAgentAccount is present, then InstructedReimbursementAgent must be present.","InstructedReimbursementAgent is not present, requirement met","Should pass: InstructedReimbursementAgent is not present, and InstructedReimbursementAgentAccount is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S025,pacs.007.001.14,InstructedReimbursementAgentAccountRule,Hard rule,Covered,Negative,SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present; SettlementInformation/InstructedReimbursementAgentAccount (GrpHdr/SttlmInf/InstdRmbrsmntAgtAcct) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <InstdRmbrsmntAgtAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </InstdRmbrsmntAgtAcct>
+      <!-- InstdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If InstructedReimbursementAgentAccount is present, then InstructedReimbursementAgent must be present.","InstructedReimbursementAgent is not present, but InstructedReimbursementAgentAccount is present","Should fail: InstructedReimbursementAgent is not present, so InstructedReimbursementAgentAccount is not allowed, but InstructedReimbursementAgentAccount is present.",Fail,No,1,remove InstdRmbrsmntAgtAcct,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S026,pacs.007.001.14,InstructedReimbursementAgentAccountRule,Hard rule,Covered,Not applicable,SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <InstdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If InstructedReimbursementAgentAccount is present, then InstructedReimbursementAgent must be present.",InstructedReimbursementAgent is present,"Should pass (rule not triggered): InstructedReimbursementAgent is present, so there is nothing to check.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S027,pacs.007.001.14,InstructingReimbursementAgentAccountRule,Hard rule,Covered,Positive,SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Not present; SettlementInformation/InstructingReimbursementAgentAccount (GrpHdr/SttlmInf/InstgRmbrsmntAgtAcct) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <!-- InstgRmbrsmntAgt not present -->
+      <!-- InstgRmbrsmntAgtAcct not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If InstructingReimbursementAgentAccount is present, then InstructingReimbursementAgent must be present.","InstructingReimbursementAgent is not present, requirement met","Should pass: InstructingReimbursementAgent is not present, and InstructingReimbursementAgentAccount is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S028,pacs.007.001.14,InstructingReimbursementAgentAccountRule,Hard rule,Covered,Negative,SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Not present; SettlementInformation/InstructingReimbursementAgentAccount (GrpHdr/SttlmInf/InstgRmbrsmntAgtAcct) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <InstgRmbrsmntAgtAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </InstgRmbrsmntAgtAcct>
+      <!-- InstgRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If InstructingReimbursementAgentAccount is present, then InstructingReimbursementAgent must be present.","InstructingReimbursementAgent is not present, but InstructingReimbursementAgentAccount is present","Should fail: InstructingReimbursementAgent is not present, so InstructingReimbursementAgentAccount is not allowed, but InstructingReimbursementAgentAccount is present.",Fail,No,1,remove InstgRmbrsmntAgtAcct,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S029,pacs.007.001.14,InstructingReimbursementAgentAccountRule,Hard rule,Covered,Not applicable,SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <InstgRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstgRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If InstructingReimbursementAgentAccount is present, then InstructingReimbursementAgent must be present.",InstructingReimbursementAgent is present,"Should pass (rule not triggered): InstructingReimbursementAgent is present, so there is nothing to check.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S030,pacs.007.001.14,RemittanceAmountAndTypeGuideline,Guideline,Not covered,Manual needed,(not generated),,"If Type/Code is equal to CREN, DUPA or REMI for RemittanceAmountAndType, RemittanceAmountAndType must not be repeated.",Scenarios must be written manually,Guideline (advisory): write one compliant and one non-compliant case by hand. A broken guideline never fails a message.,n/a,Yes (if broken),,none (manual),See the coverage report for the reason.
+S031,pacs.007.001.14,ReversedInstructedAmountAndExchangeRate1Rule,Hard rule,Covered,Positive,TransactionInformation/ReversedInstructedAmount (FIToFIPmtRvsl/TxInf/RvsdInstdAmt) = Present [Ccy=INR]; TransactionInformation/ReversedInterbankSettlementAmount (FIToFIPmtRvsl/TxInf/RvsdIntrBkSttlmAmt) = Present [Ccy=EUR]; TransactionInformation/ExchangeRate (FIToFIPmtRvsl/TxInf/XchgRate) = Present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <RvsdInstdAmt Ccy=""INR"">1450000.00</RvsdInstdAmt>
+    <RvsdIntrBkSttlmAmt Ccy=""EUR"">15250.00</RvsdIntrBkSttlmAmt>
+    <XchgRate>15250.00</XchgRate>
+  </TxInf>
+</FIToFIPmtRvsl>","If ReversedInstructedAmount is present and the currency is different from the currency in InterbankSettlementAmount, then ExchangeRate must be present.","ReversedInstructedAmount is present and the currency of ReversedInstructedAmount differs from the currency of ReversedInterbankSettlementAmount, requirement met","Should pass: ReversedInstructedAmount is present and the currency of ReversedInstructedAmount differs from the currency of ReversedInterbankSettlementAmount, and ExchangeRate is present, so the rule is satisfied.",Pass,No,1,none,
+S032,pacs.007.001.14,ReversedInstructedAmountAndExchangeRate1Rule,Hard rule,Covered,Negative,TransactionInformation/ReversedInstructedAmount (FIToFIPmtRvsl/TxInf/RvsdInstdAmt) = Present [Ccy=INR]; TransactionInformation/ReversedInterbankSettlementAmount (FIToFIPmtRvsl/TxInf/RvsdIntrBkSttlmAmt) = Present [Ccy=EUR]; TransactionInformation/ExchangeRate (FIToFIPmtRvsl/TxInf/XchgRate) = Not present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <RvsdInstdAmt Ccy=""INR"">1450000.00</RvsdInstdAmt>
+    <RvsdIntrBkSttlmAmt Ccy=""EUR"">15250.00</RvsdIntrBkSttlmAmt>
+    <!-- XchgRate not present -->
+  </TxInf>
+</FIToFIPmtRvsl>","If ReversedInstructedAmount is present and the currency is different from the currency in InterbankSettlementAmount, then ExchangeRate must be present.","ReversedInstructedAmount is present and the currency of ReversedInstructedAmount differs from the currency of ReversedInterbankSettlementAmount, but ExchangeRate is not present","Should fail: ReversedInstructedAmount is present and the currency of ReversedInstructedAmount differs from the currency of ReversedInterbankSettlementAmount, so ExchangeRate must be present, but ExchangeRate is not present.",Fail,No,1,add XchgRate,
+S033,pacs.007.001.14,ReversedInstructedAmountAndExchangeRate1Rule,Hard rule,Covered,Not applicable,TransactionInformation/ReversedInstructedAmount (FIToFIPmtRvsl/TxInf/RvsdInstdAmt) = Not present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <!-- RvsdInstdAmt not present -->
+  </TxInf>
+</FIToFIPmtRvsl>","If ReversedInstructedAmount is present and the currency is different from the currency in InterbankSettlementAmount, then ExchangeRate must be present.",ReversedInstructedAmount is not present,"Should pass (rule not triggered): ReversedInstructedAmount is not present, so there is nothing to check.",Pass,No,1,none,
+S034,pacs.007.001.14,ReversedInstructedAmountAndExchangeRate1Rule,Hard rule,Covered,Not applicable,TransactionInformation/ReversedInstructedAmount (FIToFIPmtRvsl/TxInf/RvsdInstdAmt) = Present [Ccy=EUR]; TransactionInformation/ReversedInterbankSettlementAmount (FIToFIPmtRvsl/TxInf/RvsdIntrBkSttlmAmt) = Present [Ccy=EUR],"<FIToFIPmtRvsl>
+  <TxInf>
+    <RvsdInstdAmt Ccy=""EUR"">15250.00</RvsdInstdAmt>
+    <RvsdIntrBkSttlmAmt Ccy=""EUR"">15250.00</RvsdIntrBkSttlmAmt>
+  </TxInf>
+</FIToFIPmtRvsl>","If ReversedInstructedAmount is present and the currency is different from the currency in InterbankSettlementAmount, then ExchangeRate must be present.",The currency of ReversedInstructedAmount is the same as the currency of ReversedInterbankSettlementAmount,"Should pass (rule not triggered): the currency of ReversedInstructedAmount is the same as the currency of ReversedInterbankSettlementAmount, so there is nothing to check.",Pass,No,1,none,
+S035,pacs.007.001.14,ReversedInstructedAmountAndExchangeRate2Rule,Hard rule,Covered,Positive,TransactionInformation/ReversedInstructedAmount (FIToFIPmtRvsl/TxInf/RvsdInstdAmt) = Present [Ccy=EUR]; TransactionInformation/ReversedInterbankSettlementAmount (FIToFIPmtRvsl/TxInf/RvsdIntrBkSttlmAmt) = Present [Ccy=EUR]; TransactionInformation/ExchangeRate (FIToFIPmtRvsl/TxInf/XchgRate) = Not present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <RvsdInstdAmt Ccy=""EUR"">15250.00</RvsdInstdAmt>
+    <RvsdIntrBkSttlmAmt Ccy=""EUR"">15250.00</RvsdIntrBkSttlmAmt>
+    <!-- XchgRate not present -->
+  </TxInf>
+</FIToFIPmtRvsl>","If ReversedInstructedAmount is present and the currency is the same as the currency in InterbankSettlementAmount, then ExchangeRate is not allowed.","ReversedInstructedAmount is present and the currency of ReversedInstructedAmount is the same as the currency of ReversedInterbankSettlementAmount, requirement met","Should pass: ReversedInstructedAmount is present and the currency of ReversedInstructedAmount is the same as the currency of ReversedInterbankSettlementAmount, and ExchangeRate is not present, so the rule is satisfied.",Pass,No,1,none,
+S036,pacs.007.001.14,ReversedInstructedAmountAndExchangeRate2Rule,Hard rule,Covered,Negative,TransactionInformation/ReversedInstructedAmount (FIToFIPmtRvsl/TxInf/RvsdInstdAmt) = Present [Ccy=EUR]; TransactionInformation/ReversedInterbankSettlementAmount (FIToFIPmtRvsl/TxInf/RvsdIntrBkSttlmAmt) = Present [Ccy=EUR]; TransactionInformation/ExchangeRate (FIToFIPmtRvsl/TxInf/XchgRate) = Present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <RvsdInstdAmt Ccy=""EUR"">15250.00</RvsdInstdAmt>
+    <RvsdIntrBkSttlmAmt Ccy=""EUR"">15250.00</RvsdIntrBkSttlmAmt>
+    <XchgRate>15250.00</XchgRate>
+  </TxInf>
+</FIToFIPmtRvsl>","If ReversedInstructedAmount is present and the currency is the same as the currency in InterbankSettlementAmount, then ExchangeRate is not allowed.","ReversedInstructedAmount is present and the currency of ReversedInstructedAmount is the same as the currency of ReversedInterbankSettlementAmount, but ExchangeRate is present","Should fail: ReversedInstructedAmount is present and the currency of ReversedInstructedAmount is the same as the currency of ReversedInterbankSettlementAmount, so ExchangeRate is not allowed, but ExchangeRate is present.",Fail,No,1,remove XchgRate,
+S037,pacs.007.001.14,ReversedInstructedAmountAndExchangeRate2Rule,Hard rule,Covered,Not applicable,TransactionInformation/ReversedInstructedAmount (FIToFIPmtRvsl/TxInf/RvsdInstdAmt) = Not present,"<FIToFIPmtRvsl>
+  <TxInf>
+    <!-- RvsdInstdAmt not present -->
+  </TxInf>
+</FIToFIPmtRvsl>","If ReversedInstructedAmount is present and the currency is the same as the currency in InterbankSettlementAmount, then ExchangeRate is not allowed.",ReversedInstructedAmount is not present,"Should pass (rule not triggered): ReversedInstructedAmount is not present, so there is nothing to check.",Pass,No,1,none,
+S038,pacs.007.001.14,ReversedInstructedAmountAndExchangeRate2Rule,Hard rule,Covered,Not applicable,TransactionInformation/ReversedInstructedAmount (FIToFIPmtRvsl/TxInf/RvsdInstdAmt) = Present [Ccy=INR]; TransactionInformation/ReversedInterbankSettlementAmount (FIToFIPmtRvsl/TxInf/RvsdIntrBkSttlmAmt) = Present [Ccy=EUR],"<FIToFIPmtRvsl>
+  <TxInf>
+    <RvsdInstdAmt Ccy=""INR"">1450000.00</RvsdInstdAmt>
+    <RvsdIntrBkSttlmAmt Ccy=""EUR"">15250.00</RvsdIntrBkSttlmAmt>
+  </TxInf>
+</FIToFIPmtRvsl>","If ReversedInstructedAmount is present and the currency is the same as the currency in InterbankSettlementAmount, then ExchangeRate is not allowed.",The currency of ReversedInstructedAmount differs from the currency of ReversedInterbankSettlementAmount,"Should pass (rule not triggered): the currency of ReversedInstructedAmount differs from the currency of ReversedInterbankSettlementAmount, so there is nothing to check.",Pass,No,1,none,
+S039,pacs.007.001.14,SettlementMethodAgentRule,Hard rule,Covered,Positive,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INGA; SettlementInformation/ClearingSystem (GrpHdr/SttlmInf/ClrSys) = Not present; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Not present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present; SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INGA</SttlmMtd>
+      <!-- ClrSys not present -->
+      <!-- InstgRmbrsmntAgt not present -->
+      <!-- InstdRmbrsmntAgt not present -->
+      <!-- ThrdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INGA (InstructingAgent), requirement met","Should pass: SettlementMethod is INGA (InstructingAgent), and ClearingSystem is not present and InstructingReimbursementAgent is not present and InstructedReimbursementAgent is not present and ThirdReimbursementAgent is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S040,pacs.007.001.14,SettlementMethodAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INGA; SettlementInformation/ClearingSystem (GrpHdr/SttlmInf/ClrSys) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INGA</SttlmMtd>
+      <ClrSys>
+        <Cd>Sam</Cd>
+      </ClrSys>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INGA (InstructingAgent), but ClearingSystem is present","Should fail: SettlementMethod is INGA (InstructingAgent), so ClearingSystem is not allowed, but ClearingSystem is present.",Fail,No,1,remove ClrSys,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S041,pacs.007.001.14,SettlementMethodAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INGA; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INGA</SttlmMtd>
+      <InstgRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstgRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INGA (InstructingAgent), but InstructingReimbursementAgent is present","Should fail: SettlementMethod is INGA (InstructingAgent), so InstructingReimbursementAgent is not allowed, but InstructingReimbursementAgent is present.",Fail,No,1,remove InstgRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S042,pacs.007.001.14,SettlementMethodAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INGA; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INGA</SttlmMtd>
+      <InstdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INGA (InstructingAgent), but InstructedReimbursementAgent is present","Should fail: SettlementMethod is INGA (InstructingAgent), so InstructedReimbursementAgent is not allowed, but InstructedReimbursementAgent is present.",Fail,No,1,remove InstdRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S043,pacs.007.001.14,SettlementMethodAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INGA; SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INGA</SttlmMtd>
+      <ThrdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </ThrdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INGA (InstructingAgent), but ThirdReimbursementAgent is present","Should fail: SettlementMethod is INGA (InstructingAgent), so ThirdReimbursementAgent is not allowed, but ThirdReimbursementAgent is present.",Fail,No,1,remove ThrdRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S044,pacs.007.001.14,SettlementMethodAgentRule,Hard rule,Covered,Positive,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INDA; SettlementInformation/ClearingSystem (GrpHdr/SttlmInf/ClrSys) = Not present; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Not present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present; SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INDA</SttlmMtd>
+      <!-- ClrSys not present -->
+      <!-- InstgRmbrsmntAgt not present -->
+      <!-- InstdRmbrsmntAgt not present -->
+      <!-- ThrdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INDA (InstructedAgent), requirement met","Should pass: SettlementMethod is INDA (InstructedAgent), and ClearingSystem is not present and InstructingReimbursementAgent is not present and InstructedReimbursementAgent is not present and ThirdReimbursementAgent is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S045,pacs.007.001.14,SettlementMethodAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INDA; SettlementInformation/ClearingSystem (GrpHdr/SttlmInf/ClrSys) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INDA</SttlmMtd>
+      <ClrSys>
+        <Cd>Sam</Cd>
+      </ClrSys>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INDA (InstructedAgent), but ClearingSystem is present","Should fail: SettlementMethod is INDA (InstructedAgent), so ClearingSystem is not allowed, but ClearingSystem is present.",Fail,No,1,remove ClrSys,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S046,pacs.007.001.14,SettlementMethodAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INDA; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INDA</SttlmMtd>
+      <InstgRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstgRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INDA (InstructedAgent), but InstructingReimbursementAgent is present","Should fail: SettlementMethod is INDA (InstructedAgent), so InstructingReimbursementAgent is not allowed, but InstructingReimbursementAgent is present.",Fail,No,1,remove InstgRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S047,pacs.007.001.14,SettlementMethodAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INDA; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INDA</SttlmMtd>
+      <InstdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INDA (InstructedAgent), but InstructedReimbursementAgent is present","Should fail: SettlementMethod is INDA (InstructedAgent), so InstructedReimbursementAgent is not allowed, but InstructedReimbursementAgent is present.",Fail,No,1,remove InstdRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S048,pacs.007.001.14,SettlementMethodAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INDA; SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INDA</SttlmMtd>
+      <ThrdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </ThrdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INDA (InstructedAgent), but ThirdReimbursementAgent is present","Should fail: SettlementMethod is INDA (InstructedAgent), so ThirdReimbursementAgent is not allowed, but ThirdReimbursementAgent is present.",Fail,No,1,remove ThrdRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S049,pacs.007.001.14,SettlementMethodAgentRule,Hard rule,Covered,Not applicable,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INGA,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INGA</SttlmMtd>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","None of these hold: SettlementMethod is INGA (InstructingAgent), SettlementMethod is INDA (InstructedAgent)","Should pass (rule not triggered): none of these hold: SettlementMethod is INGA (InstructingAgent), SettlementMethod is INDA (InstructedAgent), so there is nothing to check.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S050,pacs.007.001.14,SettlementMethodClearingRule,Hard rule,Covered,Positive,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = CLRG; SettlementInformation/SettlementAccount (GrpHdr/SttlmInf/SttlmAcct) = Not present; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Not present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present; SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>CLRG</SttlmMtd>
+      <!-- SttlmAcct not present -->
+      <!-- InstgRmbrsmntAgt not present -->
+      <!-- InstdRmbrsmntAgt not present -->
+      <!-- ThrdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to CLRG, then SettlementAccount and ReimbursementAgent(s) are not allowed.","SettlementMethod is CLRG (ClearingSystem), requirement met","Should pass: SettlementMethod is CLRG (ClearingSystem), and SettlementAccount is not present and InstructingReimbursementAgent is not present and InstructedReimbursementAgent is not present and ThirdReimbursementAgent is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S051,pacs.007.001.14,SettlementMethodClearingRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = CLRG; SettlementInformation/SettlementAccount (GrpHdr/SttlmInf/SttlmAcct) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>CLRG</SttlmMtd>
+      <SttlmAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </SttlmAcct>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to CLRG, then SettlementAccount and ReimbursementAgent(s) are not allowed.","SettlementMethod is CLRG (ClearingSystem), but SettlementAccount is present","Should fail: SettlementMethod is CLRG (ClearingSystem), so SettlementAccount is not allowed, but SettlementAccount is present.",Fail,No,1,remove SttlmAcct,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S052,pacs.007.001.14,SettlementMethodClearingRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = CLRG; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>CLRG</SttlmMtd>
+      <InstgRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstgRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to CLRG, then SettlementAccount and ReimbursementAgent(s) are not allowed.","SettlementMethod is CLRG (ClearingSystem), but InstructingReimbursementAgent is present","Should fail: SettlementMethod is CLRG (ClearingSystem), so InstructingReimbursementAgent is not allowed, but InstructingReimbursementAgent is present.",Fail,No,1,remove InstgRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S053,pacs.007.001.14,SettlementMethodClearingRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = CLRG; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>CLRG</SttlmMtd>
+      <InstdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to CLRG, then SettlementAccount and ReimbursementAgent(s) are not allowed.","SettlementMethod is CLRG (ClearingSystem), but InstructedReimbursementAgent is present","Should fail: SettlementMethod is CLRG (ClearingSystem), so InstructedReimbursementAgent is not allowed, but InstructedReimbursementAgent is present.",Fail,No,1,remove InstdRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S054,pacs.007.001.14,SettlementMethodClearingRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = CLRG; SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>CLRG</SttlmMtd>
+      <ThrdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </ThrdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to CLRG, then SettlementAccount and ReimbursementAgent(s) are not allowed.","SettlementMethod is CLRG (ClearingSystem), but ThirdReimbursementAgent is present","Should fail: SettlementMethod is CLRG (ClearingSystem), so ThirdReimbursementAgent is not allowed, but ThirdReimbursementAgent is present.",Fail,No,1,remove ThrdRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S055,pacs.007.001.14,SettlementMethodClearingRule,Hard rule,Covered,Not applicable,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INDA,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INDA</SttlmMtd>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to CLRG, then SettlementAccount and ReimbursementAgent(s) are not allowed.",SettlementMethod is not CLRG (ClearingSystem),"Should pass (rule not triggered): SettlementMethod is not CLRG (ClearingSystem), so there is nothing to check.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S056,pacs.007.001.14,SettlementMethodCoverAgentRule,Hard rule,Covered,Positive,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = COVE; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>COVE</SttlmMtd>
+      <InstgRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstgRmbrsmntAgt>
+      <!-- InstdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to COVE, then InstructedReimbursementAgent or InstructingReimbursementAgent must be present.","SettlementMethod is COVE (CoverMethod), requirement met","Should pass: SettlementMethod is COVE (CoverMethod), and InstructingReimbursementAgent is present or InstructedReimbursementAgent is present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S057,pacs.007.001.14,SettlementMethodCoverAgentRule,Hard rule,Covered,Positive,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = COVE; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>COVE</SttlmMtd>
+      <InstgRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstgRmbrsmntAgt>
+      <!-- InstdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to COVE, then InstructedReimbursementAgent or InstructingReimbursementAgent must be present.",Only InstructingReimbursementAgent present (one option is enough),"Should pass: at least one of InstructingReimbursementAgent, InstructedReimbursementAgent must be present; InstructingReimbursementAgent alone satisfies the rule and the other options are absent.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S058,pacs.007.001.14,SettlementMethodCoverAgentRule,Hard rule,Covered,Positive,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = COVE; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Present; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>COVE</SttlmMtd>
+      <InstdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstdRmbrsmntAgt>
+      <!-- InstgRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to COVE, then InstructedReimbursementAgent or InstructingReimbursementAgent must be present.",Only InstructedReimbursementAgent present (one option is enough),"Should pass: at least one of InstructingReimbursementAgent, InstructedReimbursementAgent must be present; InstructedReimbursementAgent alone satisfies the rule and the other options are absent.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S059,pacs.007.001.14,SettlementMethodCoverAgentRule,Hard rule,Covered,Positive,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = COVE; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>COVE</SttlmMtd>
+      <InstgRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstgRmbrsmntAgt>
+      <InstdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to COVE, then InstructedReimbursementAgent or InstructingReimbursementAgent must be present.",All options present,Should pass: all of the options may be present together.,Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S060,pacs.007.001.14,SettlementMethodCoverAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = COVE; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Not present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>COVE</SttlmMtd>
+      <!-- InstgRmbrsmntAgt not present -->
+      <!-- InstdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to COVE, then InstructedReimbursementAgent or InstructingReimbursementAgent must be present.","SettlementMethod is COVE (CoverMethod), but none of these hold: InstructingReimbursementAgent is present, InstructedReimbursementAgent is present","Should fail: SettlementMethod is COVE (CoverMethod), so at least one of InstructingReimbursementAgent, InstructedReimbursementAgent must be present, but none of these hold: InstructingReimbursementAgent is present, InstructedReimbursementAgent is present.",Fail,No,1,add InstgRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S061,pacs.007.001.14,SettlementMethodCoverAgentRule,Hard rule,Covered,Not applicable,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INDA,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INDA</SttlmMtd>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to COVE, then InstructedReimbursementAgent or InstructingReimbursementAgent must be present.",SettlementMethod is not COVE (CoverMethod),"Should pass (rule not triggered): SettlementMethod is not COVE (CoverMethod), so there is nothing to check.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S062,pacs.007.001.14,SettlementMethodCoverRule,Hard rule,Covered,Positive,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = COVE; SettlementInformation/SettlementAccount (GrpHdr/SttlmInf/SttlmAcct) = Not present; SettlementInformation/ClearingSystem (GrpHdr/SttlmInf/ClrSys) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>COVE</SttlmMtd>
+      <!-- SttlmAcct not present -->
+      <!-- ClrSys not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to COVE, then SettlementAccount and ClearingSystem are not allowed.","SettlementMethod is COVE (CoverMethod), requirement met","Should pass: SettlementMethod is COVE (CoverMethod), and SettlementAccount is not present and ClearingSystem is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S063,pacs.007.001.14,SettlementMethodCoverRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = COVE; SettlementInformation/SettlementAccount (GrpHdr/SttlmInf/SttlmAcct) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>COVE</SttlmMtd>
+      <SttlmAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </SttlmAcct>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to COVE, then SettlementAccount and ClearingSystem are not allowed.","SettlementMethod is COVE (CoverMethod), but SettlementAccount is present","Should fail: SettlementMethod is COVE (CoverMethod), so SettlementAccount is not allowed, but SettlementAccount is present.",Fail,No,1,remove SttlmAcct,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S064,pacs.007.001.14,SettlementMethodCoverRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = COVE; SettlementInformation/ClearingSystem (GrpHdr/SttlmInf/ClrSys) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>COVE</SttlmMtd>
+      <ClrSys>
+        <Cd>Sam</Cd>
+      </ClrSys>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to COVE, then SettlementAccount and ClearingSystem are not allowed.","SettlementMethod is COVE (CoverMethod), but ClearingSystem is present","Should fail: SettlementMethod is COVE (CoverMethod), so ClearingSystem is not allowed, but ClearingSystem is present.",Fail,No,1,remove ClrSys,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S065,pacs.007.001.14,SettlementMethodCoverRule,Hard rule,Covered,Not applicable,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INDA,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INDA</SttlmMtd>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If SettlementMethod is equal to COVE, then SettlementAccount and ClearingSystem are not allowed.",SettlementMethod is not COVE (CoverMethod),"Should pass (rule not triggered): SettlementMethod is not COVE (CoverMethod), so there is nothing to check.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S066,pacs.007.001.14,SupplementaryDataRule,Hard rule,Not covered,Manual needed,(not generated),,This component may not be used without the explicit approval of a SEG and submission to the RA of ISO 20022 compliant structure(s) to be used in the Envelope element.,Scenarios must be written manually,Rule is free text only: write the valid and invalid cases by hand.,n/a,No,,none (manual),See the coverage report for the reason.
+S067,pacs.007.001.14,ThirdReimbursementAgentAccountRule,Hard rule,Covered,Positive,SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Not present; SettlementInformation/ThirdReimbursementAgentAccount (GrpHdr/SttlmInf/ThrdRmbrsmntAgtAcct) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <!-- ThrdRmbrsmntAgt not present -->
+      <!-- ThrdRmbrsmntAgtAcct not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If ThirdReimbursementAgentAccount is present, then ThirdReimbursementAgent must be present.","ThirdReimbursementAgent is not present, requirement met","Should pass: ThirdReimbursementAgent is not present, and ThirdReimbursementAgentAccount is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S068,pacs.007.001.14,ThirdReimbursementAgentAccountRule,Hard rule,Covered,Negative,SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Not present; SettlementInformation/ThirdReimbursementAgentAccount (GrpHdr/SttlmInf/ThrdRmbrsmntAgtAcct) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <ThrdRmbrsmntAgtAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </ThrdRmbrsmntAgtAcct>
+      <!-- ThrdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If ThirdReimbursementAgentAccount is present, then ThirdReimbursementAgent must be present.","ThirdReimbursementAgent is not present, but ThirdReimbursementAgentAccount is present","Should fail: ThirdReimbursementAgent is not present, so ThirdReimbursementAgentAccount is not allowed, but ThirdReimbursementAgentAccount is present.",Fail,No,1,remove ThrdRmbrsmntAgtAcct,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S069,pacs.007.001.14,ThirdReimbursementAgentAccountRule,Hard rule,Covered,Not applicable,SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <ThrdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </ThrdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If ThirdReimbursementAgentAccount is present, then ThirdReimbursementAgent must be present.",ThirdReimbursementAgent is present,"Should pass (rule not triggered): ThirdReimbursementAgent is present, so there is nothing to check.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S070,pacs.007.001.14,ThirdReimbursementAgentRule,Hard rule,Covered,Positive,SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Present; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <ThrdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </ThrdRmbrsmntAgt>
+      <InstgRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstgRmbrsmntAgt>
+      <InstdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If ThirdReimbursementAgent is present, then InstructingReimbursementAgent and InstructedReimbursementAgent must both be present.","ThirdReimbursementAgent is present, requirement met","Should pass: ThirdReimbursementAgent is present, and InstructingReimbursementAgent is present and InstructedReimbursementAgent is present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S071,pacs.007.001.14,ThirdReimbursementAgentRule,Hard rule,Covered,Negative,SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Present; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <ThrdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </ThrdRmbrsmntAgt>
+      <!-- InstgRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If ThirdReimbursementAgent is present, then InstructingReimbursementAgent and InstructedReimbursementAgent must both be present.","ThirdReimbursementAgent is present, but InstructingReimbursementAgent is not present","Should fail: ThirdReimbursementAgent is present, so InstructingReimbursementAgent must be present, but InstructingReimbursementAgent is not present.",Fail,No,1,add InstgRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S072,pacs.007.001.14,ThirdReimbursementAgentRule,Hard rule,Covered,Negative,SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <ThrdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </ThrdRmbrsmntAgt>
+      <!-- InstdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If ThirdReimbursementAgent is present, then InstructingReimbursementAgent and InstructedReimbursementAgent must both be present.","ThirdReimbursementAgent is present, but InstructedReimbursementAgent is not present","Should fail: ThirdReimbursementAgent is present, so InstructedReimbursementAgent must be present, but InstructedReimbursementAgent is not present.",Fail,No,1,add InstdRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S073,pacs.007.001.14,ThirdReimbursementAgentRule,Hard rule,Covered,Not applicable,SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <SttlmInf>
+      <!-- ThrdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If ThirdReimbursementAgent is present, then InstructingReimbursementAgent and InstructedReimbursementAgent must both be present.",ThirdReimbursementAgent is not present,"Should pass (rule not triggered): ThirdReimbursementAgent is not present, so there is nothing to check.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S074,pacs.007.001.14,TotalInterbankSettlementAmountAndDateRule,Hard rule,Covered,Positive,GroupHeader/TotalReversedInterbankSettlementAmount (FIToFIPmtRvsl/GrpHdr/TtlRvsdIntrBkSttlmAmt) = Present; GroupHeader/InterbankSettlementDate (FIToFIPmtRvsl/GrpHdr/IntrBkSttlmDt) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <TtlRvsdIntrBkSttlmAmt Ccy=""EUR"">15250.00</TtlRvsdIntrBkSttlmAmt>
+    <IntrBkSttlmDt>2026-11-14</IntrBkSttlmDt>
+  </GrpHdr>
+</FIToFIPmtRvsl>","If TotalReversedInterbankSettlementAmount is present, then InterbankSettlementDate must be present.","TotalReversedInterbankSettlementAmount is present, requirement met","Should pass: TotalReversedInterbankSettlementAmount is present, and InterbankSettlementDate is present, so the rule is satisfied.",Pass,No,1,none,
+S075,pacs.007.001.14,TotalInterbankSettlementAmountAndDateRule,Hard rule,Covered,Negative,GroupHeader/TotalReversedInterbankSettlementAmount (FIToFIPmtRvsl/GrpHdr/TtlRvsdIntrBkSttlmAmt) = Present; GroupHeader/InterbankSettlementDate (FIToFIPmtRvsl/GrpHdr/IntrBkSttlmDt) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <TtlRvsdIntrBkSttlmAmt Ccy=""EUR"">15250.00</TtlRvsdIntrBkSttlmAmt>
+    <!-- IntrBkSttlmDt not present -->
+  </GrpHdr>
+</FIToFIPmtRvsl>","If TotalReversedInterbankSettlementAmount is present, then InterbankSettlementDate must be present.","TotalReversedInterbankSettlementAmount is present, but InterbankSettlementDate is not present","Should fail: TotalReversedInterbankSettlementAmount is present, so InterbankSettlementDate must be present, but InterbankSettlementDate is not present.",Fail,No,1,add IntrBkSttlmDt,
+S076,pacs.007.001.14,TotalInterbankSettlementAmountAndDateRule,Hard rule,Covered,Not applicable,GroupHeader/TotalReversedInterbankSettlementAmount (FIToFIPmtRvsl/GrpHdr/TtlRvsdIntrBkSttlmAmt) = Not present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <!-- TtlRvsdIntrBkSttlmAmt not present -->
+  </GrpHdr>
+</FIToFIPmtRvsl>","If TotalReversedInterbankSettlementAmount is present, then InterbankSettlementDate must be present.",TotalReversedInterbankSettlementAmount is not present,"Should pass (rule not triggered): TotalReversedInterbankSettlementAmount is not present, so there is nothing to check.",Pass,No,1,none,
+S077,pacs.007.001.14,TotalInterbankSettlementAmountAndDateRule,Hard rule,Covered,Positive,GroupHeader/TotalReversedInterbankSettlementAmount (FIToFIPmtRvsl/GrpHdr/TtlRvsdIntrBkSttlmAmt) = Not present; GroupHeader/InterbankSettlementDate (FIToFIPmtRvsl/GrpHdr/IntrBkSttlmDt) = Present,"<FIToFIPmtRvsl>
+  <GrpHdr>
+    <IntrBkSttlmDt>2026-11-14</IntrBkSttlmDt>
+    <!-- TtlRvsdIntrBkSttlmAmt not present -->
+  </GrpHdr>
+</FIToFIPmtRvsl>","If TotalReversedInterbankSettlementAmount is present, then InterbankSettlementDate must be present.",Only InterbankSettlementDate present (no TotalReversedInterbankSettlementAmount),Should pass: the rule only restricts the case where TotalReversedInterbankSettlementAmount is present; InterbankSettlementDate is present on its own is allowed.,Pass,No,1,none,
+S078,pacs.007.001.14,ActiveCurrency,Base-type constraint,Value-level (see value-constraints report),Value check,Currency = EUR,"<Amt Ccy=""EUR"">15250.00</Amt>","The currency code must be a valid active currency code, not yet withdrawn on the day the message containing the currency is exchanged. Valid active currency codes are registered with the ISO 4217 Maintenance Agency, consist of three (3) contiguous letters, and are not yet withdrawn on the day the me",Valid ISO 4217 currency (EUR),Should pass: EUR is a valid active currency code.,Pass,No,1,none,Needs the ISO 4217 list
+S079,pacs.007.001.14,ActiveCurrency,Base-type constraint,Value-level (see value-constraints report),Value check,Currency = XXZ,"<Amt Ccy=""XXZ"">15250.00</Amt>","The currency code must be a valid active currency code, not yet withdrawn on the day the message containing the currency is exchanged. Valid active currency codes are registered with the ISO 4217 Maintenance Agency, consist of three (3) contiguous letters, and are not yet withdrawn on the day the me",Pattern-valid but unknown currency (XXZ),"Should fail: three capital letters pass the XSD, but XXZ is not an ISO 4217 currency.",Fail,No,1,set a valid value,Needs the ISO 4217 list
+S080,pacs.007.001.14,ActiveOrHistoricCurrency,Base-type constraint,Value-level (see value-constraints report),Value check,Currency = EUR,"<Amt Ccy=""EUR"">15250.00</Amt>","The Currency Code must be registered, or have already been registered. Valid active or historic currency codes are registered with the ISO 4217 Maintenance Agency, consist of three (3) contiguous letters, and may be or not be withdrawn on the day the message containing the Currency is exchanged.",Valid ISO 4217 currency (EUR),Should pass: EUR is a valid active currency code.,Pass,No,1,none,Needs the ISO 4217 list
+S081,pacs.007.001.14,ActiveOrHistoricCurrency,Base-type constraint,Value-level (see value-constraints report),Value check,Currency = XXZ,"<Amt Ccy=""XXZ"">15250.00</Amt>","The Currency Code must be registered, or have already been registered. Valid active or historic currency codes are registered with the ISO 4217 Maintenance Agency, consist of three (3) contiguous letters, and may be or not be withdrawn on the day the message containing the Currency is exchanged.",Pattern-valid but unknown currency (XXZ),"Should fail: three capital letters pass the XSD, but XXZ is not an ISO 4217 currency.",Fail,No,1,set a valid value,Needs the ISO 4217 list
+S082,pacs.007.001.14,AnyBIC,Base-type constraint,Value-level (see value-constraints report),Value check,BICFI = DEUTDEFFXXX,<BICFI>DEUTDEFFXXX</BICFI>,"Only a valid Business identifier code is allowed. Business identifier codes for financial or non- financial institutions are registered and published by the ISO 9362 Registration Authority in the ISO directory of BICs, and consists of eight (8) or eleven (11) contiguous characters.",BIC with correct structure,Should pass: 11-character BIC in the right format.,Pass,No,1,none,Structure only; registry not checked
+S083,pacs.007.001.14,AnyBIC,Base-type constraint,Value-level (see value-constraints report),Value check,BICFI = DEUTDEF,<BICFI>DEUTDEF</BICFI>,"Only a valid Business identifier code is allowed. Business identifier codes for financial or non- financial institutions are registered and published by the ISO 9362 Registration Authority in the ISO directory of BICs, and consists of eight (8) or eleven (11) contiguous characters.",BIC with wrong structure (7 characters),Should fail: a BIC has 8 or 11 characters.,Fail,No,1,set a valid value,XSD pattern
+S084,pacs.007.001.14,BICFI,Base-type constraint,Value-level (see value-constraints report),Value check,BICFI = DEUTDEFFXXX,<BICFI>DEUTDEFFXXX</BICFI>,"Valid BICs for financial institutions are registered and published by the ISO 9362 Registration Authority in the ISO directory of BICs, and consist of eight (8) or eleven (11) contiguous characters.",BIC with correct structure,Should pass: 11-character BIC in the right format.,Pass,No,1,none,Structure only; registry not checked
+S085,pacs.007.001.14,BICFI,Base-type constraint,Value-level (see value-constraints report),Value check,BICFI = DEUTDEF,<BICFI>DEUTDEF</BICFI>,"Valid BICs for financial institutions are registered and published by the ISO 9362 Registration Authority in the ISO directory of BICs, and consist of eight (8) or eleven (11) contiguous characters.",BIC with wrong structure (7 characters),Should fail: a BIC has 8 or 11 characters.,Fail,No,1,set a valid value,XSD pattern
+S086,pacs.007.001.14,Country,Base-type constraint,Value-level (see value-constraints report),Value check,Country = DE,<Ctry>DE</Ctry>,"The code is checked against the list of country names obtained from the United Nations (ISO 3166, Alpha-2 code).",Valid ISO 3166 country (DE),Should pass: DE is a valid country code.,Pass,No,1,none,Needs the ISO 3166 list
+S087,pacs.007.001.14,Country,Base-type constraint,Value-level (see value-constraints report),Value check,Country = ZZ,<Ctry>ZZ</Ctry>,"The code is checked against the list of country names obtained from the United Nations (ISO 3166, Alpha-2 code).",Pattern-valid but unassigned country (ZZ),"Should fail: two capital letters pass the XSD, but ZZ is not an assigned ISO 3166 code.",Fail,No,1,set a valid value,Needs the ISO 3166 list
+S088,pacs.007.001.14,CurrencyAmount,Base-type constraint,Value-level (see value-constraints report),Value check,Amount = JPY 15250,"<Amt Ccy=""JPY"">15250</Amt>",The number of fractional digits (or minor unit of currency) must comply with ISO 4217. Note: The decimal separator is a dot.,JPY amount with no decimals,Should pass: JPY has 0 minor units.,Pass,No,1,none,Needs fraction digits per currency
+S089,pacs.007.001.14,CurrencyAmount,Base-type constraint,Value-level (see value-constraints report),Value check,Amount = JPY 15250.50,"<Amt Ccy=""JPY"">15250.50</Amt>",The number of fractional digits (or minor unit of currency) must comply with ISO 4217. Note: The decimal separator is a dot.,JPY amount with 2 decimals,Should fail: JPY allows no fractional digits.,Fail,No,1,set a valid value,Needs fraction digits per currency
+S090,pacs.007.001.14,IBAN,Base-type constraint,Value-level (see value-constraints report),Value check,IBAN = DE89370400440532013000,<IBAN>DE89370400440532013000</IBAN>,"A valid IBAN consists of all three of the following components: Country Code, check digits and BBAN.",IBAN with correct check digits,Should pass: structure and check digits are valid.,Pass,No,1,none,Check digits computable (mod-97)
+S091,pacs.007.001.14,IBAN,Base-type constraint,Value-level (see value-constraints report),Value check,IBAN = DE00370400440532013000,<IBAN>DE00370400440532013000</IBAN>,"A valid IBAN consists of all three of the following components: Country Code, check digits and BBAN.",Pattern-valid IBAN with wrong check digits,Should fail: the XSD pattern passes but the mod-97 check digits are wrong.,Fail,No,1,set a valid value,Check digits computable (mod-97)

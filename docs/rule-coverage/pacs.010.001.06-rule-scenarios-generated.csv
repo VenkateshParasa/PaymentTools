@@ -1,0 +1,384 @@
+﻿Scenario ID,Message,Rule name,Rule type,Coverage (rule coverage report),Scenario Type,Fields/sections included,Sample data (XML fragment),"Scenario Description (rule text, MDR PDF)",What this scenario tests,"Expected outcome, why?",Expected result (Pass/Fail),Advisory warning raised,Occurrences,Expected generator action,Notes
+S001,pacs.010.001.06,CreditorAgentAccountRule,Hard rule,Covered,Positive,CreditInstruction/CreditorAgent (FIDrctDbt/CdtInstr/CdtrAgt) = Not present; CreditInstruction/CreditorAgentAccount (FIDrctDbt/CdtInstr/CdtrAgtAcct) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <!-- CdtrAgt not present -->
+    <!-- CdtrAgtAcct not present -->
+  </CdtInstr>
+</FIDrctDbt>","If CreditorAgentAccount is present, then CreditorAgent must be present.","CreditorAgent is not present, requirement met","Should pass: CreditorAgent is not present, and CreditorAgentAccount is not present, so the rule is satisfied.",Pass,No,1,none,
+S002,pacs.010.001.06,CreditorAgentAccountRule,Hard rule,Covered,Negative,CreditInstruction/CreditorAgent (FIDrctDbt/CdtInstr/CdtrAgt) = Not present; CreditInstruction/CreditorAgentAccount (FIDrctDbt/CdtInstr/CdtrAgtAcct) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <CdtrAgtAcct>
+      <Id>
+        <IBAN>DE89370400440532013000</IBAN>
+      </Id>
+    </CdtrAgtAcct>
+    <!-- CdtrAgt not present -->
+  </CdtInstr>
+</FIDrctDbt>","If CreditorAgentAccount is present, then CreditorAgent must be present.","CreditorAgent is not present, but CreditorAgentAccount is present","Should fail: CreditorAgent is not present, so CreditorAgentAccount is not allowed, but CreditorAgentAccount is present.",Fail,No,1,remove CdtrAgtAcct,
+S003,pacs.010.001.06,CreditorAgentAccountRule,Hard rule,Covered,Not applicable,CreditInstruction/CreditorAgent (FIDrctDbt/CdtInstr/CdtrAgt) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <CdtrAgt>
+      <FinInstnId>
+        <BICFI>DEUTDEFFXXX</BICFI>
+      </FinInstnId>
+    </CdtrAgt>
+  </CdtInstr>
+</FIDrctDbt>","If CreditorAgentAccount is present, then CreditorAgent must be present.",CreditorAgent is present,"Should pass (rule not triggered): CreditorAgent is present, so there is nothing to check.",Pass,No,1,none,
+S004,pacs.010.001.06,IdentificationAndProxyGuideline,Guideline,Not covered,Manual needed,(not generated),,"If the account identification is not defined through a conventional identification such as an email address or a mobile number, then the proxy element should be used for the identification of the account.",Scenarios must be written manually,Guideline (advisory): write one compliant and one non-compliant case by hand. A broken guideline never fails a message.,n/a,Yes (if broken),,none (manual),See the coverage report for the reason.
+S005,pacs.010.001.06,IdentificationOrProxyPresenceRule,Hard rule,Covered,Positive,CreditorAccount/Identification (CdtInstr/CdtrAcct/Id) = Present; CreditorAccount/Proxy (CdtInstr/CdtrAcct/Prxy) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <CdtrAcct>
+      <Id>
+        <IBAN>DE89370400440532013000</IBAN>
+      </Id>
+      <!-- Prxy not present -->
+    </CdtrAcct>
+  </CdtInstr>
+</FIDrctDbt>",Identification must be present or Proxy must be present. Both may be present.,Identification is present or Proxy is present,"Should pass: Identification is present or Proxy is present, which satisfies the rule.",Pass,No,1,none,Rule applies to 7 place(s) in this message; shown for CdtrAcct.
+S006,pacs.010.001.06,IdentificationOrProxyPresenceRule,Hard rule,Covered,Positive,CreditorAccount/Identification (CdtInstr/CdtrAcct/Id) = Present; CreditorAccount/Proxy (CdtInstr/CdtrAcct/Prxy) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <CdtrAcct>
+      <Id>
+        <IBAN>DE89370400440532013000</IBAN>
+      </Id>
+      <!-- Prxy not present -->
+    </CdtrAcct>
+  </CdtInstr>
+</FIDrctDbt>",Identification must be present or Proxy must be present. Both may be present.,Only Identification present (one option is enough),"Should pass: at least one of Identification, Proxy must be present; Identification alone satisfies the rule and the other options are absent.",Pass,No,1,none,Rule applies to 7 place(s) in this message; shown for CdtrAcct.
+S007,pacs.010.001.06,IdentificationOrProxyPresenceRule,Hard rule,Covered,Positive,CreditorAccount/Proxy (CdtInstr/CdtrAcct/Prxy) = Present; CreditorAccount/Identification (CdtInstr/CdtrAcct/Id) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <CdtrAcct>
+      <Prxy>
+        <Id>ID-0001</Id>
+      </Prxy>
+      <!-- Id not present -->
+    </CdtrAcct>
+  </CdtInstr>
+</FIDrctDbt>",Identification must be present or Proxy must be present. Both may be present.,Only Proxy present (one option is enough),"Should pass: at least one of Identification, Proxy must be present; Proxy alone satisfies the rule and the other options are absent.",Pass,No,1,none,Rule applies to 7 place(s) in this message; shown for CdtrAcct.
+S008,pacs.010.001.06,IdentificationOrProxyPresenceRule,Hard rule,Covered,Positive,CreditorAccount/Identification (CdtInstr/CdtrAcct/Id) = Present; CreditorAccount/Proxy (CdtInstr/CdtrAcct/Prxy) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <CdtrAcct>
+      <Id>
+        <IBAN>DE89370400440532013000</IBAN>
+      </Id>
+      <Prxy>
+        <Id>ID-0001</Id>
+      </Prxy>
+    </CdtrAcct>
+  </CdtInstr>
+</FIDrctDbt>",Identification must be present or Proxy must be present. Both may be present.,All options present,Should pass: all of the options may be present together.,Pass,No,1,none,Rule applies to 7 place(s) in this message; shown for CdtrAcct.
+S009,pacs.010.001.06,IdentificationOrProxyPresenceRule,Hard rule,Covered,Negative,CreditorAccount/Identification (CdtInstr/CdtrAcct/Id) = Not present; CreditorAccount/Proxy (CdtInstr/CdtrAcct/Prxy) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <CdtrAcct>
+      <!-- Id not present -->
+      <!-- Prxy not present -->
+    </CdtrAcct>
+  </CdtInstr>
+</FIDrctDbt>",Identification must be present or Proxy must be present. Both may be present.,"none of these hold: Identification is present, Proxy is present","Should fail: at least one of Identification, Proxy must be present, but none of these hold: Identification is present, Proxy is present.",Fail,No,1,add Id,Rule applies to 7 place(s) in this message; shown for CdtrAcct.
+S010,pacs.010.001.06,InterbankSettlementDateRule,Hard rule,Covered,Positive,CreditInstruction/InterbankSettlementDate (FIDrctDbt/CdtInstr/IntrBkSttlmDt) = Present; DirectDebitTransactionInformation/InterbankSettlementDate (CdtInstr/DrctDbtTxInf/IntrBkSttlmDt) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <IntrBkSttlmDt>2026-11-14</IntrBkSttlmDt>
+    <DrctDbtTxInf>
+      <!-- IntrBkSttlmDt not present -->
+    </DrctDbtTxInf>
+  </CdtInstr>
+</FIDrctDbt>","If InterbankSettlementDate is present, then DirectDebitTransactionInformation/InterbankSettlementDate is not allowed.","InterbankSettlementDate is present, requirement met","Should pass: InterbankSettlementDate is present, and DirectDebitTransactionInformation/InterbankSettlementDate is not present, so the rule is satisfied.",Pass,No,1,none,
+S011,pacs.010.001.06,InterbankSettlementDateRule,Hard rule,Covered,Negative,CreditInstruction/InterbankSettlementDate (FIDrctDbt/CdtInstr/IntrBkSttlmDt) = Present; DirectDebitTransactionInformation/InterbankSettlementDate (CdtInstr/DrctDbtTxInf/IntrBkSttlmDt) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <IntrBkSttlmDt>2026-11-14</IntrBkSttlmDt>
+    <DrctDbtTxInf>
+      <IntrBkSttlmDt>2026-11-14</IntrBkSttlmDt>
+    </DrctDbtTxInf>
+  </CdtInstr>
+</FIDrctDbt>","If InterbankSettlementDate is present, then DirectDebitTransactionInformation/InterbankSettlementDate is not allowed.","InterbankSettlementDate is present, but DirectDebitTransactionInformation/InterbankSettlementDate is present","Should fail: InterbankSettlementDate is present, so DirectDebitTransactionInformation/InterbankSettlementDate is not allowed, but DirectDebitTransactionInformation/InterbankSettlementDate is present.",Fail,No,1,remove IntrBkSttlmDt,
+S012,pacs.010.001.06,InterbankSettlementDateRule,Hard rule,Covered,Not applicable,CreditInstruction/InterbankSettlementDate (FIDrctDbt/CdtInstr/IntrBkSttlmDt) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <!-- IntrBkSttlmDt not present -->
+  </CdtInstr>
+</FIDrctDbt>","If InterbankSettlementDate is present, then DirectDebitTransactionInformation/InterbankSettlementDate is not allowed.",InterbankSettlementDate is not present,"Should pass (rule not triggered): InterbankSettlementDate is not present, so there is nothing to check.",Pass,No,1,none,
+S013,pacs.010.001.06,IntermediaryAgent1AccountRule,Hard rule,Covered,Positive,CreditInstruction/IntermediaryAgent1 (FIDrctDbt/CdtInstr/IntrmyAgt1) = Not present; CreditInstruction/IntermediaryAgent1Account (FIDrctDbt/CdtInstr/IntrmyAgt1Acct) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <!-- IntrmyAgt1 not present -->
+    <!-- IntrmyAgt1Acct not present -->
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent1Account is present, then IntermediaryAgent1 must be present.","IntermediaryAgent1 is not present, requirement met","Should pass: IntermediaryAgent1 is not present, and IntermediaryAgent1Account is not present, so the rule is satisfied.",Pass,No,1,none,
+S014,pacs.010.001.06,IntermediaryAgent1AccountRule,Hard rule,Covered,Negative,CreditInstruction/IntermediaryAgent1 (FIDrctDbt/CdtInstr/IntrmyAgt1) = Not present; CreditInstruction/IntermediaryAgent1Account (FIDrctDbt/CdtInstr/IntrmyAgt1Acct) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <IntrmyAgt1Acct>
+      <Id>
+        <IBAN>DE89370400440532013000</IBAN>
+      </Id>
+    </IntrmyAgt1Acct>
+    <!-- IntrmyAgt1 not present -->
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent1Account is present, then IntermediaryAgent1 must be present.","IntermediaryAgent1 is not present, but IntermediaryAgent1Account is present","Should fail: IntermediaryAgent1 is not present, so IntermediaryAgent1Account is not allowed, but IntermediaryAgent1Account is present.",Fail,No,1,remove IntrmyAgt1Acct,
+S015,pacs.010.001.06,IntermediaryAgent1AccountRule,Hard rule,Covered,Not applicable,CreditInstruction/IntermediaryAgent1 (FIDrctDbt/CdtInstr/IntrmyAgt1) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <IntrmyAgt1>
+      <FinInstnId>
+        <BICFI>DEUTDEFFXXX</BICFI>
+      </FinInstnId>
+    </IntrmyAgt1>
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent1Account is present, then IntermediaryAgent1 must be present.",IntermediaryAgent1 is present,"Should pass (rule not triggered): IntermediaryAgent1 is present, so there is nothing to check.",Pass,No,1,none,
+S016,pacs.010.001.06,IntermediaryAgent1Rule,Hard rule,Covered,Positive,CreditInstruction/IntermediaryAgent1 (FIDrctDbt/CdtInstr/IntrmyAgt1) = Present; CreditInstruction/CreditorAgent (FIDrctDbt/CdtInstr/CdtrAgt) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <IntrmyAgt1>
+      <FinInstnId>
+        <BICFI>DEUTDEFFXXX</BICFI>
+      </FinInstnId>
+    </IntrmyAgt1>
+    <CdtrAgt>
+      <FinInstnId>
+        <BICFI>DEUTDEFFXXX</BICFI>
+      </FinInstnId>
+    </CdtrAgt>
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent1 is present, then CreditorAgent must be present.","IntermediaryAgent1 is present, requirement met","Should pass: IntermediaryAgent1 is present, and CreditorAgent is present, so the rule is satisfied.",Pass,No,1,none,
+S017,pacs.010.001.06,IntermediaryAgent1Rule,Hard rule,Covered,Negative,CreditInstruction/IntermediaryAgent1 (FIDrctDbt/CdtInstr/IntrmyAgt1) = Present; CreditInstruction/CreditorAgent (FIDrctDbt/CdtInstr/CdtrAgt) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <IntrmyAgt1>
+      <FinInstnId>
+        <BICFI>DEUTDEFFXXX</BICFI>
+      </FinInstnId>
+    </IntrmyAgt1>
+    <!-- CdtrAgt not present -->
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent1 is present, then CreditorAgent must be present.","IntermediaryAgent1 is present, but CreditorAgent is not present","Should fail: IntermediaryAgent1 is present, so CreditorAgent must be present, but CreditorAgent is not present.",Fail,No,1,add CdtrAgt,
+S018,pacs.010.001.06,IntermediaryAgent1Rule,Hard rule,Covered,Not applicable,CreditInstruction/IntermediaryAgent1 (FIDrctDbt/CdtInstr/IntrmyAgt1) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <!-- IntrmyAgt1 not present -->
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent1 is present, then CreditorAgent must be present.",IntermediaryAgent1 is not present,"Should pass (rule not triggered): IntermediaryAgent1 is not present, so there is nothing to check.",Pass,No,1,none,
+S019,pacs.010.001.06,IntermediaryAgent1Rule,Hard rule,Covered,Positive,CreditInstruction/IntermediaryAgent1 (FIDrctDbt/CdtInstr/IntrmyAgt1) = Not present; CreditInstruction/CreditorAgent (FIDrctDbt/CdtInstr/CdtrAgt) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <CdtrAgt>
+      <FinInstnId>
+        <BICFI>DEUTDEFFXXX</BICFI>
+      </FinInstnId>
+    </CdtrAgt>
+    <!-- IntrmyAgt1 not present -->
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent1 is present, then CreditorAgent must be present.",Only CreditorAgent present (no IntermediaryAgent1),Should pass: the rule only restricts the case where IntermediaryAgent1 is present; CreditorAgent is present on its own is allowed.,Pass,No,1,none,
+S020,pacs.010.001.06,IntermediaryAgent2AccountRule,Hard rule,Covered,Positive,CreditInstruction/IntermediaryAgent2 (FIDrctDbt/CdtInstr/IntrmyAgt2) = Not present; CreditInstruction/IntermediaryAgent2Account (FIDrctDbt/CdtInstr/IntrmyAgt2Acct) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <!-- IntrmyAgt2 not present -->
+    <!-- IntrmyAgt2Acct not present -->
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent2Account is present, then IntermediaryAgent2 must be present.","IntermediaryAgent2 is not present, requirement met","Should pass: IntermediaryAgent2 is not present, and IntermediaryAgent2Account is not present, so the rule is satisfied.",Pass,No,1,none,
+S021,pacs.010.001.06,IntermediaryAgent2AccountRule,Hard rule,Covered,Negative,CreditInstruction/IntermediaryAgent2 (FIDrctDbt/CdtInstr/IntrmyAgt2) = Not present; CreditInstruction/IntermediaryAgent2Account (FIDrctDbt/CdtInstr/IntrmyAgt2Acct) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <IntrmyAgt2Acct>
+      <Id>
+        <IBAN>DE89370400440532013000</IBAN>
+      </Id>
+    </IntrmyAgt2Acct>
+    <!-- IntrmyAgt2 not present -->
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent2Account is present, then IntermediaryAgent2 must be present.","IntermediaryAgent2 is not present, but IntermediaryAgent2Account is present","Should fail: IntermediaryAgent2 is not present, so IntermediaryAgent2Account is not allowed, but IntermediaryAgent2Account is present.",Fail,No,1,remove IntrmyAgt2Acct,
+S022,pacs.010.001.06,IntermediaryAgent2AccountRule,Hard rule,Covered,Not applicable,CreditInstruction/IntermediaryAgent2 (FIDrctDbt/CdtInstr/IntrmyAgt2) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <IntrmyAgt2>
+      <FinInstnId>
+        <BICFI>DEUTDEFFXXX</BICFI>
+      </FinInstnId>
+    </IntrmyAgt2>
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent2Account is present, then IntermediaryAgent2 must be present.",IntermediaryAgent2 is present,"Should pass (rule not triggered): IntermediaryAgent2 is present, so there is nothing to check.",Pass,No,1,none,
+S023,pacs.010.001.06,IntermediaryAgent2Rule,Hard rule,Covered,Positive,CreditInstruction/IntermediaryAgent2 (FIDrctDbt/CdtInstr/IntrmyAgt2) = Present; CreditInstruction/IntermediaryAgent1 (FIDrctDbt/CdtInstr/IntrmyAgt1) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <IntrmyAgt2>
+      <FinInstnId>
+        <BICFI>DEUTDEFFXXX</BICFI>
+      </FinInstnId>
+    </IntrmyAgt2>
+    <IntrmyAgt1>
+      <FinInstnId>
+        <BICFI>DEUTDEFFXXX</BICFI>
+      </FinInstnId>
+    </IntrmyAgt1>
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent2 is present, then IntermediaryAgent1 must be present.","IntermediaryAgent2 is present, requirement met","Should pass: IntermediaryAgent2 is present, and IntermediaryAgent1 is present, so the rule is satisfied.",Pass,No,1,none,
+S024,pacs.010.001.06,IntermediaryAgent2Rule,Hard rule,Covered,Negative,CreditInstruction/IntermediaryAgent2 (FIDrctDbt/CdtInstr/IntrmyAgt2) = Present; CreditInstruction/IntermediaryAgent1 (FIDrctDbt/CdtInstr/IntrmyAgt1) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <IntrmyAgt2>
+      <FinInstnId>
+        <BICFI>DEUTDEFFXXX</BICFI>
+      </FinInstnId>
+    </IntrmyAgt2>
+    <!-- IntrmyAgt1 not present -->
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent2 is present, then IntermediaryAgent1 must be present.","IntermediaryAgent2 is present, but IntermediaryAgent1 is not present","Should fail: IntermediaryAgent2 is present, so IntermediaryAgent1 must be present, but IntermediaryAgent1 is not present.",Fail,No,1,add IntrmyAgt1,
+S025,pacs.010.001.06,IntermediaryAgent2Rule,Hard rule,Covered,Not applicable,CreditInstruction/IntermediaryAgent2 (FIDrctDbt/CdtInstr/IntrmyAgt2) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <!-- IntrmyAgt2 not present -->
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent2 is present, then IntermediaryAgent1 must be present.",IntermediaryAgent2 is not present,"Should pass (rule not triggered): IntermediaryAgent2 is not present, so there is nothing to check.",Pass,No,1,none,
+S026,pacs.010.001.06,IntermediaryAgent2Rule,Hard rule,Covered,Positive,CreditInstruction/IntermediaryAgent2 (FIDrctDbt/CdtInstr/IntrmyAgt2) = Not present; CreditInstruction/IntermediaryAgent1 (FIDrctDbt/CdtInstr/IntrmyAgt1) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <IntrmyAgt1>
+      <FinInstnId>
+        <BICFI>DEUTDEFFXXX</BICFI>
+      </FinInstnId>
+    </IntrmyAgt1>
+    <!-- IntrmyAgt2 not present -->
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent2 is present, then IntermediaryAgent1 must be present.",Only IntermediaryAgent1 present (no IntermediaryAgent2),Should pass: the rule only restricts the case where IntermediaryAgent2 is present; IntermediaryAgent1 is present on its own is allowed.,Pass,No,1,none,
+S027,pacs.010.001.06,IntermediaryAgent3AccountRule,Hard rule,Covered,Positive,CreditInstruction/IntermediaryAgent3 (FIDrctDbt/CdtInstr/IntrmyAgt3) = Not present; CreditInstruction/IntermediaryAgent3Account (FIDrctDbt/CdtInstr/IntrmyAgt3Acct) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <!-- IntrmyAgt3 not present -->
+    <!-- IntrmyAgt3Acct not present -->
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent3Account is present, then IntermediaryAgent3 must be present.","IntermediaryAgent3 is not present, requirement met","Should pass: IntermediaryAgent3 is not present, and IntermediaryAgent3Account is not present, so the rule is satisfied.",Pass,No,1,none,
+S028,pacs.010.001.06,IntermediaryAgent3AccountRule,Hard rule,Covered,Negative,CreditInstruction/IntermediaryAgent3 (FIDrctDbt/CdtInstr/IntrmyAgt3) = Not present; CreditInstruction/IntermediaryAgent3Account (FIDrctDbt/CdtInstr/IntrmyAgt3Acct) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <IntrmyAgt3Acct>
+      <Id>
+        <IBAN>DE89370400440532013000</IBAN>
+      </Id>
+    </IntrmyAgt3Acct>
+    <!-- IntrmyAgt3 not present -->
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent3Account is present, then IntermediaryAgent3 must be present.","IntermediaryAgent3 is not present, but IntermediaryAgent3Account is present","Should fail: IntermediaryAgent3 is not present, so IntermediaryAgent3Account is not allowed, but IntermediaryAgent3Account is present.",Fail,No,1,remove IntrmyAgt3Acct,
+S029,pacs.010.001.06,IntermediaryAgent3AccountRule,Hard rule,Covered,Not applicable,CreditInstruction/IntermediaryAgent3 (FIDrctDbt/CdtInstr/IntrmyAgt3) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <IntrmyAgt3>
+      <FinInstnId>
+        <BICFI>DEUTDEFFXXX</BICFI>
+      </FinInstnId>
+    </IntrmyAgt3>
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent3Account is present, then IntermediaryAgent3 must be present.",IntermediaryAgent3 is present,"Should pass (rule not triggered): IntermediaryAgent3 is present, so there is nothing to check.",Pass,No,1,none,
+S030,pacs.010.001.06,IntermediaryAgent3Rule,Hard rule,Covered,Positive,CreditInstruction/IntermediaryAgent3 (FIDrctDbt/CdtInstr/IntrmyAgt3) = Present; CreditInstruction/IntermediaryAgent2 (FIDrctDbt/CdtInstr/IntrmyAgt2) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <IntrmyAgt3>
+      <FinInstnId>
+        <BICFI>DEUTDEFFXXX</BICFI>
+      </FinInstnId>
+    </IntrmyAgt3>
+    <IntrmyAgt2>
+      <FinInstnId>
+        <BICFI>DEUTDEFFXXX</BICFI>
+      </FinInstnId>
+    </IntrmyAgt2>
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent3 is present, then IntermediaryAgent2 must be present.","IntermediaryAgent3 is present, requirement met","Should pass: IntermediaryAgent3 is present, and IntermediaryAgent2 is present, so the rule is satisfied.",Pass,No,1,none,
+S031,pacs.010.001.06,IntermediaryAgent3Rule,Hard rule,Covered,Negative,CreditInstruction/IntermediaryAgent3 (FIDrctDbt/CdtInstr/IntrmyAgt3) = Present; CreditInstruction/IntermediaryAgent2 (FIDrctDbt/CdtInstr/IntrmyAgt2) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <IntrmyAgt3>
+      <FinInstnId>
+        <BICFI>DEUTDEFFXXX</BICFI>
+      </FinInstnId>
+    </IntrmyAgt3>
+    <!-- IntrmyAgt2 not present -->
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent3 is present, then IntermediaryAgent2 must be present.","IntermediaryAgent3 is present, but IntermediaryAgent2 is not present","Should fail: IntermediaryAgent3 is present, so IntermediaryAgent2 must be present, but IntermediaryAgent2 is not present.",Fail,No,1,add IntrmyAgt2,
+S032,pacs.010.001.06,IntermediaryAgent3Rule,Hard rule,Covered,Not applicable,CreditInstruction/IntermediaryAgent3 (FIDrctDbt/CdtInstr/IntrmyAgt3) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <!-- IntrmyAgt3 not present -->
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent3 is present, then IntermediaryAgent2 must be present.",IntermediaryAgent3 is not present,"Should pass (rule not triggered): IntermediaryAgent3 is not present, so there is nothing to check.",Pass,No,1,none,
+S033,pacs.010.001.06,IntermediaryAgent3Rule,Hard rule,Covered,Positive,CreditInstruction/IntermediaryAgent3 (FIDrctDbt/CdtInstr/IntrmyAgt3) = Not present; CreditInstruction/IntermediaryAgent2 (FIDrctDbt/CdtInstr/IntrmyAgt2) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <IntrmyAgt2>
+      <FinInstnId>
+        <BICFI>DEUTDEFFXXX</BICFI>
+      </FinInstnId>
+    </IntrmyAgt2>
+    <!-- IntrmyAgt3 not present -->
+  </CdtInstr>
+</FIDrctDbt>","If IntermediaryAgent3 is present, then IntermediaryAgent2 must be present.",Only IntermediaryAgent2 present (no IntermediaryAgent3),Should pass: the rule only restricts the case where IntermediaryAgent3 is present; IntermediaryAgent2 is present on its own is allowed.,Pass,No,1,none,
+S034,pacs.010.001.06,PaymentTypeInformationRule,Hard rule,Covered,Positive,CreditInstruction/PaymentTypeInformation (FIDrctDbt/CdtInstr/PmtTpInf) = Present; DirectDebitTransactionInformation/PaymentTypeInformation (CdtInstr/DrctDbtTxInf/PmtTpInf) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <PmtTpInf>
+      <InstrPrty>HIGH</InstrPrty>
+    </PmtTpInf>
+    <DrctDbtTxInf>
+      <!-- PmtTpInf not present -->
+    </DrctDbtTxInf>
+  </CdtInstr>
+</FIDrctDbt>","If PaymentTypeInformation is present, then DirectDebitTransactionInformation/PaymentTypeInformation is not allowed.","PaymentTypeInformation is present, requirement met","Should pass: PaymentTypeInformation is present, and DirectDebitTransactionInformation/PaymentTypeInformation is not present, so the rule is satisfied.",Pass,No,1,none,
+S035,pacs.010.001.06,PaymentTypeInformationRule,Hard rule,Covered,Negative,CreditInstruction/PaymentTypeInformation (FIDrctDbt/CdtInstr/PmtTpInf) = Present; DirectDebitTransactionInformation/PaymentTypeInformation (CdtInstr/DrctDbtTxInf/PmtTpInf) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <PmtTpInf>
+      <InstrPrty>HIGH</InstrPrty>
+    </PmtTpInf>
+    <DrctDbtTxInf>
+      <PmtTpInf>
+        <InstrPrty>HIGH</InstrPrty>
+      </PmtTpInf>
+    </DrctDbtTxInf>
+  </CdtInstr>
+</FIDrctDbt>","If PaymentTypeInformation is present, then DirectDebitTransactionInformation/PaymentTypeInformation is not allowed.","PaymentTypeInformation is present, but DirectDebitTransactionInformation/PaymentTypeInformation is present","Should fail: PaymentTypeInformation is present, so DirectDebitTransactionInformation/PaymentTypeInformation is not allowed, but DirectDebitTransactionInformation/PaymentTypeInformation is present.",Fail,No,1,remove PmtTpInf,
+S036,pacs.010.001.06,PaymentTypeInformationRule,Hard rule,Covered,Not applicable,CreditInstruction/PaymentTypeInformation (FIDrctDbt/CdtInstr/PmtTpInf) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <!-- PmtTpInf not present -->
+  </CdtInstr>
+</FIDrctDbt>","If PaymentTypeInformation is present, then DirectDebitTransactionInformation/PaymentTypeInformation is not allowed.",PaymentTypeInformation is not present,"Should pass (rule not triggered): PaymentTypeInformation is not present, so there is nothing to check.",Pass,No,1,none,
+S037,pacs.010.001.06,SupplementaryDataRule,Hard rule,Not covered,Manual needed,(not generated),,This component may not be used without the explicit approval of a SEG and submission to the RA of ISO 20022 compliant structure(s) to be used in the Envelope element.,Scenarios must be written manually,Rule is free text only: write the valid and invalid cases by hand.,n/a,No,,none (manual),See the coverage report for the reason.
+S038,pacs.010.001.06,TotalInterbankSettlementAmountAndSumRule,Hard rule,Not covered,Manual needed,(not generated),,"If TotalInterbankSettlementAmount is present, then it must equal the sum of all occurrences of DirectDebitTransactionInformation/InterbankSettlementAmount.",Scenarios must be written manually,Rule is free text only: write the valid and invalid cases by hand.,n/a,No,,none (manual),See the coverage report for the reason.
+S039,pacs.010.001.06,TotalInterbankSettlementAmountRule,Hard rule,Not covered,Manual needed,(not generated),,"If CreditInformation/TotalInterbankSettlementAmount is present, then all occurrences of DirectDebitTransactionInformation/InterbankSettlementAmount must have the same currency as the currency of CreditInformation/TotalInterbankSettlementAmount.",Scenarios must be written manually,Rule is free text only: write the valid and invalid cases by hand.,n/a,No,,none (manual),See the coverage report for the reason.
+S040,pacs.010.001.06,TransactionIdentificationPresenceRule,Hard rule,Covered,Positive,PaymentIdentification/TransactionIdentification (DrctDbtTxInf/PmtId/TxId) = Present; PaymentIdentification/UETR (DrctDbtTxInf/PmtId/UETR) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <DrctDbtTxInf>
+      <PmtId>
+        <TxId>TX-0001</TxId>
+        <!-- UETR not present -->
+      </PmtId>
+    </DrctDbtTxInf>
+  </CdtInstr>
+</FIDrctDbt>",TransactionIdentification or UETR must be present. Both may be present,TransactionIdentification is present or UETR is present,"Should pass: TransactionIdentification is present or UETR is present, which satisfies the rule.",Pass,No,1,none,
+S041,pacs.010.001.06,TransactionIdentificationPresenceRule,Hard rule,Covered,Positive,PaymentIdentification/TransactionIdentification (DrctDbtTxInf/PmtId/TxId) = Present; PaymentIdentification/UETR (DrctDbtTxInf/PmtId/UETR) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <DrctDbtTxInf>
+      <PmtId>
+        <TxId>TX-0001</TxId>
+        <!-- UETR not present -->
+      </PmtId>
+    </DrctDbtTxInf>
+  </CdtInstr>
+</FIDrctDbt>",TransactionIdentification or UETR must be present. Both may be present,Only TransactionIdentification present (one option is enough),"Should pass: at least one of TransactionIdentification, UETR must be present; TransactionIdentification alone satisfies the rule and the other options are absent.",Pass,No,1,none,
+S042,pacs.010.001.06,TransactionIdentificationPresenceRule,Hard rule,Covered,Positive,PaymentIdentification/UETR (DrctDbtTxInf/PmtId/UETR) = Present; PaymentIdentification/TransactionIdentification (DrctDbtTxInf/PmtId/TxId) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <DrctDbtTxInf>
+      <PmtId>
+        <UETR>97ed4827-7b6f-4491-a06f-b548d5a7512d</UETR>
+        <!-- TxId not present -->
+      </PmtId>
+    </DrctDbtTxInf>
+  </CdtInstr>
+</FIDrctDbt>",TransactionIdentification or UETR must be present. Both may be present,Only UETR present (one option is enough),"Should pass: at least one of TransactionIdentification, UETR must be present; UETR alone satisfies the rule and the other options are absent.",Pass,No,1,none,
+S043,pacs.010.001.06,TransactionIdentificationPresenceRule,Hard rule,Covered,Positive,PaymentIdentification/TransactionIdentification (DrctDbtTxInf/PmtId/TxId) = Present; PaymentIdentification/UETR (DrctDbtTxInf/PmtId/UETR) = Present,"<FIDrctDbt>
+  <CdtInstr>
+    <DrctDbtTxInf>
+      <PmtId>
+        <TxId>TX-0001</TxId>
+        <UETR>97ed4827-7b6f-4491-a06f-b548d5a7512d</UETR>
+      </PmtId>
+    </DrctDbtTxInf>
+  </CdtInstr>
+</FIDrctDbt>",TransactionIdentification or UETR must be present. Both may be present,All options present,Should pass: all of the options may be present together.,Pass,No,1,none,
+S044,pacs.010.001.06,TransactionIdentificationPresenceRule,Hard rule,Covered,Negative,PaymentIdentification/TransactionIdentification (DrctDbtTxInf/PmtId/TxId) = Not present; PaymentIdentification/UETR (DrctDbtTxInf/PmtId/UETR) = Not present,"<FIDrctDbt>
+  <CdtInstr>
+    <DrctDbtTxInf>
+      <PmtId>
+        <!-- TxId not present -->
+        <!-- UETR not present -->
+      </PmtId>
+    </DrctDbtTxInf>
+  </CdtInstr>
+</FIDrctDbt>",TransactionIdentification or UETR must be present. Both may be present,"none of these hold: TransactionIdentification is present, UETR is present","Should fail: at least one of TransactionIdentification, UETR must be present, but none of these hold: TransactionIdentification is present, UETR is present.",Fail,No,1,add TxId,
+S045,pacs.010.001.06,UltimateCreditorGuideline,Guideline,Not covered,Manual needed,(not generated),,UltimateCreditor may only be present if different from Creditor.,Scenarios must be written manually,Guideline (advisory): write one compliant and one non-compliant case by hand. A broken guideline never fails a message.,n/a,Yes (if broken),,none (manual),See the coverage report for the reason.
+S046,pacs.010.001.06,UltimateDebtorGuideline,Guideline,Not covered,Manual needed,(not generated),,UltimateDebtor may only be present if different from Debtor.,Scenarios must be written manually,Guideline (advisory): write one compliant and one non-compliant case by hand. A broken guideline never fails a message.,n/a,Yes (if broken),,none (manual),See the coverage report for the reason.
+S047,pacs.010.001.06,ActiveCurrency,Base-type constraint,Value-level (see value-constraints report),Value check,Currency = EUR,"<Amt Ccy=""EUR"">15250.00</Amt>","The currency code must be a valid active currency code, not yet withdrawn on the day the message containing the currency is exchanged. Valid active currency codes are registered with the ISO 4217 Maintenance Agency, consist of three (3) contiguous letters, and are not yet withdrawn on the day the me",Valid ISO 4217 currency (EUR),Should pass: EUR is a valid active currency code.,Pass,No,1,none,Needs the ISO 4217 list
+S048,pacs.010.001.06,ActiveCurrency,Base-type constraint,Value-level (see value-constraints report),Value check,Currency = XXZ,"<Amt Ccy=""XXZ"">15250.00</Amt>","The currency code must be a valid active currency code, not yet withdrawn on the day the message containing the currency is exchanged. Valid active currency codes are registered with the ISO 4217 Maintenance Agency, consist of three (3) contiguous letters, and are not yet withdrawn on the day the me",Pattern-valid but unknown currency (XXZ),"Should fail: three capital letters pass the XSD, but XXZ is not an ISO 4217 currency.",Fail,No,1,set a valid value,Needs the ISO 4217 list
+S049,pacs.010.001.06,ActiveOrHistoricCurrency,Base-type constraint,Value-level (see value-constraints report),Value check,Currency = EUR,"<Amt Ccy=""EUR"">15250.00</Amt>","The Currency Code must be registered, or have already been registered. Valid active or historic currency codes are registered with the ISO 4217 Maintenance Agency, consist of three (3) contiguous letters, and may be or not be withdrawn on the day the message containing the Currency is exchanged.",Valid ISO 4217 currency (EUR),Should pass: EUR is a valid active currency code.,Pass,No,1,none,Needs the ISO 4217 list
+S050,pacs.010.001.06,ActiveOrHistoricCurrency,Base-type constraint,Value-level (see value-constraints report),Value check,Currency = XXZ,"<Amt Ccy=""XXZ"">15250.00</Amt>","The Currency Code must be registered, or have already been registered. Valid active or historic currency codes are registered with the ISO 4217 Maintenance Agency, consist of three (3) contiguous letters, and may be or not be withdrawn on the day the message containing the Currency is exchanged.",Pattern-valid but unknown currency (XXZ),"Should fail: three capital letters pass the XSD, but XXZ is not an ISO 4217 currency.",Fail,No,1,set a valid value,Needs the ISO 4217 list
+S051,pacs.010.001.06,BICFI,Base-type constraint,Value-level (see value-constraints report),Value check,BICFI = DEUTDEFFXXX,<BICFI>DEUTDEFFXXX</BICFI>,"Valid BICs for financial institutions are registered and published by the ISO 9362 Registration Authority in the ISO directory of BICs, and consist of eight (8) or eleven (11) contiguous characters.",BIC with correct structure,Should pass: 11-character BIC in the right format.,Pass,No,1,none,Structure only; registry not checked
+S052,pacs.010.001.06,BICFI,Base-type constraint,Value-level (see value-constraints report),Value check,BICFI = DEUTDEF,<BICFI>DEUTDEF</BICFI>,"Valid BICs for financial institutions are registered and published by the ISO 9362 Registration Authority in the ISO directory of BICs, and consist of eight (8) or eleven (11) contiguous characters.",BIC with wrong structure (7 characters),Should fail: a BIC has 8 or 11 characters.,Fail,No,1,set a valid value,XSD pattern
+S053,pacs.010.001.06,Country,Base-type constraint,Value-level (see value-constraints report),Value check,Country = DE,<Ctry>DE</Ctry>,"The code is checked against the list of country names obtained from the United Nations (ISO 3166, Alpha-2 code).",Valid ISO 3166 country (DE),Should pass: DE is a valid country code.,Pass,No,1,none,Needs the ISO 3166 list
+S054,pacs.010.001.06,Country,Base-type constraint,Value-level (see value-constraints report),Value check,Country = ZZ,<Ctry>ZZ</Ctry>,"The code is checked against the list of country names obtained from the United Nations (ISO 3166, Alpha-2 code).",Pattern-valid but unassigned country (ZZ),"Should fail: two capital letters pass the XSD, but ZZ is not an assigned ISO 3166 code.",Fail,No,1,set a valid value,Needs the ISO 3166 list
+S055,pacs.010.001.06,CurrencyAmount,Base-type constraint,Value-level (see value-constraints report),Value check,Amount = JPY 15250,"<Amt Ccy=""JPY"">15250</Amt>",The number of fractional digits (or minor unit of currency) must comply with ISO 4217. Note: The decimal separator is a dot.,JPY amount with no decimals,Should pass: JPY has 0 minor units.,Pass,No,1,none,Needs fraction digits per currency
+S056,pacs.010.001.06,CurrencyAmount,Base-type constraint,Value-level (see value-constraints report),Value check,Amount = JPY 15250.50,"<Amt Ccy=""JPY"">15250.50</Amt>",The number of fractional digits (or minor unit of currency) must comply with ISO 4217. Note: The decimal separator is a dot.,JPY amount with 2 decimals,Should fail: JPY allows no fractional digits.,Fail,No,1,set a valid value,Needs fraction digits per currency
+S057,pacs.010.001.06,IBAN,Base-type constraint,Value-level (see value-constraints report),Value check,IBAN = DE89370400440532013000,<IBAN>DE89370400440532013000</IBAN>,"A valid IBAN consists of all three of the following components: Country Code, check digits and BBAN.",IBAN with correct check digits,Should pass: structure and check digits are valid.,Pass,No,1,none,Check digits computable (mod-97)
+S058,pacs.010.001.06,IBAN,Base-type constraint,Value-level (see value-constraints report),Value check,IBAN = DE00370400440532013000,<IBAN>DE00370400440532013000</IBAN>,"A valid IBAN consists of all three of the following components: Country Code, check digits and BBAN.",Pattern-valid IBAN with wrong check digits,Should fail: the XSD pattern passes but the mod-97 check digits are wrong.,Fail,No,1,set a valid value,Check digits computable (mod-97)

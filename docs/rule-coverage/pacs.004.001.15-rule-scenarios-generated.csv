@@ -1,0 +1,1288 @@
+﻿Scenario ID,Message,Rule name,Rule type,Coverage (rule coverage report),Scenario Type,Fields/sections included,Sample data (XML fragment),"Scenario Description (rule text, MDR PDF)",What this scenario tests,"Expected outcome, why?",Expected result (Pass/Fail),Advisory warning raised,Occurrences,Expected generator action,Notes
+S001,pacs.004.001.15,AmendmentIndicatorFalseRule,Hard rule,Covered,Positive,DirectDebitMandate/AmendmentIndicator (MndtRltdInf/DrctDbtMndt/AmdmntInd) = false; DirectDebitMandate/AmendmentInformationDetails (MndtRltdInf/DrctDbtMndt/AmdmntInfDtls) = Not present,"<PmtRtr>
+  <TxInf>
+    <OrgnlTxRef>
+      <MndtRltdInf>
+        <DrctDbtMndt>
+          <AmdmntInd>false</AmdmntInd>
+          <!-- AmdmntInfDtls not present -->
+        </DrctDbtMndt>
+      </MndtRltdInf>
+    </OrgnlTxRef>
+  </TxInf>
+</PmtRtr>","If AmendmentIndicator is false, then AmendmentInformationDetails is not allowed.","AmendmentIndicator is false, requirement met","Should pass: AmendmentIndicator is false, and AmendmentInformationDetails is not present, so the rule is satisfied.",Pass,No,1,none,
+S002,pacs.004.001.15,AmendmentIndicatorFalseRule,Hard rule,Covered,Negative,DirectDebitMandate/AmendmentIndicator (MndtRltdInf/DrctDbtMndt/AmdmntInd) = false; DirectDebitMandate/AmendmentInformationDetails (MndtRltdInf/DrctDbtMndt/AmdmntInfDtls) = Present,"<PmtRtr>
+  <TxInf>
+    <OrgnlTxRef>
+      <MndtRltdInf>
+        <DrctDbtMndt>
+          <AmdmntInd>false</AmdmntInd>
+          <AmdmntInfDtls>
+            <OrgnlMndtId>Sample OrgnlMndtId</OrgnlMndtId>
+          </AmdmntInfDtls>
+        </DrctDbtMndt>
+      </MndtRltdInf>
+    </OrgnlTxRef>
+  </TxInf>
+</PmtRtr>","If AmendmentIndicator is false, then AmendmentInformationDetails is not allowed.","AmendmentIndicator is false, but AmendmentInformationDetails is present","Should fail: AmendmentIndicator is false, so AmendmentInformationDetails is not allowed, but AmendmentInformationDetails is present.",Fail,No,1,remove AmdmntInfDtls,
+S003,pacs.004.001.15,AmendmentIndicatorFalseRule,Hard rule,Covered,Not applicable,DirectDebitMandate/AmendmentIndicator (MndtRltdInf/DrctDbtMndt/AmdmntInd) = XXXX,"<PmtRtr>
+  <TxInf>
+    <OrgnlTxRef>
+      <MndtRltdInf>
+        <DrctDbtMndt>
+          <AmdmntInd>XXXX</AmdmntInd>
+        </DrctDbtMndt>
+      </MndtRltdInf>
+    </OrgnlTxRef>
+  </TxInf>
+</PmtRtr>","If AmendmentIndicator is false, then AmendmentInformationDetails is not allowed.",AmendmentIndicator is not false,"Should pass (rule not triggered): AmendmentIndicator is not false, so there is nothing to check.",Pass,No,1,none,
+S004,pacs.004.001.15,AmendmentIndicatorTrueRule,Hard rule,Covered,Positive,DirectDebitMandate/AmendmentIndicator (MndtRltdInf/DrctDbtMndt/AmdmntInd) = true; DirectDebitMandate/AmendmentInformationDetails (MndtRltdInf/DrctDbtMndt/AmdmntInfDtls) = Present,"<PmtRtr>
+  <TxInf>
+    <OrgnlTxRef>
+      <MndtRltdInf>
+        <DrctDbtMndt>
+          <AmdmntInd>true</AmdmntInd>
+          <AmdmntInfDtls>
+            <OrgnlMndtId>Sample OrgnlMndtId</OrgnlMndtId>
+          </AmdmntInfDtls>
+        </DrctDbtMndt>
+      </MndtRltdInf>
+    </OrgnlTxRef>
+  </TxInf>
+</PmtRtr>","If AmendmentIndicator is true, then AmendmentInformationDetails must be present.","AmendmentIndicator is true, requirement met","Should pass: AmendmentIndicator is true, and AmendmentInformationDetails is present, so the rule is satisfied.",Pass,No,1,none,
+S005,pacs.004.001.15,AmendmentIndicatorTrueRule,Hard rule,Covered,Negative,DirectDebitMandate/AmendmentIndicator (MndtRltdInf/DrctDbtMndt/AmdmntInd) = true; DirectDebitMandate/AmendmentInformationDetails (MndtRltdInf/DrctDbtMndt/AmdmntInfDtls) = Not present,"<PmtRtr>
+  <TxInf>
+    <OrgnlTxRef>
+      <MndtRltdInf>
+        <DrctDbtMndt>
+          <AmdmntInd>true</AmdmntInd>
+          <!-- AmdmntInfDtls not present -->
+        </DrctDbtMndt>
+      </MndtRltdInf>
+    </OrgnlTxRef>
+  </TxInf>
+</PmtRtr>","If AmendmentIndicator is true, then AmendmentInformationDetails must be present.","AmendmentIndicator is true, but AmendmentInformationDetails is not present","Should fail: AmendmentIndicator is true, so AmendmentInformationDetails must be present, but AmendmentInformationDetails is not present.",Fail,No,1,add AmdmntInfDtls,
+S006,pacs.004.001.15,AmendmentIndicatorTrueRule,Hard rule,Covered,Not applicable,DirectDebitMandate/AmendmentIndicator (MndtRltdInf/DrctDbtMndt/AmdmntInd) = XXXX,"<PmtRtr>
+  <TxInf>
+    <OrgnlTxRef>
+      <MndtRltdInf>
+        <DrctDbtMndt>
+          <AmdmntInd>XXXX</AmdmntInd>
+        </DrctDbtMndt>
+      </MndtRltdInf>
+    </OrgnlTxRef>
+  </TxInf>
+</PmtRtr>","If AmendmentIndicator is true, then AmendmentInformationDetails must be present.",AmendmentIndicator is not true,"Should pass (rule not triggered): AmendmentIndicator is not true, so there is nothing to check.",Pass,No,1,none,
+S007,pacs.004.001.15,ChargesInformationAndReturnedInstructedAmountRule,Hard rule,Covered,Positive,TransactionInformation/ChargesInformation (PmtRtr/TxInf/ChrgsInf) = Present; ChargesInformation/Amount (TxInf/ChrgsInf/Amt) = Present; TransactionInformation/ReturnedInstructedAmount (PmtRtr/TxInf/RtrdInstdAmt) = Present,"<PmtRtr>
+  <TxInf>
+    <ChrgsInf>
+      <Amt Ccy=""EUR"">15250.00</Amt>
+    </ChrgsInf>
+    <RtrdInstdAmt Ccy=""EUR"">15250.00</RtrdInstdAmt>
+  </TxInf>
+</PmtRtr>","If ChargesInformation is present, then ReturnedInstructedAmount must be present.","ChargesInformation is present and ChargesInformation/Amount is present, requirement met","Should pass: ChargesInformation is present and ChargesInformation/Amount is present, and ReturnedInstructedAmount is present, so the rule is satisfied.",Pass,No,1,none,
+S008,pacs.004.001.15,ChargesInformationAndReturnedInstructedAmountRule,Hard rule,Covered,Negative,TransactionInformation/ChargesInformation (PmtRtr/TxInf/ChrgsInf) = Present; ChargesInformation/Amount (TxInf/ChrgsInf/Amt) = Present; TransactionInformation/ReturnedInstructedAmount (PmtRtr/TxInf/RtrdInstdAmt) = Not present,"<PmtRtr>
+  <TxInf>
+    <ChrgsInf>
+      <Amt Ccy=""EUR"">15250.00</Amt>
+    </ChrgsInf>
+    <!-- RtrdInstdAmt not present -->
+  </TxInf>
+</PmtRtr>","If ChargesInformation is present, then ReturnedInstructedAmount must be present.","ChargesInformation is present and ChargesInformation/Amount is present, but ReturnedInstructedAmount is not present","Should fail: ChargesInformation is present and ChargesInformation/Amount is present, so ReturnedInstructedAmount must be present, but ReturnedInstructedAmount is not present.",Fail,No,1,add RtrdInstdAmt,
+S009,pacs.004.001.15,ChargesInformationAndReturnedInstructedAmountRule,Hard rule,Covered,Not applicable,TransactionInformation/ChargesInformation (PmtRtr/TxInf/ChrgsInf) = Not present,"<PmtRtr>
+  <TxInf>
+    <!-- ChrgsInf not present -->
+  </TxInf>
+</PmtRtr>","If ChargesInformation is present, then ReturnedInstructedAmount must be present.",ChargesInformation is not present,"Should pass (rule not triggered): ChargesInformation is not present, so there is nothing to check.",Pass,No,1,none,
+S010,pacs.004.001.15,ChargesInformationAndReturnedInstructedAmountRule,Hard rule,Covered,Not applicable,ChargesInformation/Amount (TxInf/ChrgsInf/Amt) = Not present,"<PmtRtr>
+  <TxInf>
+    <ChrgsInf>
+      <!-- Amt not present -->
+    </ChrgsInf>
+  </TxInf>
+</PmtRtr>","If ChargesInformation is present, then ReturnedInstructedAmount must be present.",ChargesInformation/Amount is not present,"Should pass (rule not triggered): ChargesInformation/Amount is not present, so there is nothing to check.",Pass,No,1,none,
+S011,pacs.004.001.15,ChargesInformationAndReturnedInstructedAmountRule,Hard rule,Covered,Positive,TransactionInformation/ChargesInformation (PmtRtr/TxInf/ChrgsInf) = Present x3; ChargesInformation/Amount (TxInf/ChrgsInf/Amt) = Present; TransactionInformation/ReturnedInstructedAmount (PmtRtr/TxInf/RtrdInstdAmt) = Present,"<PmtRtr>
+  <TxInf>
+    <ChrgsInf>
+      <Amt Ccy=""EUR"">15250.00</Amt>
+    </ChrgsInf>
+    <ChrgsInf/>
+    <ChrgsInf/>
+    <RtrdInstdAmt Ccy=""EUR"">15250.00</RtrdInstdAmt>
+  </TxInf>
+</PmtRtr>","If ChargesInformation is present, then ReturnedInstructedAmount must be present.","ChrgsInf repeated 3 times, requirement met",Should pass: ChrgsInf appears 3 times and the rule is satisfied for every occurrence.,Pass,No,ChrgsInf x3,none,
+S012,pacs.004.001.15,ChargesInformationAndReturnedInstructedAmountRule,Hard rule,Covered,Negative,TransactionInformation/ChargesInformation (PmtRtr/TxInf/ChrgsInf) = Present x3; ChargesInformation/Amount (TxInf/ChrgsInf/Amt) = Present; TransactionInformation/ReturnedInstructedAmount (PmtRtr/TxInf/RtrdInstdAmt) = Not present,"<PmtRtr>
+  <TxInf>
+    <ChrgsInf>
+      <Amt Ccy=""EUR"">15250.00</Amt>
+    </ChrgsInf>
+    <ChrgsInf/>
+    <ChrgsInf/>
+    <!-- RtrdInstdAmt not present -->
+  </TxInf>
+</PmtRtr>","If ChargesInformation is present, then ReturnedInstructedAmount must be present.","ChrgsInf repeated 3 times, requirement not met",Should fail: ChrgsInf appears 3 times but ReturnedInstructedAmount must be present is not satisfied.,Fail,No,ChrgsInf x3,add RtrdInstdAmt,
+S013,pacs.004.001.15,ControlSumAndGroupReturnRule,Hard rule,Covered,Positive,GroupHeader/GroupReturn (PmtRtr/GrpHdr/GrpRtr) = true; GroupHeader/ControlSum (PmtRtr/GrpHdr/CtrlSum) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <GrpRtr>true</GrpRtr>
+    <!-- CtrlSum not present -->
+  </GrpHdr>
+</PmtRtr>","If GroupReturn is true, then ControlSum is not allowed.","GroupReturn is present and GroupReturn is true, requirement met","Should pass: GroupReturn is present and GroupReturn is true, and ControlSum is not present, so the rule is satisfied.",Pass,No,1,none,
+S014,pacs.004.001.15,ControlSumAndGroupReturnRule,Hard rule,Covered,Negative,GroupHeader/GroupReturn (PmtRtr/GrpHdr/GrpRtr) = true; GroupHeader/ControlSum (PmtRtr/GrpHdr/CtrlSum) = Present,"<PmtRtr>
+  <GrpHdr>
+    <GrpRtr>true</GrpRtr>
+    <CtrlSum>15250.00</CtrlSum>
+  </GrpHdr>
+</PmtRtr>","If GroupReturn is true, then ControlSum is not allowed.","GroupReturn is present and GroupReturn is true, but ControlSum is present","Should fail: GroupReturn is present and GroupReturn is true, so ControlSum is not allowed, but ControlSum is present.",Fail,No,1,remove CtrlSum,
+S015,pacs.004.001.15,ControlSumAndGroupReturnRule,Hard rule,Covered,Not applicable,GroupHeader/GroupReturn (PmtRtr/GrpHdr/GrpRtr) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <!-- GrpRtr not present -->
+  </GrpHdr>
+</PmtRtr>","If GroupReturn is true, then ControlSum is not allowed.",GroupReturn is not present,"Should pass (rule not triggered): GroupReturn is not present, so there is nothing to check.",Pass,No,1,none,
+S016,pacs.004.001.15,ControlSumAndGroupReturnRule,Hard rule,Covered,Not applicable,GroupHeader/GroupReturn (PmtRtr/GrpHdr/GrpRtr) = XXXX,"<PmtRtr>
+  <GrpHdr>
+    <GrpRtr>XXXX</GrpRtr>
+  </GrpHdr>
+</PmtRtr>","If GroupReturn is true, then ControlSum is not allowed.",GroupReturn is not true,"Should pass (rule not triggered): GroupReturn is not true, so there is nothing to check.",Pass,No,1,none,
+S017,pacs.004.001.15,CreditorAgentAccountRule,Hard rule,Covered,Positive,ReturnChain/CreditorAgent (TxInf/RtrChain/CdtrAgt) = Not present; ReturnChain/CreditorAgentAccount (TxInf/RtrChain/CdtrAgtAcct) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <!-- CdtrAgt not present -->
+      <!-- CdtrAgtAcct not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If CreditorAgentAccount is present, then CreditorAgent must be present.","CreditorAgent is not present, requirement met","Should pass: CreditorAgent is not present, and CreditorAgentAccount is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 4 place(s) in this message; shown for RtrChain.
+S018,pacs.004.001.15,CreditorAgentAccountRule,Hard rule,Covered,Negative,ReturnChain/CreditorAgent (TxInf/RtrChain/CdtrAgt) = Not present; ReturnChain/CreditorAgentAccount (TxInf/RtrChain/CdtrAgtAcct) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <CdtrAgtAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </CdtrAgtAcct>
+      <!-- CdtrAgt not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If CreditorAgentAccount is present, then CreditorAgent must be present.","CreditorAgent is not present, but CreditorAgentAccount is present","Should fail: CreditorAgent is not present, so CreditorAgentAccount is not allowed, but CreditorAgentAccount is present.",Fail,No,1,remove CdtrAgtAcct,Rule applies to 4 place(s) in this message; shown for RtrChain.
+S019,pacs.004.001.15,CreditorAgentAccountRule,Hard rule,Covered,Not applicable,ReturnChain/CreditorAgent (TxInf/RtrChain/CdtrAgt) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </CdtrAgt>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If CreditorAgentAccount is present, then CreditorAgent must be present.",CreditorAgent is present,"Should pass (rule not triggered): CreditorAgent is present, so there is nothing to check.",Pass,No,1,none,Rule applies to 4 place(s) in this message; shown for RtrChain.
+S020,pacs.004.001.15,DebtorAgentAccountRule,Hard rule,Covered,Positive,ReturnChain/DebtorAgent (TxInf/RtrChain/DbtrAgt) = Not present; ReturnChain/DebtorAgentAccount (TxInf/RtrChain/DbtrAgtAcct) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <!-- DbtrAgt not present -->
+      <!-- DbtrAgtAcct not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If DebtorAgentAccount is present, then DebtorAgent must be present.","DebtorAgent is not present, requirement met","Should pass: DebtorAgent is not present, and DebtorAgentAccount is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 4 place(s) in this message; shown for RtrChain.
+S021,pacs.004.001.15,DebtorAgentAccountRule,Hard rule,Covered,Negative,ReturnChain/DebtorAgent (TxInf/RtrChain/DbtrAgt) = Not present; ReturnChain/DebtorAgentAccount (TxInf/RtrChain/DbtrAgtAcct) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <DbtrAgtAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </DbtrAgtAcct>
+      <!-- DbtrAgt not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If DebtorAgentAccount is present, then DebtorAgent must be present.","DebtorAgent is not present, but DebtorAgentAccount is present","Should fail: DebtorAgent is not present, so DebtorAgentAccount is not allowed, but DebtorAgentAccount is present.",Fail,No,1,remove DbtrAgtAcct,Rule applies to 4 place(s) in this message; shown for RtrChain.
+S022,pacs.004.001.15,DebtorAgentAccountRule,Hard rule,Covered,Not applicable,ReturnChain/DebtorAgent (TxInf/RtrChain/DbtrAgt) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If DebtorAgentAccount is present, then DebtorAgent must be present.",DebtorAgent is present,"Should pass (rule not triggered): DebtorAgent is present, so there is nothing to check.",Pass,No,1,none,Rule applies to 4 place(s) in this message; shown for RtrChain.
+S023,pacs.004.001.15,GroupReturnAndNumberOfTransactionsGuideline,Guideline,Not covered,Manual needed,(not generated),,"If GroupReturn is true, then NumberOfTransactions equals the number of transactions in the original message.",Scenarios must be written manually,Guideline (advisory): write one compliant and one non-compliant case by hand. A broken guideline never fails a message.,n/a,Yes (if broken),,none (manual),See the coverage report for the reason.
+S024,pacs.004.001.15,IdentificationAndProxyGuideline,Guideline,Not covered,Manual needed,(not generated),,"If the account identification is not defined through a conventional identification such as an email address or a mobile number, then the proxy element should be used for the identification of the account.",Scenarios must be written manually,Guideline (advisory): write one compliant and one non-compliant case by hand. A broken guideline never fails a message.,n/a,Yes (if broken),,none (manual),See the coverage report for the reason.
+S025,pacs.004.001.15,IdentificationOrProxyPresenceRule,Hard rule,Covered,Positive,CreditorAccount/Identification (RtrChain/CdtrAcct/Id) = Present; CreditorAccount/Proxy (RtrChain/CdtrAcct/Prxy) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <CdtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+        <!-- Prxy not present -->
+      </CdtrAcct>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>",Identification must be present or Proxy must be present. Both may be present.,Identification is present or Proxy is present,"Should pass: Identification is present or Proxy is present, which satisfies the rule.",Pass,No,1,none,Rule applies to 46 place(s) in this message; shown for CdtrAcct.
+S026,pacs.004.001.15,IdentificationOrProxyPresenceRule,Hard rule,Covered,Positive,CreditorAccount/Identification (RtrChain/CdtrAcct/Id) = Present; CreditorAccount/Proxy (RtrChain/CdtrAcct/Prxy) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <CdtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+        <!-- Prxy not present -->
+      </CdtrAcct>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>",Identification must be present or Proxy must be present. Both may be present.,Only Identification present (one option is enough),"Should pass: at least one of Identification, Proxy must be present; Identification alone satisfies the rule and the other options are absent.",Pass,No,1,none,Rule applies to 46 place(s) in this message; shown for CdtrAcct.
+S027,pacs.004.001.15,IdentificationOrProxyPresenceRule,Hard rule,Covered,Positive,CreditorAccount/Proxy (RtrChain/CdtrAcct/Prxy) = Present; CreditorAccount/Identification (RtrChain/CdtrAcct/Id) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <CdtrAcct>
+        <Prxy>
+          <Id>ID-0001</Id>
+        </Prxy>
+        <!-- Id not present -->
+      </CdtrAcct>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>",Identification must be present or Proxy must be present. Both may be present.,Only Proxy present (one option is enough),"Should pass: at least one of Identification, Proxy must be present; Proxy alone satisfies the rule and the other options are absent.",Pass,No,1,none,Rule applies to 46 place(s) in this message; shown for CdtrAcct.
+S028,pacs.004.001.15,IdentificationOrProxyPresenceRule,Hard rule,Covered,Positive,CreditorAccount/Identification (RtrChain/CdtrAcct/Id) = Present; CreditorAccount/Proxy (RtrChain/CdtrAcct/Prxy) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <CdtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+        <Prxy>
+          <Id>ID-0001</Id>
+        </Prxy>
+      </CdtrAcct>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>",Identification must be present or Proxy must be present. Both may be present.,All options present,Should pass: all of the options may be present together.,Pass,No,1,none,Rule applies to 46 place(s) in this message; shown for CdtrAcct.
+S029,pacs.004.001.15,IdentificationOrProxyPresenceRule,Hard rule,Covered,Negative,CreditorAccount/Identification (RtrChain/CdtrAcct/Id) = Not present; CreditorAccount/Proxy (RtrChain/CdtrAcct/Prxy) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <CdtrAcct>
+        <!-- Id not present -->
+        <!-- Prxy not present -->
+      </CdtrAcct>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>",Identification must be present or Proxy must be present. Both may be present.,"none of these hold: Identification is present, Proxy is present","Should fail: at least one of Identification, Proxy must be present, but none of these hold: Identification is present, Proxy is present.",Fail,No,1,add Id,Rule applies to 46 place(s) in this message; shown for CdtrAcct.
+S030,pacs.004.001.15,InstructedReimbursementAgentAccountRule,Hard rule,Covered,Positive,SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present; SettlementInformation/InstructedReimbursementAgentAccount (GrpHdr/SttlmInf/InstdRmbrsmntAgtAcct) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <!-- InstdRmbrsmntAgt not present -->
+      <!-- InstdRmbrsmntAgtAcct not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If InstructedReimbursementAgentAccount is present, then InstructedReimbursementAgent must be present.","InstructedReimbursementAgent is not present, requirement met","Should pass: InstructedReimbursementAgent is not present, and InstructedReimbursementAgentAccount is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S031,pacs.004.001.15,InstructedReimbursementAgentAccountRule,Hard rule,Covered,Negative,SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present; SettlementInformation/InstructedReimbursementAgentAccount (GrpHdr/SttlmInf/InstdRmbrsmntAgtAcct) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <InstdRmbrsmntAgtAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </InstdRmbrsmntAgtAcct>
+      <!-- InstdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If InstructedReimbursementAgentAccount is present, then InstructedReimbursementAgent must be present.","InstructedReimbursementAgent is not present, but InstructedReimbursementAgentAccount is present","Should fail: InstructedReimbursementAgent is not present, so InstructedReimbursementAgentAccount is not allowed, but InstructedReimbursementAgentAccount is present.",Fail,No,1,remove InstdRmbrsmntAgtAcct,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S032,pacs.004.001.15,InstructedReimbursementAgentAccountRule,Hard rule,Covered,Not applicable,SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <InstdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If InstructedReimbursementAgentAccount is present, then InstructedReimbursementAgent must be present.",InstructedReimbursementAgent is present,"Should pass (rule not triggered): InstructedReimbursementAgent is present, so there is nothing to check.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S033,pacs.004.001.15,InstructingReimbursementAgentAccountRule,Hard rule,Covered,Positive,SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Not present; SettlementInformation/InstructingReimbursementAgentAccount (GrpHdr/SttlmInf/InstgRmbrsmntAgtAcct) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <!-- InstgRmbrsmntAgt not present -->
+      <!-- InstgRmbrsmntAgtAcct not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If InstructingReimbursementAgentAccount is present, then InstructingReimbursementAgent must be present.","InstructingReimbursementAgent is not present, requirement met","Should pass: InstructingReimbursementAgent is not present, and InstructingReimbursementAgentAccount is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S034,pacs.004.001.15,InstructingReimbursementAgentAccountRule,Hard rule,Covered,Negative,SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Not present; SettlementInformation/InstructingReimbursementAgentAccount (GrpHdr/SttlmInf/InstgRmbrsmntAgtAcct) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <InstgRmbrsmntAgtAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </InstgRmbrsmntAgtAcct>
+      <!-- InstgRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If InstructingReimbursementAgentAccount is present, then InstructingReimbursementAgent must be present.","InstructingReimbursementAgent is not present, but InstructingReimbursementAgentAccount is present","Should fail: InstructingReimbursementAgent is not present, so InstructingReimbursementAgentAccount is not allowed, but InstructingReimbursementAgentAccount is present.",Fail,No,1,remove InstgRmbrsmntAgtAcct,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S035,pacs.004.001.15,InstructingReimbursementAgentAccountRule,Hard rule,Covered,Not applicable,SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <InstgRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstgRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If InstructingReimbursementAgentAccount is present, then InstructingReimbursementAgent must be present.",InstructingReimbursementAgent is present,"Should pass (rule not triggered): InstructingReimbursementAgent is present, so there is nothing to check.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S036,pacs.004.001.15,IntermediaryAgent1AccountRule,Hard rule,Covered,Positive,ReturnChain/IntermediaryAgent1 (TxInf/RtrChain/IntrmyAgt1) = Not present; ReturnChain/IntermediaryAgent1Account (TxInf/RtrChain/IntrmyAgt1Acct) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <!-- IntrmyAgt1 not present -->
+      <!-- IntrmyAgt1Acct not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent1Account is present, then IntermediaryAgent1 must be present.","IntermediaryAgent1 is not present, requirement met","Should pass: IntermediaryAgent1 is not present, and IntermediaryAgent1Account is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S037,pacs.004.001.15,IntermediaryAgent1AccountRule,Hard rule,Covered,Negative,ReturnChain/IntermediaryAgent1 (TxInf/RtrChain/IntrmyAgt1) = Not present; ReturnChain/IntermediaryAgent1Account (TxInf/RtrChain/IntrmyAgt1Acct) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <IntrmyAgt1Acct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </IntrmyAgt1Acct>
+      <!-- IntrmyAgt1 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent1Account is present, then IntermediaryAgent1 must be present.","IntermediaryAgent1 is not present, but IntermediaryAgent1Account is present","Should fail: IntermediaryAgent1 is not present, so IntermediaryAgent1Account is not allowed, but IntermediaryAgent1Account is present.",Fail,No,1,remove IntrmyAgt1Acct,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S038,pacs.004.001.15,IntermediaryAgent1AccountRule,Hard rule,Covered,Not applicable,ReturnChain/IntermediaryAgent1 (TxInf/RtrChain/IntrmyAgt1) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <IntrmyAgt1>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </IntrmyAgt1>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent1Account is present, then IntermediaryAgent1 must be present.",IntermediaryAgent1 is present,"Should pass (rule not triggered): IntermediaryAgent1 is present, so there is nothing to check.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S039,pacs.004.001.15,IntermediaryAgent1Rule,Hard rule,Covered,Positive,ReturnChain/IntermediaryAgent1 (TxInf/RtrChain/IntrmyAgt1) = Present; ReturnChain/CreditorAgent (TxInf/RtrChain/CdtrAgt) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <IntrmyAgt1>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </IntrmyAgt1>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </CdtrAgt>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent1 is present, then CreditorAgent must be present.","IntermediaryAgent1 is present, requirement met","Should pass: IntermediaryAgent1 is present, and CreditorAgent is present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S040,pacs.004.001.15,IntermediaryAgent1Rule,Hard rule,Covered,Negative,ReturnChain/IntermediaryAgent1 (TxInf/RtrChain/IntrmyAgt1) = Present; ReturnChain/CreditorAgent (TxInf/RtrChain/CdtrAgt) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <IntrmyAgt1>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </IntrmyAgt1>
+      <!-- CdtrAgt not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent1 is present, then CreditorAgent must be present.","IntermediaryAgent1 is present, but CreditorAgent is not present","Should fail: IntermediaryAgent1 is present, so CreditorAgent must be present, but CreditorAgent is not present.",Fail,No,1,add CdtrAgt,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S041,pacs.004.001.15,IntermediaryAgent1Rule,Hard rule,Covered,Not applicable,ReturnChain/IntermediaryAgent1 (TxInf/RtrChain/IntrmyAgt1) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <!-- IntrmyAgt1 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent1 is present, then CreditorAgent must be present.",IntermediaryAgent1 is not present,"Should pass (rule not triggered): IntermediaryAgent1 is not present, so there is nothing to check.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S042,pacs.004.001.15,IntermediaryAgent1Rule,Hard rule,Covered,Positive,ReturnChain/IntermediaryAgent1 (TxInf/RtrChain/IntrmyAgt1) = Not present; ReturnChain/CreditorAgent (TxInf/RtrChain/CdtrAgt) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <CdtrAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </CdtrAgt>
+      <!-- IntrmyAgt1 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent1 is present, then CreditorAgent must be present.",Only CreditorAgent present (no IntermediaryAgent1),Should pass: the rule only restricts the case where IntermediaryAgent1 is present; CreditorAgent is present on its own is allowed.,Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S043,pacs.004.001.15,IntermediaryAgent2AccountRule,Hard rule,Covered,Positive,ReturnChain/IntermediaryAgent2 (TxInf/RtrChain/IntrmyAgt2) = Not present; ReturnChain/IntermediaryAgent2Account (TxInf/RtrChain/IntrmyAgt2Acct) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <!-- IntrmyAgt2 not present -->
+      <!-- IntrmyAgt2Acct not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent2Account is present, then IntermediaryAgent2 must be present.","IntermediaryAgent2 is not present, requirement met","Should pass: IntermediaryAgent2 is not present, and IntermediaryAgent2Account is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S044,pacs.004.001.15,IntermediaryAgent2AccountRule,Hard rule,Covered,Negative,ReturnChain/IntermediaryAgent2 (TxInf/RtrChain/IntrmyAgt2) = Not present; ReturnChain/IntermediaryAgent2Account (TxInf/RtrChain/IntrmyAgt2Acct) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <IntrmyAgt2Acct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </IntrmyAgt2Acct>
+      <!-- IntrmyAgt2 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent2Account is present, then IntermediaryAgent2 must be present.","IntermediaryAgent2 is not present, but IntermediaryAgent2Account is present","Should fail: IntermediaryAgent2 is not present, so IntermediaryAgent2Account is not allowed, but IntermediaryAgent2Account is present.",Fail,No,1,remove IntrmyAgt2Acct,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S045,pacs.004.001.15,IntermediaryAgent2AccountRule,Hard rule,Covered,Not applicable,ReturnChain/IntermediaryAgent2 (TxInf/RtrChain/IntrmyAgt2) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <IntrmyAgt2>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </IntrmyAgt2>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent2Account is present, then IntermediaryAgent2 must be present.",IntermediaryAgent2 is present,"Should pass (rule not triggered): IntermediaryAgent2 is present, so there is nothing to check.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S046,pacs.004.001.15,IntermediaryAgent2Rule,Hard rule,Covered,Positive,ReturnChain/IntermediaryAgent2 (TxInf/RtrChain/IntrmyAgt2) = Present; ReturnChain/IntermediaryAgent1 (TxInf/RtrChain/IntrmyAgt1) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <IntrmyAgt2>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </IntrmyAgt2>
+      <IntrmyAgt1>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </IntrmyAgt1>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent2 is present, then IntermediaryAgent1 must be present.","IntermediaryAgent2 is present, requirement met","Should pass: IntermediaryAgent2 is present, and IntermediaryAgent1 is present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S047,pacs.004.001.15,IntermediaryAgent2Rule,Hard rule,Covered,Negative,ReturnChain/IntermediaryAgent2 (TxInf/RtrChain/IntrmyAgt2) = Present; ReturnChain/IntermediaryAgent1 (TxInf/RtrChain/IntrmyAgt1) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <IntrmyAgt2>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </IntrmyAgt2>
+      <!-- IntrmyAgt1 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent2 is present, then IntermediaryAgent1 must be present.","IntermediaryAgent2 is present, but IntermediaryAgent1 is not present","Should fail: IntermediaryAgent2 is present, so IntermediaryAgent1 must be present, but IntermediaryAgent1 is not present.",Fail,No,1,add IntrmyAgt1,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S048,pacs.004.001.15,IntermediaryAgent2Rule,Hard rule,Covered,Not applicable,ReturnChain/IntermediaryAgent2 (TxInf/RtrChain/IntrmyAgt2) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <!-- IntrmyAgt2 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent2 is present, then IntermediaryAgent1 must be present.",IntermediaryAgent2 is not present,"Should pass (rule not triggered): IntermediaryAgent2 is not present, so there is nothing to check.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S049,pacs.004.001.15,IntermediaryAgent2Rule,Hard rule,Covered,Positive,ReturnChain/IntermediaryAgent2 (TxInf/RtrChain/IntrmyAgt2) = Not present; ReturnChain/IntermediaryAgent1 (TxInf/RtrChain/IntrmyAgt1) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <IntrmyAgt1>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </IntrmyAgt1>
+      <!-- IntrmyAgt2 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent2 is present, then IntermediaryAgent1 must be present.",Only IntermediaryAgent1 present (no IntermediaryAgent2),Should pass: the rule only restricts the case where IntermediaryAgent2 is present; IntermediaryAgent1 is present on its own is allowed.,Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S050,pacs.004.001.15,IntermediaryAgent3AccountRule,Hard rule,Covered,Positive,ReturnChain/IntermediaryAgent3 (TxInf/RtrChain/IntrmyAgt3) = Not present; ReturnChain/IntermediaryAgent3Account (TxInf/RtrChain/IntrmyAgt3Acct) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <!-- IntrmyAgt3 not present -->
+      <!-- IntrmyAgt3Acct not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent3Account is present, then IntermediaryAgent3 must be present.","IntermediaryAgent3 is not present, requirement met","Should pass: IntermediaryAgent3 is not present, and IntermediaryAgent3Account is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S051,pacs.004.001.15,IntermediaryAgent3AccountRule,Hard rule,Covered,Negative,ReturnChain/IntermediaryAgent3 (TxInf/RtrChain/IntrmyAgt3) = Not present; ReturnChain/IntermediaryAgent3Account (TxInf/RtrChain/IntrmyAgt3Acct) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <IntrmyAgt3Acct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </IntrmyAgt3Acct>
+      <!-- IntrmyAgt3 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent3Account is present, then IntermediaryAgent3 must be present.","IntermediaryAgent3 is not present, but IntermediaryAgent3Account is present","Should fail: IntermediaryAgent3 is not present, so IntermediaryAgent3Account is not allowed, but IntermediaryAgent3Account is present.",Fail,No,1,remove IntrmyAgt3Acct,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S052,pacs.004.001.15,IntermediaryAgent3AccountRule,Hard rule,Covered,Not applicable,ReturnChain/IntermediaryAgent3 (TxInf/RtrChain/IntrmyAgt3) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <IntrmyAgt3>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </IntrmyAgt3>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent3Account is present, then IntermediaryAgent3 must be present.",IntermediaryAgent3 is present,"Should pass (rule not triggered): IntermediaryAgent3 is present, so there is nothing to check.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S053,pacs.004.001.15,IntermediaryAgent3Rule,Hard rule,Covered,Positive,ReturnChain/IntermediaryAgent3 (TxInf/RtrChain/IntrmyAgt3) = Present; ReturnChain/IntermediaryAgent2 (TxInf/RtrChain/IntrmyAgt2) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <IntrmyAgt3>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </IntrmyAgt3>
+      <IntrmyAgt2>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </IntrmyAgt2>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent3 is present, then IntermediaryAgent2 must be present.","IntermediaryAgent3 is present, requirement met","Should pass: IntermediaryAgent3 is present, and IntermediaryAgent2 is present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S054,pacs.004.001.15,IntermediaryAgent3Rule,Hard rule,Covered,Negative,ReturnChain/IntermediaryAgent3 (TxInf/RtrChain/IntrmyAgt3) = Present; ReturnChain/IntermediaryAgent2 (TxInf/RtrChain/IntrmyAgt2) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <IntrmyAgt3>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </IntrmyAgt3>
+      <!-- IntrmyAgt2 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent3 is present, then IntermediaryAgent2 must be present.","IntermediaryAgent3 is present, but IntermediaryAgent2 is not present","Should fail: IntermediaryAgent3 is present, so IntermediaryAgent2 must be present, but IntermediaryAgent2 is not present.",Fail,No,1,add IntrmyAgt2,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S055,pacs.004.001.15,IntermediaryAgent3Rule,Hard rule,Covered,Not applicable,ReturnChain/IntermediaryAgent3 (TxInf/RtrChain/IntrmyAgt3) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <!-- IntrmyAgt3 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent3 is present, then IntermediaryAgent2 must be present.",IntermediaryAgent3 is not present,"Should pass (rule not triggered): IntermediaryAgent3 is not present, so there is nothing to check.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S056,pacs.004.001.15,IntermediaryAgent3Rule,Hard rule,Covered,Positive,ReturnChain/IntermediaryAgent3 (TxInf/RtrChain/IntrmyAgt3) = Not present; ReturnChain/IntermediaryAgent2 (TxInf/RtrChain/IntrmyAgt2) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <IntrmyAgt2>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </IntrmyAgt2>
+      <!-- IntrmyAgt3 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If IntermediaryAgent3 is present, then IntermediaryAgent2 must be present.",Only IntermediaryAgent2 present (no IntermediaryAgent3),Should pass: the rule only restricts the case where IntermediaryAgent3 is present; IntermediaryAgent2 is present on its own is allowed.,Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S057,pacs.004.001.15,PreviousInstructingAgent1AccountRule,Hard rule,Covered,Positive,ReturnChain/PreviousInstructingAgent1 (TxInf/RtrChain/PrvsInstgAgt1) = Not present; ReturnChain/PreviousInstructingAgent1Account (TxInf/RtrChain/PrvsInstgAgt1Acct) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <!-- PrvsInstgAgt1 not present -->
+      <!-- PrvsInstgAgt1Acct not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent1Account is present, then PreviousInstructingAgent1 must be present.","PreviousInstructingAgent1 is not present, requirement met","Should pass: PreviousInstructingAgent1 is not present, and PreviousInstructingAgent1Account is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S058,pacs.004.001.15,PreviousInstructingAgent1AccountRule,Hard rule,Covered,Negative,ReturnChain/PreviousInstructingAgent1 (TxInf/RtrChain/PrvsInstgAgt1) = Not present; ReturnChain/PreviousInstructingAgent1Account (TxInf/RtrChain/PrvsInstgAgt1Acct) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <PrvsInstgAgt1Acct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </PrvsInstgAgt1Acct>
+      <!-- PrvsInstgAgt1 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent1Account is present, then PreviousInstructingAgent1 must be present.","PreviousInstructingAgent1 is not present, but PreviousInstructingAgent1Account is present","Should fail: PreviousInstructingAgent1 is not present, so PreviousInstructingAgent1Account is not allowed, but PreviousInstructingAgent1Account is present.",Fail,No,1,remove PrvsInstgAgt1Acct,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S059,pacs.004.001.15,PreviousInstructingAgent1AccountRule,Hard rule,Covered,Not applicable,ReturnChain/PreviousInstructingAgent1 (TxInf/RtrChain/PrvsInstgAgt1) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <PrvsInstgAgt1>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </PrvsInstgAgt1>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent1Account is present, then PreviousInstructingAgent1 must be present.",PreviousInstructingAgent1 is present,"Should pass (rule not triggered): PreviousInstructingAgent1 is present, so there is nothing to check.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S060,pacs.004.001.15,PreviousInstructingAgent1Guideline,Guideline,Not covered,Manual needed,(not generated),,"It is recommended that, when present, PreviousInstructingAgent1 is the closest to the DebtorAgent in the payment chain.",Scenarios must be written manually,Guideline (advisory): write one compliant and one non-compliant case by hand. A broken guideline never fails a message.,n/a,Yes (if broken),,none (manual),See the coverage report for the reason.
+S061,pacs.004.001.15,PreviousInstructingAgent2AccountRule,Hard rule,Covered,Positive,ReturnChain/PreviousInstructingAgent2 (TxInf/RtrChain/PrvsInstgAgt2) = Not present; ReturnChain/PreviousInstructingAgent2Account (TxInf/RtrChain/PrvsInstgAgt2Acct) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <!-- PrvsInstgAgt2 not present -->
+      <!-- PrvsInstgAgt2Acct not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent2Account is present, then PreviousInstructingAgent2 must be present.","PreviousInstructingAgent2 is not present, requirement met","Should pass: PreviousInstructingAgent2 is not present, and PreviousInstructingAgent2Account is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S062,pacs.004.001.15,PreviousInstructingAgent2AccountRule,Hard rule,Covered,Negative,ReturnChain/PreviousInstructingAgent2 (TxInf/RtrChain/PrvsInstgAgt2) = Not present; ReturnChain/PreviousInstructingAgent2Account (TxInf/RtrChain/PrvsInstgAgt2Acct) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <PrvsInstgAgt2Acct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </PrvsInstgAgt2Acct>
+      <!-- PrvsInstgAgt2 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent2Account is present, then PreviousInstructingAgent2 must be present.","PreviousInstructingAgent2 is not present, but PreviousInstructingAgent2Account is present","Should fail: PreviousInstructingAgent2 is not present, so PreviousInstructingAgent2Account is not allowed, but PreviousInstructingAgent2Account is present.",Fail,No,1,remove PrvsInstgAgt2Acct,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S063,pacs.004.001.15,PreviousInstructingAgent2AccountRule,Hard rule,Covered,Not applicable,ReturnChain/PreviousInstructingAgent2 (TxInf/RtrChain/PrvsInstgAgt2) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <PrvsInstgAgt2>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </PrvsInstgAgt2>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent2Account is present, then PreviousInstructingAgent2 must be present.",PreviousInstructingAgent2 is present,"Should pass (rule not triggered): PreviousInstructingAgent2 is present, so there is nothing to check.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S064,pacs.004.001.15,PreviousInstructingAgent2Rule,Hard rule,Covered,Positive,ReturnChain/PreviousInstructingAgent2 (TxInf/RtrChain/PrvsInstgAgt2) = Present; ReturnChain/PreviousInstructingAgent1 (TxInf/RtrChain/PrvsInstgAgt1) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <PrvsInstgAgt2>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </PrvsInstgAgt2>
+      <PrvsInstgAgt1>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </PrvsInstgAgt1>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent2 is present, then PreviousInstructingAgent1 must be present.","PreviousInstructingAgent2 is present, requirement met","Should pass: PreviousInstructingAgent2 is present, and PreviousInstructingAgent1 is present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S065,pacs.004.001.15,PreviousInstructingAgent2Rule,Hard rule,Covered,Negative,ReturnChain/PreviousInstructingAgent2 (TxInf/RtrChain/PrvsInstgAgt2) = Present; ReturnChain/PreviousInstructingAgent1 (TxInf/RtrChain/PrvsInstgAgt1) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <PrvsInstgAgt2>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </PrvsInstgAgt2>
+      <!-- PrvsInstgAgt1 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent2 is present, then PreviousInstructingAgent1 must be present.","PreviousInstructingAgent2 is present, but PreviousInstructingAgent1 is not present","Should fail: PreviousInstructingAgent2 is present, so PreviousInstructingAgent1 must be present, but PreviousInstructingAgent1 is not present.",Fail,No,1,add PrvsInstgAgt1,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S066,pacs.004.001.15,PreviousInstructingAgent2Rule,Hard rule,Covered,Not applicable,ReturnChain/PreviousInstructingAgent2 (TxInf/RtrChain/PrvsInstgAgt2) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <!-- PrvsInstgAgt2 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent2 is present, then PreviousInstructingAgent1 must be present.",PreviousInstructingAgent2 is not present,"Should pass (rule not triggered): PreviousInstructingAgent2 is not present, so there is nothing to check.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S067,pacs.004.001.15,PreviousInstructingAgent2Rule,Hard rule,Covered,Positive,ReturnChain/PreviousInstructingAgent2 (TxInf/RtrChain/PrvsInstgAgt2) = Not present; ReturnChain/PreviousInstructingAgent1 (TxInf/RtrChain/PrvsInstgAgt1) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <PrvsInstgAgt1>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </PrvsInstgAgt1>
+      <!-- PrvsInstgAgt2 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent2 is present, then PreviousInstructingAgent1 must be present.",Only PreviousInstructingAgent1 present (no PreviousInstructingAgent2),Should pass: the rule only restricts the case where PreviousInstructingAgent2 is present; PreviousInstructingAgent1 is present on its own is allowed.,Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S068,pacs.004.001.15,PreviousInstructingAgent3AccountRule,Hard rule,Covered,Positive,ReturnChain/PreviousInstructingAgent3 (TxInf/RtrChain/PrvsInstgAgt3) = Not present; ReturnChain/PreviousInstructingAgent3Account (TxInf/RtrChain/PrvsInstgAgt3Acct) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <!-- PrvsInstgAgt3 not present -->
+      <!-- PrvsInstgAgt3Acct not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent3Account is present, then PreviousInstructingAgent3 must be present.","PreviousInstructingAgent3 is not present, requirement met","Should pass: PreviousInstructingAgent3 is not present, and PreviousInstructingAgent3Account is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S069,pacs.004.001.15,PreviousInstructingAgent3AccountRule,Hard rule,Covered,Negative,ReturnChain/PreviousInstructingAgent3 (TxInf/RtrChain/PrvsInstgAgt3) = Not present; ReturnChain/PreviousInstructingAgent3Account (TxInf/RtrChain/PrvsInstgAgt3Acct) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <PrvsInstgAgt3Acct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </PrvsInstgAgt3Acct>
+      <!-- PrvsInstgAgt3 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent3Account is present, then PreviousInstructingAgent3 must be present.","PreviousInstructingAgent3 is not present, but PreviousInstructingAgent3Account is present","Should fail: PreviousInstructingAgent3 is not present, so PreviousInstructingAgent3Account is not allowed, but PreviousInstructingAgent3Account is present.",Fail,No,1,remove PrvsInstgAgt3Acct,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S070,pacs.004.001.15,PreviousInstructingAgent3AccountRule,Hard rule,Covered,Not applicable,ReturnChain/PreviousInstructingAgent3 (TxInf/RtrChain/PrvsInstgAgt3) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <PrvsInstgAgt3>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </PrvsInstgAgt3>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent3Account is present, then PreviousInstructingAgent3 must be present.",PreviousInstructingAgent3 is present,"Should pass (rule not triggered): PreviousInstructingAgent3 is present, so there is nothing to check.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S071,pacs.004.001.15,PreviousInstructingAgent3Rule,Hard rule,Covered,Positive,ReturnChain/PreviousInstructingAgent3 (TxInf/RtrChain/PrvsInstgAgt3) = Present; ReturnChain/PreviousInstructingAgent2 (TxInf/RtrChain/PrvsInstgAgt2) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <PrvsInstgAgt3>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </PrvsInstgAgt3>
+      <PrvsInstgAgt2>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </PrvsInstgAgt2>
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent3 is present, then PreviousInstructingAgent2 must be present.","PreviousInstructingAgent3 is present, requirement met","Should pass: PreviousInstructingAgent3 is present, and PreviousInstructingAgent2 is present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S072,pacs.004.001.15,PreviousInstructingAgent3Rule,Hard rule,Covered,Negative,ReturnChain/PreviousInstructingAgent3 (TxInf/RtrChain/PrvsInstgAgt3) = Present; ReturnChain/PreviousInstructingAgent2 (TxInf/RtrChain/PrvsInstgAgt2) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <PrvsInstgAgt3>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </PrvsInstgAgt3>
+      <!-- PrvsInstgAgt2 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent3 is present, then PreviousInstructingAgent2 must be present.","PreviousInstructingAgent3 is present, but PreviousInstructingAgent2 is not present","Should fail: PreviousInstructingAgent3 is present, so PreviousInstructingAgent2 must be present, but PreviousInstructingAgent2 is not present.",Fail,No,1,add PrvsInstgAgt2,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S073,pacs.004.001.15,PreviousInstructingAgent3Rule,Hard rule,Covered,Not applicable,ReturnChain/PreviousInstructingAgent3 (TxInf/RtrChain/PrvsInstgAgt3) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <!-- PrvsInstgAgt3 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent3 is present, then PreviousInstructingAgent2 must be present.",PreviousInstructingAgent3 is not present,"Should pass (rule not triggered): PreviousInstructingAgent3 is not present, so there is nothing to check.",Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S074,pacs.004.001.15,PreviousInstructingAgent3Rule,Hard rule,Covered,Positive,ReturnChain/PreviousInstructingAgent3 (TxInf/RtrChain/PrvsInstgAgt3) = Not present; ReturnChain/PreviousInstructingAgent2 (TxInf/RtrChain/PrvsInstgAgt2) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrChain>
+      <PrvsInstgAgt2>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </PrvsInstgAgt2>
+      <!-- PrvsInstgAgt3 not present -->
+    </RtrChain>
+  </TxInf>
+</PmtRtr>","If PreviousInstructingAgent3 is present, then PreviousInstructingAgent2 must be present.",Only PreviousInstructingAgent2 present (no PreviousInstructingAgent3),Should pass: the rule only restricts the case where PreviousInstructingAgent3 is present; PreviousInstructingAgent2 is present on its own is allowed.,Pass,No,1,none,Rule applies to 3 place(s) in this message; shown for RtrChain.
+S075,pacs.004.001.15,RemittanceAmountAndTypeGuideline,Guideline,Not covered,Manual needed,(not generated),,"If Type/Code is equal to CREN, DUPA or REMI for RemittanceAmountAndType, RemittanceAmountAndType must not be repeated.",Scenarios must be written manually,Guideline (advisory): write one compliant and one non-compliant case by hand. A broken guideline never fails a message.,n/a,Yes (if broken),,none (manual),See the coverage report for the reason.
+S076,pacs.004.001.15,ReturnReasonRule,Hard rule,Not covered,Manual needed,(not generated),,"If Reason/Code is equal to NARR, then AddititionalInformation must be present.",Scenarios must be written manually,Rule is free text only: write the valid and invalid cases by hand.,n/a,No,,none (manual),See the coverage report for the reason.
+S077,pacs.004.001.15,ReturnedInstructedAmountAndExchangeRate1Rule,Hard rule,Covered,Positive,TransactionInformation/ReturnedInstructedAmount (PmtRtr/TxInf/RtrdInstdAmt) = Present [Ccy=INR]; TransactionInformation/ReturnedInterbankSettlementAmount (PmtRtr/TxInf/RtrdIntrBkSttlmAmt) = Present [Ccy=EUR]; TransactionInformation/ExchangeRate (PmtRtr/TxInf/XchgRate) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrdInstdAmt Ccy=""INR"">1450000.00</RtrdInstdAmt>
+    <RtrdIntrBkSttlmAmt Ccy=""EUR"">15250.00</RtrdIntrBkSttlmAmt>
+    <XchgRate>15250.00</XchgRate>
+  </TxInf>
+</PmtRtr>","If ReturnedInstructedAmount is present and the currency is different from the currency in ReturnedInterbankSettlementAmount, then ExchangeRate must be present.","ReturnedInstructedAmount is present and the currency of ReturnedInstructedAmount differs from the currency of ReturnedInterbankSettlementAmount, requirement met","Should pass: ReturnedInstructedAmount is present and the currency of ReturnedInstructedAmount differs from the currency of ReturnedInterbankSettlementAmount, and ExchangeRate is present, so the rule is satisfied.",Pass,No,1,none,
+S078,pacs.004.001.15,ReturnedInstructedAmountAndExchangeRate1Rule,Hard rule,Covered,Negative,TransactionInformation/ReturnedInstructedAmount (PmtRtr/TxInf/RtrdInstdAmt) = Present [Ccy=INR]; TransactionInformation/ReturnedInterbankSettlementAmount (PmtRtr/TxInf/RtrdIntrBkSttlmAmt) = Present [Ccy=EUR]; TransactionInformation/ExchangeRate (PmtRtr/TxInf/XchgRate) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrdInstdAmt Ccy=""INR"">1450000.00</RtrdInstdAmt>
+    <RtrdIntrBkSttlmAmt Ccy=""EUR"">15250.00</RtrdIntrBkSttlmAmt>
+    <!-- XchgRate not present -->
+  </TxInf>
+</PmtRtr>","If ReturnedInstructedAmount is present and the currency is different from the currency in ReturnedInterbankSettlementAmount, then ExchangeRate must be present.","ReturnedInstructedAmount is present and the currency of ReturnedInstructedAmount differs from the currency of ReturnedInterbankSettlementAmount, but ExchangeRate is not present","Should fail: ReturnedInstructedAmount is present and the currency of ReturnedInstructedAmount differs from the currency of ReturnedInterbankSettlementAmount, so ExchangeRate must be present, but ExchangeRate is not present.",Fail,No,1,add XchgRate,
+S079,pacs.004.001.15,ReturnedInstructedAmountAndExchangeRate1Rule,Hard rule,Covered,Not applicable,TransactionInformation/ReturnedInstructedAmount (PmtRtr/TxInf/RtrdInstdAmt) = Not present,"<PmtRtr>
+  <TxInf>
+    <!-- RtrdInstdAmt not present -->
+  </TxInf>
+</PmtRtr>","If ReturnedInstructedAmount is present and the currency is different from the currency in ReturnedInterbankSettlementAmount, then ExchangeRate must be present.",ReturnedInstructedAmount is not present,"Should pass (rule not triggered): ReturnedInstructedAmount is not present, so there is nothing to check.",Pass,No,1,none,
+S080,pacs.004.001.15,ReturnedInstructedAmountAndExchangeRate1Rule,Hard rule,Covered,Not applicable,TransactionInformation/ReturnedInstructedAmount (PmtRtr/TxInf/RtrdInstdAmt) = Present [Ccy=EUR]; TransactionInformation/ReturnedInterbankSettlementAmount (PmtRtr/TxInf/RtrdIntrBkSttlmAmt) = Present [Ccy=EUR],"<PmtRtr>
+  <TxInf>
+    <RtrdInstdAmt Ccy=""EUR"">15250.00</RtrdInstdAmt>
+    <RtrdIntrBkSttlmAmt Ccy=""EUR"">15250.00</RtrdIntrBkSttlmAmt>
+  </TxInf>
+</PmtRtr>","If ReturnedInstructedAmount is present and the currency is different from the currency in ReturnedInterbankSettlementAmount, then ExchangeRate must be present.",The currency of ReturnedInstructedAmount is the same as the currency of ReturnedInterbankSettlementAmount,"Should pass (rule not triggered): the currency of ReturnedInstructedAmount is the same as the currency of ReturnedInterbankSettlementAmount, so there is nothing to check.",Pass,No,1,none,
+S081,pacs.004.001.15,ReturnedInstructedAmountAndExchangeRate2Rule,Hard rule,Covered,Positive,TransactionInformation/ReturnedInstructedAmount (PmtRtr/TxInf/RtrdInstdAmt) = Present [Ccy=EUR]; TransactionInformation/ReturnedInterbankSettlementAmount (PmtRtr/TxInf/RtrdIntrBkSttlmAmt) = Present [Ccy=EUR]; TransactionInformation/ExchangeRate (PmtRtr/TxInf/XchgRate) = Not present,"<PmtRtr>
+  <TxInf>
+    <RtrdInstdAmt Ccy=""EUR"">15250.00</RtrdInstdAmt>
+    <RtrdIntrBkSttlmAmt Ccy=""EUR"">15250.00</RtrdIntrBkSttlmAmt>
+    <!-- XchgRate not present -->
+  </TxInf>
+</PmtRtr>","If ReturnedInstructedAmount is present and the currency is the same as the currency in ReturnedInterbankSettlementAmount, then ExchangeRate is not allowed.","ReturnedInstructedAmount is present and the currency of ReturnedInstructedAmount is the same as the currency of ReturnedInterbankSettlementAmount, requirement met","Should pass: ReturnedInstructedAmount is present and the currency of ReturnedInstructedAmount is the same as the currency of ReturnedInterbankSettlementAmount, and ExchangeRate is not present, so the rule is satisfied.",Pass,No,1,none,
+S082,pacs.004.001.15,ReturnedInstructedAmountAndExchangeRate2Rule,Hard rule,Covered,Negative,TransactionInformation/ReturnedInstructedAmount (PmtRtr/TxInf/RtrdInstdAmt) = Present [Ccy=EUR]; TransactionInformation/ReturnedInterbankSettlementAmount (PmtRtr/TxInf/RtrdIntrBkSttlmAmt) = Present [Ccy=EUR]; TransactionInformation/ExchangeRate (PmtRtr/TxInf/XchgRate) = Present,"<PmtRtr>
+  <TxInf>
+    <RtrdInstdAmt Ccy=""EUR"">15250.00</RtrdInstdAmt>
+    <RtrdIntrBkSttlmAmt Ccy=""EUR"">15250.00</RtrdIntrBkSttlmAmt>
+    <XchgRate>15250.00</XchgRate>
+  </TxInf>
+</PmtRtr>","If ReturnedInstructedAmount is present and the currency is the same as the currency in ReturnedInterbankSettlementAmount, then ExchangeRate is not allowed.","ReturnedInstructedAmount is present and the currency of ReturnedInstructedAmount is the same as the currency of ReturnedInterbankSettlementAmount, but ExchangeRate is present","Should fail: ReturnedInstructedAmount is present and the currency of ReturnedInstructedAmount is the same as the currency of ReturnedInterbankSettlementAmount, so ExchangeRate is not allowed, but ExchangeRate is present.",Fail,No,1,remove XchgRate,
+S083,pacs.004.001.15,ReturnedInstructedAmountAndExchangeRate2Rule,Hard rule,Covered,Not applicable,TransactionInformation/ReturnedInstructedAmount (PmtRtr/TxInf/RtrdInstdAmt) = Not present,"<PmtRtr>
+  <TxInf>
+    <!-- RtrdInstdAmt not present -->
+  </TxInf>
+</PmtRtr>","If ReturnedInstructedAmount is present and the currency is the same as the currency in ReturnedInterbankSettlementAmount, then ExchangeRate is not allowed.",ReturnedInstructedAmount is not present,"Should pass (rule not triggered): ReturnedInstructedAmount is not present, so there is nothing to check.",Pass,No,1,none,
+S084,pacs.004.001.15,ReturnedInstructedAmountAndExchangeRate2Rule,Hard rule,Covered,Not applicable,TransactionInformation/ReturnedInstructedAmount (PmtRtr/TxInf/RtrdInstdAmt) = Present [Ccy=INR]; TransactionInformation/ReturnedInterbankSettlementAmount (PmtRtr/TxInf/RtrdIntrBkSttlmAmt) = Present [Ccy=EUR],"<PmtRtr>
+  <TxInf>
+    <RtrdInstdAmt Ccy=""INR"">1450000.00</RtrdInstdAmt>
+    <RtrdIntrBkSttlmAmt Ccy=""EUR"">15250.00</RtrdIntrBkSttlmAmt>
+  </TxInf>
+</PmtRtr>","If ReturnedInstructedAmount is present and the currency is the same as the currency in ReturnedInterbankSettlementAmount, then ExchangeRate is not allowed.",The currency of ReturnedInstructedAmount differs from the currency of ReturnedInterbankSettlementAmount,"Should pass (rule not triggered): the currency of ReturnedInstructedAmount differs from the currency of ReturnedInterbankSettlementAmount, so there is nothing to check.",Pass,No,1,none,
+S085,pacs.004.001.15,SettlementMethodAgentRule,Hard rule,Covered,Positive,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INGA; SettlementInformation/ClearingSystem (GrpHdr/SttlmInf/ClrSys) = Not present; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Not present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present; SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INGA</SttlmMtd>
+      <!-- ClrSys not present -->
+      <!-- InstgRmbrsmntAgt not present -->
+      <!-- InstdRmbrsmntAgt not present -->
+      <!-- ThrdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INGA (InstructingAgent), requirement met","Should pass: SettlementMethod is INGA (InstructingAgent), and ClearingSystem is not present and InstructingReimbursementAgent is not present and InstructedReimbursementAgent is not present and ThirdReimbursementAgent is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S086,pacs.004.001.15,SettlementMethodAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INGA; SettlementInformation/ClearingSystem (GrpHdr/SttlmInf/ClrSys) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INGA</SttlmMtd>
+      <ClrSys>
+        <Cd>Sam</Cd>
+      </ClrSys>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INGA (InstructingAgent), but ClearingSystem is present","Should fail: SettlementMethod is INGA (InstructingAgent), so ClearingSystem is not allowed, but ClearingSystem is present.",Fail,No,1,remove ClrSys,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S087,pacs.004.001.15,SettlementMethodAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INGA; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INGA</SttlmMtd>
+      <InstgRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstgRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INGA (InstructingAgent), but InstructingReimbursementAgent is present","Should fail: SettlementMethod is INGA (InstructingAgent), so InstructingReimbursementAgent is not allowed, but InstructingReimbursementAgent is present.",Fail,No,1,remove InstgRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S088,pacs.004.001.15,SettlementMethodAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INGA; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INGA</SttlmMtd>
+      <InstdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INGA (InstructingAgent), but InstructedReimbursementAgent is present","Should fail: SettlementMethod is INGA (InstructingAgent), so InstructedReimbursementAgent is not allowed, but InstructedReimbursementAgent is present.",Fail,No,1,remove InstdRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S089,pacs.004.001.15,SettlementMethodAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INGA; SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INGA</SttlmMtd>
+      <ThrdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </ThrdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INGA (InstructingAgent), but ThirdReimbursementAgent is present","Should fail: SettlementMethod is INGA (InstructingAgent), so ThirdReimbursementAgent is not allowed, but ThirdReimbursementAgent is present.",Fail,No,1,remove ThrdRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S090,pacs.004.001.15,SettlementMethodAgentRule,Hard rule,Covered,Positive,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INDA; SettlementInformation/ClearingSystem (GrpHdr/SttlmInf/ClrSys) = Not present; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Not present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present; SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INDA</SttlmMtd>
+      <!-- ClrSys not present -->
+      <!-- InstgRmbrsmntAgt not present -->
+      <!-- InstdRmbrsmntAgt not present -->
+      <!-- ThrdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INDA (InstructedAgent), requirement met","Should pass: SettlementMethod is INDA (InstructedAgent), and ClearingSystem is not present and InstructingReimbursementAgent is not present and InstructedReimbursementAgent is not present and ThirdReimbursementAgent is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S091,pacs.004.001.15,SettlementMethodAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INDA; SettlementInformation/ClearingSystem (GrpHdr/SttlmInf/ClrSys) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INDA</SttlmMtd>
+      <ClrSys>
+        <Cd>Sam</Cd>
+      </ClrSys>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INDA (InstructedAgent), but ClearingSystem is present","Should fail: SettlementMethod is INDA (InstructedAgent), so ClearingSystem is not allowed, but ClearingSystem is present.",Fail,No,1,remove ClrSys,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S092,pacs.004.001.15,SettlementMethodAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INDA; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INDA</SttlmMtd>
+      <InstgRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstgRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INDA (InstructedAgent), but InstructingReimbursementAgent is present","Should fail: SettlementMethod is INDA (InstructedAgent), so InstructingReimbursementAgent is not allowed, but InstructingReimbursementAgent is present.",Fail,No,1,remove InstgRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S093,pacs.004.001.15,SettlementMethodAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INDA; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INDA</SttlmMtd>
+      <InstdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INDA (InstructedAgent), but InstructedReimbursementAgent is present","Should fail: SettlementMethod is INDA (InstructedAgent), so InstructedReimbursementAgent is not allowed, but InstructedReimbursementAgent is present.",Fail,No,1,remove InstdRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S094,pacs.004.001.15,SettlementMethodAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INDA; SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INDA</SttlmMtd>
+      <ThrdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </ThrdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","SettlementMethod is INDA (InstructedAgent), but ThirdReimbursementAgent is present","Should fail: SettlementMethod is INDA (InstructedAgent), so ThirdReimbursementAgent is not allowed, but ThirdReimbursementAgent is present.",Fail,No,1,remove ThrdRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S095,pacs.004.001.15,SettlementMethodAgentRule,Hard rule,Covered,Not applicable,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INGA,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INGA</SttlmMtd>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to INDA or INGA, then ReimbursementAgent(s) and ClearingSystem are not allowed.","None of these hold: SettlementMethod is INGA (InstructingAgent), SettlementMethod is INDA (InstructedAgent)","Should pass (rule not triggered): none of these hold: SettlementMethod is INGA (InstructingAgent), SettlementMethod is INDA (InstructedAgent), so there is nothing to check.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S096,pacs.004.001.15,SettlementMethodClearingRule,Hard rule,Covered,Positive,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = CLRG; SettlementInformation/SettlementAccount (GrpHdr/SttlmInf/SttlmAcct) = Not present; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Not present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present; SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>CLRG</SttlmMtd>
+      <!-- SttlmAcct not present -->
+      <!-- InstgRmbrsmntAgt not present -->
+      <!-- InstdRmbrsmntAgt not present -->
+      <!-- ThrdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to CLRG, then SettlementAccount and ReimbursementAgent(s) are not allowed.","SettlementMethod is CLRG (ClearingSystem), requirement met","Should pass: SettlementMethod is CLRG (ClearingSystem), and SettlementAccount is not present and InstructingReimbursementAgent is not present and InstructedReimbursementAgent is not present and ThirdReimbursementAgent is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S097,pacs.004.001.15,SettlementMethodClearingRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = CLRG; SettlementInformation/SettlementAccount (GrpHdr/SttlmInf/SttlmAcct) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>CLRG</SttlmMtd>
+      <SttlmAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </SttlmAcct>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to CLRG, then SettlementAccount and ReimbursementAgent(s) are not allowed.","SettlementMethod is CLRG (ClearingSystem), but SettlementAccount is present","Should fail: SettlementMethod is CLRG (ClearingSystem), so SettlementAccount is not allowed, but SettlementAccount is present.",Fail,No,1,remove SttlmAcct,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S098,pacs.004.001.15,SettlementMethodClearingRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = CLRG; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>CLRG</SttlmMtd>
+      <InstgRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstgRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to CLRG, then SettlementAccount and ReimbursementAgent(s) are not allowed.","SettlementMethod is CLRG (ClearingSystem), but InstructingReimbursementAgent is present","Should fail: SettlementMethod is CLRG (ClearingSystem), so InstructingReimbursementAgent is not allowed, but InstructingReimbursementAgent is present.",Fail,No,1,remove InstgRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S099,pacs.004.001.15,SettlementMethodClearingRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = CLRG; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>CLRG</SttlmMtd>
+      <InstdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to CLRG, then SettlementAccount and ReimbursementAgent(s) are not allowed.","SettlementMethod is CLRG (ClearingSystem), but InstructedReimbursementAgent is present","Should fail: SettlementMethod is CLRG (ClearingSystem), so InstructedReimbursementAgent is not allowed, but InstructedReimbursementAgent is present.",Fail,No,1,remove InstdRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S100,pacs.004.001.15,SettlementMethodClearingRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = CLRG; SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>CLRG</SttlmMtd>
+      <ThrdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </ThrdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to CLRG, then SettlementAccount and ReimbursementAgent(s) are not allowed.","SettlementMethod is CLRG (ClearingSystem), but ThirdReimbursementAgent is present","Should fail: SettlementMethod is CLRG (ClearingSystem), so ThirdReimbursementAgent is not allowed, but ThirdReimbursementAgent is present.",Fail,No,1,remove ThrdRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S101,pacs.004.001.15,SettlementMethodClearingRule,Hard rule,Covered,Not applicable,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INDA,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INDA</SttlmMtd>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to CLRG, then SettlementAccount and ReimbursementAgent(s) are not allowed.",SettlementMethod is not CLRG (ClearingSystem),"Should pass (rule not triggered): SettlementMethod is not CLRG (ClearingSystem), so there is nothing to check.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S102,pacs.004.001.15,SettlementMethodCoverAgentRule,Hard rule,Covered,Positive,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = COVE; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>COVE</SttlmMtd>
+      <InstgRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstgRmbrsmntAgt>
+      <!-- InstdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to COVE, then InstructedReimbursementAgent or InstructingReimbursementAgent must be present.","SettlementMethod is COVE (CoverMethod), requirement met","Should pass: SettlementMethod is COVE (CoverMethod), and InstructingReimbursementAgent is present or InstructedReimbursementAgent is present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S103,pacs.004.001.15,SettlementMethodCoverAgentRule,Hard rule,Covered,Positive,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = COVE; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>COVE</SttlmMtd>
+      <InstgRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstgRmbrsmntAgt>
+      <!-- InstdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to COVE, then InstructedReimbursementAgent or InstructingReimbursementAgent must be present.",Only InstructingReimbursementAgent present (one option is enough),"Should pass: at least one of InstructingReimbursementAgent, InstructedReimbursementAgent must be present; InstructingReimbursementAgent alone satisfies the rule and the other options are absent.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S104,pacs.004.001.15,SettlementMethodCoverAgentRule,Hard rule,Covered,Positive,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = COVE; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Present; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>COVE</SttlmMtd>
+      <InstdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstdRmbrsmntAgt>
+      <!-- InstgRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to COVE, then InstructedReimbursementAgent or InstructingReimbursementAgent must be present.",Only InstructedReimbursementAgent present (one option is enough),"Should pass: at least one of InstructingReimbursementAgent, InstructedReimbursementAgent must be present; InstructedReimbursementAgent alone satisfies the rule and the other options are absent.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S105,pacs.004.001.15,SettlementMethodCoverAgentRule,Hard rule,Covered,Positive,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = COVE; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>COVE</SttlmMtd>
+      <InstgRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstgRmbrsmntAgt>
+      <InstdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to COVE, then InstructedReimbursementAgent or InstructingReimbursementAgent must be present.",All options present,Should pass: all of the options may be present together.,Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S106,pacs.004.001.15,SettlementMethodCoverAgentRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = COVE; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Not present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>COVE</SttlmMtd>
+      <!-- InstgRmbrsmntAgt not present -->
+      <!-- InstdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to COVE, then InstructedReimbursementAgent or InstructingReimbursementAgent must be present.","SettlementMethod is COVE (CoverMethod), but none of these hold: InstructingReimbursementAgent is present, InstructedReimbursementAgent is present","Should fail: SettlementMethod is COVE (CoverMethod), so at least one of InstructingReimbursementAgent, InstructedReimbursementAgent must be present, but none of these hold: InstructingReimbursementAgent is present, InstructedReimbursementAgent is present.",Fail,No,1,add InstgRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S107,pacs.004.001.15,SettlementMethodCoverAgentRule,Hard rule,Covered,Not applicable,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INDA,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INDA</SttlmMtd>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to COVE, then InstructedReimbursementAgent or InstructingReimbursementAgent must be present.",SettlementMethod is not COVE (CoverMethod),"Should pass (rule not triggered): SettlementMethod is not COVE (CoverMethod), so there is nothing to check.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S108,pacs.004.001.15,SettlementMethodCoverRule,Hard rule,Covered,Positive,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = COVE; SettlementInformation/SettlementAccount (GrpHdr/SttlmInf/SttlmAcct) = Not present; SettlementInformation/ClearingSystem (GrpHdr/SttlmInf/ClrSys) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>COVE</SttlmMtd>
+      <!-- SttlmAcct not present -->
+      <!-- ClrSys not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to COVE, then SettlementAccount and ClearingSystem are not allowed.","SettlementMethod is COVE (CoverMethod), requirement met","Should pass: SettlementMethod is COVE (CoverMethod), and SettlementAccount is not present and ClearingSystem is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S109,pacs.004.001.15,SettlementMethodCoverRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = COVE; SettlementInformation/SettlementAccount (GrpHdr/SttlmInf/SttlmAcct) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>COVE</SttlmMtd>
+      <SttlmAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </SttlmAcct>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to COVE, then SettlementAccount and ClearingSystem are not allowed.","SettlementMethod is COVE (CoverMethod), but SettlementAccount is present","Should fail: SettlementMethod is COVE (CoverMethod), so SettlementAccount is not allowed, but SettlementAccount is present.",Fail,No,1,remove SttlmAcct,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S110,pacs.004.001.15,SettlementMethodCoverRule,Hard rule,Covered,Negative,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = COVE; SettlementInformation/ClearingSystem (GrpHdr/SttlmInf/ClrSys) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>COVE</SttlmMtd>
+      <ClrSys>
+        <Cd>Sam</Cd>
+      </ClrSys>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to COVE, then SettlementAccount and ClearingSystem are not allowed.","SettlementMethod is COVE (CoverMethod), but ClearingSystem is present","Should fail: SettlementMethod is COVE (CoverMethod), so ClearingSystem is not allowed, but ClearingSystem is present.",Fail,No,1,remove ClrSys,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S111,pacs.004.001.15,SettlementMethodCoverRule,Hard rule,Covered,Not applicable,SettlementInformation/SettlementMethod (GrpHdr/SttlmInf/SttlmMtd) = INDA,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <SttlmMtd>INDA</SttlmMtd>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If SettlementMethod is equal to COVE, then SettlementAccount and ClearingSystem are not allowed.",SettlementMethod is not COVE (CoverMethod),"Should pass (rule not triggered): SettlementMethod is not COVE (CoverMethod), so there is nothing to check.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S112,pacs.004.001.15,SupplementaryDataRule,Hard rule,Not covered,Manual needed,(not generated),,This component may not be used without the explicit approval of a SEG and submission to the RA of ISO 20022 compliant structure(s) to be used in the Envelope element.,Scenarios must be written manually,Rule is free text only: write the valid and invalid cases by hand.,n/a,No,,none (manual),See the coverage report for the reason.
+S113,pacs.004.001.15,ThirdReimbursementAgentAccountRule,Hard rule,Covered,Positive,SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Not present; SettlementInformation/ThirdReimbursementAgentAccount (GrpHdr/SttlmInf/ThrdRmbrsmntAgtAcct) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <!-- ThrdRmbrsmntAgt not present -->
+      <!-- ThrdRmbrsmntAgtAcct not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If ThirdReimbursementAgentAccount is present, then ThirdReimbursementAgent must be present.","ThirdReimbursementAgent is not present, requirement met","Should pass: ThirdReimbursementAgent is not present, and ThirdReimbursementAgentAccount is not present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S114,pacs.004.001.15,ThirdReimbursementAgentAccountRule,Hard rule,Covered,Negative,SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Not present; SettlementInformation/ThirdReimbursementAgentAccount (GrpHdr/SttlmInf/ThrdRmbrsmntAgtAcct) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <ThrdRmbrsmntAgtAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </ThrdRmbrsmntAgtAcct>
+      <!-- ThrdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If ThirdReimbursementAgentAccount is present, then ThirdReimbursementAgent must be present.","ThirdReimbursementAgent is not present, but ThirdReimbursementAgentAccount is present","Should fail: ThirdReimbursementAgent is not present, so ThirdReimbursementAgentAccount is not allowed, but ThirdReimbursementAgentAccount is present.",Fail,No,1,remove ThrdRmbrsmntAgtAcct,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S115,pacs.004.001.15,ThirdReimbursementAgentAccountRule,Hard rule,Covered,Not applicable,SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <ThrdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </ThrdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If ThirdReimbursementAgentAccount is present, then ThirdReimbursementAgent must be present.",ThirdReimbursementAgent is present,"Should pass (rule not triggered): ThirdReimbursementAgent is present, so there is nothing to check.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S116,pacs.004.001.15,ThirdReimbursementAgentRule,Hard rule,Covered,Positive,SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Present; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <ThrdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </ThrdRmbrsmntAgt>
+      <InstgRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstgRmbrsmntAgt>
+      <InstdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </InstdRmbrsmntAgt>
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If ThirdReimbursementAgent is present, then InstructingReimbursementAgent and InstructedReimbursementAgent must both be present.","ThirdReimbursementAgent is present, requirement met","Should pass: ThirdReimbursementAgent is present, and InstructingReimbursementAgent is present and InstructedReimbursementAgent is present, so the rule is satisfied.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S117,pacs.004.001.15,ThirdReimbursementAgentRule,Hard rule,Covered,Negative,SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Present; SettlementInformation/InstructingReimbursementAgent (GrpHdr/SttlmInf/InstgRmbrsmntAgt) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <ThrdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </ThrdRmbrsmntAgt>
+      <!-- InstgRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If ThirdReimbursementAgent is present, then InstructingReimbursementAgent and InstructedReimbursementAgent must both be present.","ThirdReimbursementAgent is present, but InstructingReimbursementAgent is not present","Should fail: ThirdReimbursementAgent is present, so InstructingReimbursementAgent must be present, but InstructingReimbursementAgent is not present.",Fail,No,1,add InstgRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S118,pacs.004.001.15,ThirdReimbursementAgentRule,Hard rule,Covered,Negative,SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Present; SettlementInformation/InstructedReimbursementAgent (GrpHdr/SttlmInf/InstdRmbrsmntAgt) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <ThrdRmbrsmntAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </ThrdRmbrsmntAgt>
+      <!-- InstdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If ThirdReimbursementAgent is present, then InstructingReimbursementAgent and InstructedReimbursementAgent must both be present.","ThirdReimbursementAgent is present, but InstructedReimbursementAgent is not present","Should fail: ThirdReimbursementAgent is present, so InstructedReimbursementAgent must be present, but InstructedReimbursementAgent is not present.",Fail,No,1,add InstdRmbrsmntAgt,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S119,pacs.004.001.15,ThirdReimbursementAgentRule,Hard rule,Covered,Not applicable,SettlementInformation/ThirdReimbursementAgent (GrpHdr/SttlmInf/ThrdRmbrsmntAgt) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <SttlmInf>
+      <!-- ThrdRmbrsmntAgt not present -->
+    </SttlmInf>
+  </GrpHdr>
+</PmtRtr>","If ThirdReimbursementAgent is present, then InstructingReimbursementAgent and InstructedReimbursementAgent must both be present.",ThirdReimbursementAgent is not present,"Should pass (rule not triggered): ThirdReimbursementAgent is not present, so there is nothing to check.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for SttlmInf.
+S120,pacs.004.001.15,TotalInterbankSettlementAmountAndDateRule,Hard rule,Covered,Positive,GroupHeader/TotalReturnedInterbankSettlementAmount (PmtRtr/GrpHdr/TtlRtrdIntrBkSttlmAmt) = Present; GroupHeader/InterbankSettlementDate (PmtRtr/GrpHdr/IntrBkSttlmDt) = Present,"<PmtRtr>
+  <GrpHdr>
+    <TtlRtrdIntrBkSttlmAmt Ccy=""EUR"">15250.00</TtlRtrdIntrBkSttlmAmt>
+    <IntrBkSttlmDt>2026-11-14</IntrBkSttlmDt>
+  </GrpHdr>
+</PmtRtr>","If TotalReturnedInterbankSettlementAmount is present, then InterbankSettlementDate must be present.","TotalReturnedInterbankSettlementAmount is present, requirement met","Should pass: TotalReturnedInterbankSettlementAmount is present, and InterbankSettlementDate is present, so the rule is satisfied.",Pass,No,1,none,
+S121,pacs.004.001.15,TotalInterbankSettlementAmountAndDateRule,Hard rule,Covered,Negative,GroupHeader/TotalReturnedInterbankSettlementAmount (PmtRtr/GrpHdr/TtlRtrdIntrBkSttlmAmt) = Present; GroupHeader/InterbankSettlementDate (PmtRtr/GrpHdr/IntrBkSttlmDt) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <TtlRtrdIntrBkSttlmAmt Ccy=""EUR"">15250.00</TtlRtrdIntrBkSttlmAmt>
+    <!-- IntrBkSttlmDt not present -->
+  </GrpHdr>
+</PmtRtr>","If TotalReturnedInterbankSettlementAmount is present, then InterbankSettlementDate must be present.","TotalReturnedInterbankSettlementAmount is present, but InterbankSettlementDate is not present","Should fail: TotalReturnedInterbankSettlementAmount is present, so InterbankSettlementDate must be present, but InterbankSettlementDate is not present.",Fail,No,1,add IntrBkSttlmDt,
+S122,pacs.004.001.15,TotalInterbankSettlementAmountAndDateRule,Hard rule,Covered,Not applicable,GroupHeader/TotalReturnedInterbankSettlementAmount (PmtRtr/GrpHdr/TtlRtrdIntrBkSttlmAmt) = Not present,"<PmtRtr>
+  <GrpHdr>
+    <!-- TtlRtrdIntrBkSttlmAmt not present -->
+  </GrpHdr>
+</PmtRtr>","If TotalReturnedInterbankSettlementAmount is present, then InterbankSettlementDate must be present.",TotalReturnedInterbankSettlementAmount is not present,"Should pass (rule not triggered): TotalReturnedInterbankSettlementAmount is not present, so there is nothing to check.",Pass,No,1,none,
+S123,pacs.004.001.15,TotalInterbankSettlementAmountAndDateRule,Hard rule,Covered,Positive,GroupHeader/TotalReturnedInterbankSettlementAmount (PmtRtr/GrpHdr/TtlRtrdIntrBkSttlmAmt) = Not present; GroupHeader/InterbankSettlementDate (PmtRtr/GrpHdr/IntrBkSttlmDt) = Present,"<PmtRtr>
+  <GrpHdr>
+    <IntrBkSttlmDt>2026-11-14</IntrBkSttlmDt>
+    <!-- TtlRtrdIntrBkSttlmAmt not present -->
+  </GrpHdr>
+</PmtRtr>","If TotalReturnedInterbankSettlementAmount is present, then InterbankSettlementDate must be present.",Only InterbankSettlementDate present (no TotalReturnedInterbankSettlementAmount),Should pass: the rule only restricts the case where TotalReturnedInterbankSettlementAmount is present; InterbankSettlementDate is present on its own is allowed.,Pass,No,1,none,
+S124,pacs.004.001.15,TransactionIdentificationPresenceRule,Hard rule,Covered,Positive,PaymentIdentification/TransactionIdentification (UndrlygCstmrCdtTrf/PmtId/TxId) = Present; PaymentIdentification/UETR (UndrlygCstmrCdtTrf/PmtId/UETR) = Not present,"<PmtRtr>
+  <TxInf>
+    <OrgnlTxRef>
+      <UndrlygCstmrCdtTrf>
+        <PmtId>
+          <TxId>TX-0001</TxId>
+          <!-- UETR not present -->
+        </PmtId>
+      </UndrlygCstmrCdtTrf>
+    </OrgnlTxRef>
+  </TxInf>
+</PmtRtr>",TransactionIdentification or UETR must be present. Both may be present,TransactionIdentification is present or UETR is present,"Should pass: TransactionIdentification is present or UETR is present, which satisfies the rule.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for PmtId.
+S125,pacs.004.001.15,TransactionIdentificationPresenceRule,Hard rule,Covered,Positive,PaymentIdentification/TransactionIdentification (UndrlygCstmrCdtTrf/PmtId/TxId) = Present; PaymentIdentification/UETR (UndrlygCstmrCdtTrf/PmtId/UETR) = Not present,"<PmtRtr>
+  <TxInf>
+    <OrgnlTxRef>
+      <UndrlygCstmrCdtTrf>
+        <PmtId>
+          <TxId>TX-0001</TxId>
+          <!-- UETR not present -->
+        </PmtId>
+      </UndrlygCstmrCdtTrf>
+    </OrgnlTxRef>
+  </TxInf>
+</PmtRtr>",TransactionIdentification or UETR must be present. Both may be present,Only TransactionIdentification present (one option is enough),"Should pass: at least one of TransactionIdentification, UETR must be present; TransactionIdentification alone satisfies the rule and the other options are absent.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for PmtId.
+S126,pacs.004.001.15,TransactionIdentificationPresenceRule,Hard rule,Covered,Positive,PaymentIdentification/UETR (UndrlygCstmrCdtTrf/PmtId/UETR) = Present; PaymentIdentification/TransactionIdentification (UndrlygCstmrCdtTrf/PmtId/TxId) = Not present,"<PmtRtr>
+  <TxInf>
+    <OrgnlTxRef>
+      <UndrlygCstmrCdtTrf>
+        <PmtId>
+          <UETR>97ed4827-7b6f-4491-a06f-b548d5a7512d</UETR>
+          <!-- TxId not present -->
+        </PmtId>
+      </UndrlygCstmrCdtTrf>
+    </OrgnlTxRef>
+  </TxInf>
+</PmtRtr>",TransactionIdentification or UETR must be present. Both may be present,Only UETR present (one option is enough),"Should pass: at least one of TransactionIdentification, UETR must be present; UETR alone satisfies the rule and the other options are absent.",Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for PmtId.
+S127,pacs.004.001.15,TransactionIdentificationPresenceRule,Hard rule,Covered,Positive,PaymentIdentification/TransactionIdentification (UndrlygCstmrCdtTrf/PmtId/TxId) = Present; PaymentIdentification/UETR (UndrlygCstmrCdtTrf/PmtId/UETR) = Present,"<PmtRtr>
+  <TxInf>
+    <OrgnlTxRef>
+      <UndrlygCstmrCdtTrf>
+        <PmtId>
+          <TxId>TX-0001</TxId>
+          <UETR>97ed4827-7b6f-4491-a06f-b548d5a7512d</UETR>
+        </PmtId>
+      </UndrlygCstmrCdtTrf>
+    </OrgnlTxRef>
+  </TxInf>
+</PmtRtr>",TransactionIdentification or UETR must be present. Both may be present,All options present,Should pass: all of the options may be present together.,Pass,No,1,none,Rule applies to 2 place(s) in this message; shown for PmtId.
+S128,pacs.004.001.15,TransactionIdentificationPresenceRule,Hard rule,Covered,Negative,PaymentIdentification/TransactionIdentification (UndrlygCstmrCdtTrf/PmtId/TxId) = Not present; PaymentIdentification/UETR (UndrlygCstmrCdtTrf/PmtId/UETR) = Not present,"<PmtRtr>
+  <TxInf>
+    <OrgnlTxRef>
+      <UndrlygCstmrCdtTrf>
+        <PmtId>
+          <!-- TxId not present -->
+          <!-- UETR not present -->
+        </PmtId>
+      </UndrlygCstmrCdtTrf>
+    </OrgnlTxRef>
+  </TxInf>
+</PmtRtr>",TransactionIdentification or UETR must be present. Both may be present,"none of these hold: TransactionIdentification is present, UETR is present","Should fail: at least one of TransactionIdentification, UETR must be present, but none of these hold: TransactionIdentification is present, UETR is present.",Fail,No,1,add TxId,Rule applies to 2 place(s) in this message; shown for PmtId.
+S129,pacs.004.001.15,UltimateCreditorGuideline,Guideline,Not covered,Manual needed,(not generated),,UltimateCreditor may only be present if different from Creditor.,Scenarios must be written manually,Guideline (advisory): write one compliant and one non-compliant case by hand. A broken guideline never fails a message.,n/a,Yes (if broken),,none (manual),See the coverage report for the reason.
+S130,pacs.004.001.15,UltimateDebtorGuideline,Guideline,Not covered,Manual needed,(not generated),,UltimateDebtor may only be present if different from Debtor.,Scenarios must be written manually,Guideline (advisory): write one compliant and one non-compliant case by hand. A broken guideline never fails a message.,n/a,Yes (if broken),,none (manual),See the coverage report for the reason.
+S131,pacs.004.001.15,UnderlyingAllocationGuideline,Guideline,Not covered,Manual needed,(not generated),,UnderlyingAllocation may only be present if bilaterally agreed.,Scenarios must be written manually,Guideline (advisory): write one compliant and one non-compliant case by hand. A broken guideline never fails a message.,n/a,Yes (if broken),,none (manual),See the coverage report for the reason.
+S132,pacs.004.001.15,UnderlyingCustomerCreditTransferRule,Hard rule,Not covered,Manual needed,(not generated),,The UnderlyingCustomerCreditTransfer element can only be present if present in the original transaction being returned.,Scenarios must be written manually,Rule is free text only: write the valid and invalid cases by hand.,n/a,No,,none (manual),See the coverage report for the reason.
+S133,pacs.004.001.15,UnderlyingFinancialInstitutionCreditTransferRule,Hard rule,Not covered,Manual needed,(not generated),,The UnderlyingFinancialInstitutionCreditTransfer element can only be present if present in the original transaction being returned.,Scenarios must be written manually,Rule is free text only: write the valid and invalid cases by hand.,n/a,No,,none (manual),See the coverage report for the reason.
+S134,pacs.004.001.15,ActiveCurrency,Base-type constraint,Value-level (see value-constraints report),Value check,Currency = EUR,"<Amt Ccy=""EUR"">15250.00</Amt>","The currency code must be a valid active currency code, not yet withdrawn on the day the message containing the currency is exchanged. Valid active currency codes are registered with the ISO 4217 Maintenance Agency, consist of three (3) contiguous letters, and are not yet withdrawn on the day the me",Valid ISO 4217 currency (EUR),Should pass: EUR is a valid active currency code.,Pass,No,1,none,Needs the ISO 4217 list
+S135,pacs.004.001.15,ActiveCurrency,Base-type constraint,Value-level (see value-constraints report),Value check,Currency = XXZ,"<Amt Ccy=""XXZ"">15250.00</Amt>","The currency code must be a valid active currency code, not yet withdrawn on the day the message containing the currency is exchanged. Valid active currency codes are registered with the ISO 4217 Maintenance Agency, consist of three (3) contiguous letters, and are not yet withdrawn on the day the me",Pattern-valid but unknown currency (XXZ),"Should fail: three capital letters pass the XSD, but XXZ is not an ISO 4217 currency.",Fail,No,1,set a valid value,Needs the ISO 4217 list
+S136,pacs.004.001.15,ActiveOrHistoricCurrency,Base-type constraint,Value-level (see value-constraints report),Value check,Currency = EUR,"<Amt Ccy=""EUR"">15250.00</Amt>","The Currency Code must be registered, or have already been registered. Valid active or historic currency codes are registered with the ISO 4217 Maintenance Agency, consist of three (3) contiguous letters, and may be or not be withdrawn on the day the message containing the Currency is exchanged.",Valid ISO 4217 currency (EUR),Should pass: EUR is a valid active currency code.,Pass,No,1,none,Needs the ISO 4217 list
+S137,pacs.004.001.15,ActiveOrHistoricCurrency,Base-type constraint,Value-level (see value-constraints report),Value check,Currency = XXZ,"<Amt Ccy=""XXZ"">15250.00</Amt>","The Currency Code must be registered, or have already been registered. Valid active or historic currency codes are registered with the ISO 4217 Maintenance Agency, consist of three (3) contiguous letters, and may be or not be withdrawn on the day the message containing the Currency is exchanged.",Pattern-valid but unknown currency (XXZ),"Should fail: three capital letters pass the XSD, but XXZ is not an ISO 4217 currency.",Fail,No,1,set a valid value,Needs the ISO 4217 list
+S138,pacs.004.001.15,AnyBIC,Base-type constraint,Value-level (see value-constraints report),Value check,BICFI = DEUTDEFFXXX,<BICFI>DEUTDEFFXXX</BICFI>,"Only a valid Business identifier code is allowed. Business identifier codes for financial or non- financial institutions are registered and published by the ISO 9362 Registration Authority in the ISO directory of BICs, and consists of eight (8) or eleven (11) contiguous characters.",BIC with correct structure,Should pass: 11-character BIC in the right format.,Pass,No,1,none,Structure only; registry not checked
+S139,pacs.004.001.15,AnyBIC,Base-type constraint,Value-level (see value-constraints report),Value check,BICFI = DEUTDEF,<BICFI>DEUTDEF</BICFI>,"Only a valid Business identifier code is allowed. Business identifier codes for financial or non- financial institutions are registered and published by the ISO 9362 Registration Authority in the ISO directory of BICs, and consists of eight (8) or eleven (11) contiguous characters.",BIC with wrong structure (7 characters),Should fail: a BIC has 8 or 11 characters.,Fail,No,1,set a valid value,XSD pattern
+S140,pacs.004.001.15,BICFI,Base-type constraint,Value-level (see value-constraints report),Value check,BICFI = DEUTDEFFXXX,<BICFI>DEUTDEFFXXX</BICFI>,"Valid BICs for financial institutions are registered and published by the ISO 9362 Registration Authority in the ISO directory of BICs, and consist of eight (8) or eleven (11) contiguous characters.",BIC with correct structure,Should pass: 11-character BIC in the right format.,Pass,No,1,none,Structure only; registry not checked
+S141,pacs.004.001.15,BICFI,Base-type constraint,Value-level (see value-constraints report),Value check,BICFI = DEUTDEF,<BICFI>DEUTDEF</BICFI>,"Valid BICs for financial institutions are registered and published by the ISO 9362 Registration Authority in the ISO directory of BICs, and consist of eight (8) or eleven (11) contiguous characters.",BIC with wrong structure (7 characters),Should fail: a BIC has 8 or 11 characters.,Fail,No,1,set a valid value,XSD pattern
+S142,pacs.004.001.15,Country,Base-type constraint,Value-level (see value-constraints report),Value check,Country = DE,<Ctry>DE</Ctry>,"The code is checked against the list of country names obtained from the United Nations (ISO 3166, Alpha-2 code).",Valid ISO 3166 country (DE),Should pass: DE is a valid country code.,Pass,No,1,none,Needs the ISO 3166 list
+S143,pacs.004.001.15,Country,Base-type constraint,Value-level (see value-constraints report),Value check,Country = ZZ,<Ctry>ZZ</Ctry>,"The code is checked against the list of country names obtained from the United Nations (ISO 3166, Alpha-2 code).",Pattern-valid but unassigned country (ZZ),"Should fail: two capital letters pass the XSD, but ZZ is not an assigned ISO 3166 code.",Fail,No,1,set a valid value,Needs the ISO 3166 list
+S144,pacs.004.001.15,CurrencyAmount,Base-type constraint,Value-level (see value-constraints report),Value check,Amount = JPY 15250,"<Amt Ccy=""JPY"">15250</Amt>",The number of fractional digits (or minor unit of currency) must comply with ISO 4217. Note: The decimal separator is a dot.,JPY amount with no decimals,Should pass: JPY has 0 minor units.,Pass,No,1,none,Needs fraction digits per currency
+S145,pacs.004.001.15,CurrencyAmount,Base-type constraint,Value-level (see value-constraints report),Value check,Amount = JPY 15250.50,"<Amt Ccy=""JPY"">15250.50</Amt>",The number of fractional digits (or minor unit of currency) must comply with ISO 4217. Note: The decimal separator is a dot.,JPY amount with 2 decimals,Should fail: JPY allows no fractional digits.,Fail,No,1,set a valid value,Needs fraction digits per currency
+S146,pacs.004.001.15,IBAN,Base-type constraint,Value-level (see value-constraints report),Value check,IBAN = DE89370400440532013000,<IBAN>DE89370400440532013000</IBAN>,"A valid IBAN consists of all three of the following components: Country Code, check digits and BBAN.",IBAN with correct check digits,Should pass: structure and check digits are valid.,Pass,No,1,none,Check digits computable (mod-97)
+S147,pacs.004.001.15,IBAN,Base-type constraint,Value-level (see value-constraints report),Value check,IBAN = DE00370400440532013000,<IBAN>DE00370400440532013000</IBAN>,"A valid IBAN consists of all three of the following components: Country Code, check digits and BBAN.",Pattern-valid IBAN with wrong check digits,Should fail: the XSD pattern passes but the mod-97 check digits are wrong.,Fail,No,1,set a valid value,Check digits computable (mod-97)

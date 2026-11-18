@@ -1,0 +1,15 @@
+node_modules
+dist
+.DS_Store
+*.local
+*.log
+.env*
+.vite
+.netlify
+coverage
+.idea
+.vscode
+.claude
+__pycache__
+# MDR-derived rule files stay local (create them from the Rules & Scenarios page or extract_rules.py)
+src/content/schemas/rules/
