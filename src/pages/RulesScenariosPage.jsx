@@ -128,7 +128,7 @@ export default function RulesScenariosPage() {
               ))}
             </div>
             <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
-              <span className="text-slate-500">{result.sc.rows.length} scenario rows ({result.sc.stats.manual} rules need manual scenarios). Download:</span>
+              <span className="text-slate-500">{result.sc.rows.length} scenario rows ({result.sc.stats.manual} rules need manual scenarios, {result.sc.stats.guidelines} guidelines noted only). Download:</span>
               {[['cov', 'Coverage CSV'], ['sc', 'Scenarios CSV'], ['val', 'Value constraints CSV'], ['json', 'Rules JSON']].map(([k, l]) => (
                 <button key={k} onClick={() => dl(k)} className="inline-flex items-center gap-1 rounded-lg border border-slate-300 px-2 py-1 dark:border-slate-600"><Download size={14} /> {l}</button>
               ))}

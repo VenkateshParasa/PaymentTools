@@ -12,7 +12,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:xsd": "node docs/fixtures/run-test.mjs",
-    "test:pack": "node docs/fixtures/run-pack-test.mjs"
+    "test:pack": "node docs/fixtures/run-pack-test.mjs",
+    "test:vmf": "node docs/fixtures/run-vmf-test.mjs"
   },
   "dependencies": {
     "jszip": "^3.10.2",

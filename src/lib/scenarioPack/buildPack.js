@@ -92,13 +92,14 @@ export async function buildPack({ model, rulesFile, coverage, parseXml, profile 
 
   // ---- 1. rule scenarios -> full messages ----
   const scenarioRows = []
-  const stats = { sampleContent: scenarioMode === 'full' ? 'all fields' : 'mandatory only', scenarios: sc.rows.length, withSample: 0, confirmed: 0, mismatches: 0, manual: 0, valueChecks: 0 }
+  const stats = { sampleContent: scenarioMode === 'full' ? 'all fields' : 'mandatory only', scenarios: sc.rows.length, withSample: 0, confirmed: 0, mismatches: 0, manual: 0, guidelines: 0, valueChecks: 0 }
   let iter = 0
   for (let i = 0; i < sc.rows.length; i++) {
     const row = sc.rows[i], meta = sc.meta[i]
     if (i % 5 === 0) { onProgress(i, sc.rows.length, 'Rule scenarios'); await tick() }
     let file = '', check = '', notes = ''
-    if (meta.kind === 'manual') { stats.manual++; check = 'Manual needed'; notes = 'No sample generated: write this scenario by hand.' }
+    if (meta.kind === 'guideline') { stats.guidelines++; check = 'Guideline: note only'; notes = 'No sample generated: guidelines are advisory.' }
+    else if (meta.kind === 'manual') { stats.manual++; check = 'Manual needed'; notes = 'No sample generated: write this scenario by hand.' }
     else {
       const spec = meta.kind === 'rule' ? specFromState(meta.st) : specFromFragment(meta.fragment)
       if (!spec) { check = 'No sample'; notes = 'The value fragment does not map to an element of this message.' }

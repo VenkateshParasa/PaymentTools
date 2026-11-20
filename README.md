@@ -8,6 +8,7 @@ Developer utilities for ISO 20022 message work, split out of the Payments Academ
 | **Rules & Scenarios** | `/rules` | Load an XSD and the MDR Part 2 PDF: see which business rules are covered by automation, get valid / invalid / not-applicable scenarios with sample XML, and download CSVs. |
 | **Scenario Pack** | `/pack` | XSD + MDR PDF (+ optional client base sample): one Excel with every rule scenario, a pairwise set of structural combinations, rule coverage and base-sample usage, plus a ZIP with a complete XML per row and `ALL_Fields_sample.xml`. Every sample is re-checked with the rule engine. |
 | **Sample Analytics** | `/analytics` | Load many client samples (any messages): field usage, value shapes, lengths vs XSD max, repeats, choice branches. Descriptive only, no recommendations. |
+| **VMF to Sample** | `/vmf` | Load a VMF (XML message definition with validation formulas): a base sample built from its sections, fields and facets, with values chosen so every validation formula passes. Each formula is re-run on the finished sample and reported. Functions defined inside the VMF are read and run (loops, string helpers, nested calls) and their code guides the value chosen; header/trailer fields become separate parts. Anything not defined or built in is listed as "Not evaluated", never guessed. Optional XSD: take the sections and fields from the XSD instead, keeping the VMF's rules (matched per field by path, then name, then XSD type), with a VMF-vs-XSD field comparison. |
 
 Scenario samples contain all fields and sections (rule values applied on top, collateral rule violations repaired); choose "mandatory only" on the page if preferred. `ALL_Fields_sample.xml` only satisfies the XSD, rules are not applied. An XSD choice allows one branch, so it uses the first (or the client's) branch.
 
@@ -25,6 +26,7 @@ Node 20 or newer (`.nvmrc`).
 ```bash
 node docs/fixtures/run-test.mjs                                   # XSD generator + base-sample self-test
 node docs/fixtures/run-pack-test.mjs                              # Scenario Pack self-test (npm run test:pack)
+node docs/fixtures/run-vmf-test.mjs [xsd]                         # VMF module self-test (npm run test:vmf)
 node tools/mdr-rules/coverage_report.mjs <xsd-or-folder>          # coverage + scenarios CSV into docs/rule-coverage
 node tools/mdr-rules/verify_all.mjs <MDR-Part2.pdf> <xsd-folder>  # re-checks every generated scenario
 ```
@@ -34,6 +36,7 @@ node tools/mdr-rules/verify_all.mjs <MDR-Part2.pdf> <xsd-folder>  # re-checks ev
 src/
   pages/            SchemaSamplePage, RulesScenariosPage
   lib/xsd/          XSD parser, pattern generator, sample generator, value hints
+  lib/vmf/          VMF parser, formula interpreter, validation functions, VMF sample builder
   lib/scenarioPack/ pack builder, pairwise, xlsx/zip export, input loader
   lib/xsd/baseProfile.js, profileStats.js   client-sample learning and analytics
   lib/mdrRules/     PDF text, rule extraction, rule engine, coverage, scenarios, CSV

@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Route, Routes } from 'react-router-dom'
-import { BarChart3, FileCode2, ListChecks, Moon, PackageCheck, Sun, Wrench } from 'lucide-react'
+import { BarChart3, FileCode2, ListChecks, Moon, FileCog, PackageCheck, Sun, Wrench } from 'lucide-react'
 import SchemaSamplePage from './pages/SchemaSamplePage.jsx'
 import RulesScenariosPage from './pages/RulesScenariosPage.jsx'
 import ScenarioPackPage from './pages/ScenarioPackPage.jsx'
 import SampleAnalyticsPage from './pages/SampleAnalyticsPage.jsx'
+import VmfSamplePage from './pages/VmfSamplePage.jsx'
 
 const TOOLS = [
   { to: '/schema', label: 'Schema to Sample', desc: 'Load an XSD, see which fields are mandatory or optional, and generate a sample XML message.', icon: FileCode2 },
   { to: '/rules', label: 'Rules & Scenarios', desc: 'Load an XSD and the ISO 20022 MDR PDF: see which rules are covered and get valid/invalid scenarios.', icon: ListChecks },
   { to: '/pack', label: 'Scenario Pack', desc: 'XSD + MDR PDF (+ optional client base sample): Excel of all scenarios and combinations, with a complete XML sample for each.', icon: PackageCheck },
   { to: '/analytics', label: 'Sample Analytics', desc: 'Load many client samples and see which value patterns, lengths and choice branches they use. Descriptive only.', icon: BarChart3 },
+  { to: '/vmf', label: 'VMF to Sample', desc: 'Load a VMF message definition: get a base sample that passes its facets and validation formulas, with a rule-by-rule report.', icon: FileCog },
 ]
 
 function Home() {
@@ -61,6 +63,7 @@ export default function App() {
           <Route path="/rules" element={<RulesScenariosPage />} />
           <Route path="/pack" element={<ScenarioPackPage />} />
           <Route path="/analytics" element={<SampleAnalyticsPage />} />
+          <Route path="/vmf" element={<VmfSamplePage />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </main>

@@ -231,7 +231,7 @@ export function generateScenarios(rulesFile, model, coverageRows = []) {
   const short = longNameFor(rulesFile)
   const bound = bindRules(rulesFile, model)
   const rows = []
-  const stats = { automatic: 0, manual: 0, scenarios: 0 }
+  const stats = { automatic: 0, manual: 0, guidelines: 0, scenarios: 0 }
   const meta = [] // parallel to rows: what each scenario is made of (used to build full messages)
   const push = (r, m = { kind: 'none' }) => { rows.push([`S${String(rows.length + 1).padStart(3, '0')}`, id, ...r]); meta.push(m) }
   const human = (e) => { const t = tagPathOf(e.node.id); return `${t.slice(-2).map(short).join('/')} (${t.slice(-3).join('/')})` }
@@ -245,6 +245,12 @@ export function generateScenarios(rulesFile, model, coverageRows = []) {
     const r = b.rule
     const type = r.kind === 'guideline' ? 'Guideline' : 'Hard rule'
     const cov = covOf[r.name] || ''
+    // A guideline is advisory: breaking it never fails a message, so only a note is recorded (no scenarios, no sample).
+    if (r.kind === 'guideline') {
+      stats.guidelines++
+      push([r.name, type, cov, 'Guideline (note only)', '(no sample: advisory guideline)', '', r.text, 'Nothing to test automatically: a guideline is advisory', 'Guideline: a broken guideline never fails the message, so no sample is generated. Review it manually if it matters for your scheme.', 'n/a', 'Yes (if broken)', '', 'none (note only)', 'Noted only.'], { kind: 'guideline', rule: r.name })
+      continue
+    }
     if (!r.condition || !supported(r.condition.when) || !supported(r.condition.then) || !b.contexts.length) {
       stats.manual++
       const why = r.kind === 'guideline'

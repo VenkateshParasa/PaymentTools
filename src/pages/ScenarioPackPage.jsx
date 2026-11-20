@@ -120,6 +120,7 @@ export default function ScenarioPackPage() {
                 ['Confirmed by rule engine', s.confirmed],
                 ['Mismatches', s.mismatches],
                 ['Manual needed', s.manual],
+                ['Guidelines (note only)', s.guidelines],
                 ['Combinations', `${s.combinations} from ${s.factors} factors`],
                 ['Pairs covered', s.capped ? `capped at ${maxCombos}` : `all ${s.pairs}`],
                 ['Sample files', `${s.files} (incl. ALL_Fields_sample.xml)`],

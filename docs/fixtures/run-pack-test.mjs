@@ -46,6 +46,13 @@ const base = `<Document xmlns="urn:test:mini:pacs.000.001.01"><FIToFICstmrCdtTrf
 </CdtTrfTxInf></FIToFICstmrCdtTrf></Document>`
 const profile = learnProfile([xmlToTree(base)], { model })
 
+// guideline rules: one note row, no scenarios, no sample
+const gRules = { ...rulesFile, rules: [...rulesFile.rules, { id: 'AdvisoryRule', name: 'AdvisoryRule', kind: 'guideline', text: 'Usage guideline: prefer SHAR.', automation: 'formal',
+  condition: { when: { op: 'equals', path: '/ChargeBearer', value: 'DEBT' }, then: { op: 'mustPresent', path: '/DebtorAccount' } } }] }
+const gp = await buildPack({ model, rulesFile: gRules, coverage, parseXml: xmlToTree })
+const gRows = gp.scenarioRows.filter((r) => r[2] === 'AdvisoryRule')
+ok(gRows.length === 1 && gRows[0][5] === 'Guideline (note only)' && gRows[0][16] === '' && /note only/.test(gRows[0][17]) && gp.summary.guidelines === 1, 'guideline: a single note row, no sample file, counted in the summary')
+ok(!gp.files.some((f) => /AdvisoryRule/.test(f.name)) && gp.summary.mismatches === 0, 'guideline: no sample generated for it')
 const run = (extra) => buildPack({ model, rulesFile, coverage, parseXml: xmlToTree, ...extra })
 const pack = await run({})
 const s = pack.summary

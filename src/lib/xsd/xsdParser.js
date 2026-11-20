@@ -139,6 +139,7 @@ function readAttributes(schema, holder, node) {
     const inline = kid(a, 'simpleType')
     node.attrs.push({
       name: a.attrs.name,
+      typeName: t,
       use: a.attrs.use === 'required' ? 'required' : 'optional',
       simple: inline ? resolveSimple(schema, inline) : resolveSimple(schema, t || 'string'),
     })
@@ -177,7 +178,7 @@ function applyFacets(out, r) {
   }
 }
 
-function assignIds(node, parentId, suffix = '') {
+export function assignIds(node, parentId, suffix = '') {
   node.id = `${parentId}/${node.kind === 'element' ? node.name : '#' + node.kind}${suffix}`
   const key = (c) => (c.kind === 'element' ? c.name : c.kind)
   const total = {}

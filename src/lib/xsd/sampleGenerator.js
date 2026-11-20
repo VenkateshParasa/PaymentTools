@@ -12,10 +12,11 @@ import { lookupRule, tagPathOf, groupPresentInProfile } from './baseProfile.js'
 //         hints: { [name or '*']: { length, lengthPolicy: 'max'|'mid' } },
 //         include: Set<elementId> (force present), exclude: Set<elementId> (force absent unless something below is included),
 //         counts: { [elementId]: n } (repeat count for one element; overrides.value may be an array: one per occurrence),
+//         values: { [elementId or elementId/@attr]: 'value' } (preferred values; used only if the element is emitted, never forces it in),
 //         adoptStructure: false (follow the profile's optional elements and repeat counts) }
 // A custom value forces its element (and ancestors) into the output, even if optional.
 export function generateSample(model, opts = {}) {
-  const o = { mode: 'mandatory', choices: {}, repeat: 1, seed: 1, annotate: false, declaration: true, overrides: {}, profile: null, iteration: 1, valueStyle: 'realistic', hints: {}, adoptStructure: false, include: new Set(), exclude: new Set(), counts: {}, ...opts, _seen: {} }
+  const o = { mode: 'mandatory', choices: {}, repeat: 1, seed: 1, annotate: false, declaration: true, overrides: {}, profile: null, iteration: 1, valueStyle: 'realistic', hints: {}, adoptStructure: false, values: {}, include: new Set(), exclude: new Set(), counts: {}, ...opts, _seen: {} }
   o._inc = [...o.include]
   const rng = makeRng(o.seed)
   const warnings = []
@@ -104,7 +105,7 @@ function xsdRegex(p) {
   try { return new RegExp(`^(?:${p})$`) } catch { return null }
 }
 
-function fits(v, s) {
+export function fits(v, s) {
   if (s.enums.length) return s.enums.includes(v)
   if (s.length !== undefined && v.length !== s.length) return false
   if (s.minLength !== undefined && v.length < s.minLength) return false
@@ -168,6 +169,7 @@ function valueFor(s, name, rng, warnings, where, o) {
     if (!fits(v, s)) warnings.push(`${where}: custom value "${v}" does not match the schema facets (enumeration / pattern / length); used as typed`)
     return v
   }
+  if (o.values[where] !== undefined) return applyHints(o.values[where], name, where, s, o)
   const seen = (o._seen[where] = (o._seen[where] ?? -1) + 1)
   const rule = lookupRule(o.profile, where, name) || (o.valueStyle === 'sequence' ? sequenceRule(name, s) : null)
   if (rule) {
@@ -178,7 +180,7 @@ function valueFor(s, name, rng, warnings, where, o) {
   return applyHints(defaultValue(s, name, rng, warnings, where), name, where, s, o)
 }
 
-function defaultValue(s, name, rng, warnings, where) {
+export function defaultValue(s, name, rng, warnings, where) {
   const hint = hintFor(name)
   if (hint !== undefined && fits(hint, s)) return hint
   if (s.enums.length) return s.enums[0]
